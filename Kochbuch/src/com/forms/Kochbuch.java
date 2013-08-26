@@ -150,10 +150,13 @@ public class Kochbuch {
 		JPanel panel_2 = new JPanel();
 		
 		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_2.add(scrollPane_1, "flowx,cell 0 0,grow");
 		JLabel label = new JLabel("", image, SwingConstants.CENTER);
-		panel_2.add( label, "cell 0 0,alignx center,aligny center" );
+		scrollPane_1.setViewportView(label);
 		panel_1.add(panel_2, "cell 4 1,grow");
-		panel_2.setLayout(new MigLayout("", "[::100px]", "[:1px:100px]"));
+		panel_2.setLayout(new MigLayout("", "[grow]", "[50px,grow]"));
 	
 		
 		JButton btnNewButton = new JButton("Auf Shoppingliste setzen");
