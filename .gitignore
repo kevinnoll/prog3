@@ -7,7 +7,7 @@
 Kochbuch_v1_02062013.rar
 Kochbuch_v2_03062013.rar
 
-.metadata/
-*.classpath
-*.project
-Kochbuch/.settings/
+# .metadata/ #
+# *.classpath #
+# *.project #
+# Kochbuch/.settings/ #
