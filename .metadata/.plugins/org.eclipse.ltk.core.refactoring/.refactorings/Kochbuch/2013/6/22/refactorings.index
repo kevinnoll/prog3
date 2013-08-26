@@ -1,0 +1,9 @@
+1370098558287	Rename local variable 'list'
+1370099407087	Rename type 'ReceiptSerializer'
+1370100517446	Rename field 'itsInstance'
+1370158357105	Rename package 'com.main'
+1370158381788	Move compilation unit
+1370158392722	Rename type 'DialogNewReceipt'
+1370174584531	Rename type 'IngredientEntry'
+1370174591095	Rename type 'IngredientEntryList'
+1370174633989	Rename method 'setIngredientEntry'

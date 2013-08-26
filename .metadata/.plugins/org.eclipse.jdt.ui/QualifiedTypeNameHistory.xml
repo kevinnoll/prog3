@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="htw.prog.MainFrame"/>
+<fullyQualifiedTypeName name="htw.prog.DrawingCanvas"/>
+<fullyQualifiedTypeName name="htw.prog.Decoration"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.awt.event.WindowListener"/>
+<fullyQualifiedTypeName name="java.awt.event.WindowAdapter"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="com.shoppinglist.ShoppingList"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.serializer.ReceiptSerializer"/>
+<fullyQualifiedTypeName name="com.receipt.Receipt"/>
+<fullyQualifiedTypeName name="com.receipt.ReceiptList"/>
+<fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
+<fullyQualifiedTypeName name="com.receipt.Difficulty"/>
+<fullyQualifiedTypeName name="com.receipt.Entity"/>
+<fullyQualifiedTypeName name="com.forms.NewIngredient"/>
+<fullyQualifiedTypeName name="com.receipt.IngredientEntry"/>
+<fullyQualifiedTypeName name="java.lang.Double"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="javax.swing.JComboBox"/>
+<fullyQualifiedTypeName name="javax.swing.DefaultListModel"/>
+<fullyQualifiedTypeName name="com.receipt.IngredientList"/>
+<fullyQualifiedTypeName name="com.forms.NewReceipt"/>
+<fullyQualifiedTypeName name="java.io.Serializable"/>
+</qualifiedTypeNameHistroy>
