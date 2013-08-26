@@ -114,31 +114,30 @@ public class Kochbuch {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
 						.addComponent(lblRezepte))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
 					.addGap(26))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(8)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(separator, GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblRezepte)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
-							.addGap(35))))
+					.addComponent(lblRezepte)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+					.addGap(35))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(29)
 					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
 					.addGap(37))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGap(8)
+					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		panel_1.setLayout(new MigLayout("", "[grow][][][][grow]", "[][grow][][grow][][][]"));
 		
@@ -150,11 +149,11 @@ public class Kochbuch {
 		
 		JPanel panel_2 = new JPanel();
 		
-//		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
-//		JLabel label = new JLabel("", image, JLabel.CENTER);	
-//		panel_2.add( label, BorderLayout.CENTER );
+		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
+		JLabel label = new JLabel("", image, SwingConstants.CENTER);
+		panel_2.add( label, "cell 0 0,alignx center,aligny center" );
 		panel_1.add(panel_2, "cell 4 1,grow");
-		panel_2.setLayout(new MigLayout("", "[1px]", "[1px]"));
+		panel_2.setLayout(new MigLayout("", "[::100px]", "[:1px:100px]"));
 	
 		
 		JButton btnNewButton = new JButton("Auf Shoppingliste setzen");
@@ -189,7 +188,7 @@ public class Kochbuch {
 
 		JButton btnNewButton_2 = new JButton("ok");
 
-		JLabel lblZutatWaehlen = new JLabel("Zutat w\u00E4hlen:");
+		JLabel lblZutatWaehlen = new JLabel("Kategorie w\u00E4hlen:");
 
 		JList list = new JList(entries);
 
@@ -210,13 +209,6 @@ public class Kochbuch {
 		});
 		
 		JButton btnRezeptLschen = new JButton("Rezept l\u00F6schen");
-		
-		JButton btnOpen = new JButton("open");
-		btnOpen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
 
 		// may I introduce you to the GroupLayout?
 		// Never touch, pure magic!
@@ -233,18 +225,15 @@ public class Kochbuch {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(btnNewButton_2))
-								.addComponent(comboBox, 0, 256, Short.MAX_VALUE))
+								.addComponent(comboBox, 0, 328, Short.MAX_VALUE))
 							.addGap(19))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(list, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
+								.addComponent(list, GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
 								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(48)
-									.addComponent(btnOpen)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addComponent(btnNeuesRezept)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(btnRezeptLschen)))
@@ -267,8 +256,7 @@ public class Kochbuch {
 					.addGap(13)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRezeptLschen)
-						.addComponent(btnNeuesRezept)
-						.addComponent(btnOpen))
+						.addComponent(btnNeuesRezept))
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
