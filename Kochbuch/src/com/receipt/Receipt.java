@@ -13,14 +13,16 @@ public class Receipt implements Serializable{
 	private Difficulty difficulty;
 	private String receipt;
 	private LinkedList<Ingredient> ingredientList;
+	private LinkedList<String> categoryList;
 //TODO	private LinkedList<String> tagList;
 	
-	public Receipt(String name, String receipt, int duration, Difficulty difficulty, LinkedList<Ingredient> ingredientList){
+	public Receipt(String name, String receipt, int duration, Difficulty difficulty, LinkedList<Ingredient> ingredientList, LinkedList<String> categoryList){
 		this.name=name;
 		this.receipt=receipt;
 		this.duration=duration;
 		this.difficulty=difficulty;
 		this.ingredientList=ingredientList;
+		this.categoryList=categoryList;
 	}
 
 	public String getName() {
@@ -63,10 +65,18 @@ public class Receipt implements Serializable{
 		this.ingredientList = ingredientList;
 	}
 
+	
+	public LinkedList<String> getCategoryList() {
+		return categoryList;
+	}
+
+	public void setCategoryList(LinkedList<String> categoryList) {
+		this.categoryList = categoryList;
+	}
+	
+
 	@Override
 	public String toString() {
 		return "" + name + "    " + duration + "min    " + difficulty;
 	}
-	
-	
 }

@@ -19,8 +19,13 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.receipt.Categories;
 import com.receipt.Difficulty;
+import com.receipt.Entity;
 import com.receipt.Ingredient;
 import com.receipt.IngredientList;
 
@@ -28,6 +33,8 @@ import javax.swing.JSpinner;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+
+import javax.swing.JTable;
 
 public class NewReceipt extends JFrame {
 
@@ -41,10 +48,12 @@ public class NewReceipt extends JFrame {
 	private NewIngredient ingredientDialog;
 	private static NewReceipt instance;
 	private IngredientList ingredientList;
-	private DefaultListModel entries;
-	private JList jList;
 	private JSpinner spinner;
 	private JTextField txtPfad;
+	private JComboBox<String> comboBoxCategory;
+	private JTable table;
+	private JTextPane textPane;
+	private DefaultTableModel tableModel;
 
 	public static synchronized NewReceipt getInstance() {
 		if (instance == null)
@@ -73,14 +82,17 @@ public class NewReceipt extends JFrame {
 	 */
 	private NewReceipt() {
 		ingredientList = new IngredientList();
+		tableModel = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
 
-		entries = new DefaultListModel();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Neues Rezept");
-		setBounds(100, 100, 452, 763);
+		setBounds(100, 100, 460, 777);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		
+		textPane = new JTextPane();
+		JScrollPane scrollPaneForTextPane = new JScrollPane(textPane);
+		contentPane.add(scrollPaneForTextPane);
 
 		ingredientDialog = NewIngredient.getInstance();
 
@@ -91,21 +103,42 @@ public class NewReceipt extends JFrame {
 
 		JLabel lblTag = new JLabel("Kategorie:");
 
-		JComboBox comboBoxTag = new JComboBox();
+		comboBoxCategory = new JComboBox<String>();
+		addItemsToCategoryBox();
 
 		JButton buttonAddTag = new JButton("+");
+		buttonAddTag.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddCategory addCategoryDialog = new AddCategory();
+				addCategoryDialog.setVisible(true);
+			}
+		});
 
 		JLabel lblIngredient = new JLabel("Zutaten:");
-
-		jList = new JList(entries);
 
 		JButton btnDeleteIngredient = new JButton("Zutat l\u00F6schen");
 		btnDeleteIngredient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//delete selected Object from the list of Ingredients
-				ingredientList.remove((Ingredient)jList.getSelectedValue());
-				//delete selected Object from the List Form
-				entries.removeElement(jList.getSelectedValue());
+				// delete selected Object from the list of Ingredients
+				int row = table.getSelectedRow();
+				ingredientList.remove(getIngredientIndexFromTable(row));
+				// delete selected Object from the List Form
+				tableModel.removeRow(row);
+				// entries.removeElement(jList.getSelectedValue());
+				textPane.setText(ingredientList.toString() + "////////////////" + tableModel.getDataVector().toArray().toString());
+			}
+
+			private int getIngredientIndexFromTable(int row) {
+				String name = tableModel.getValueAt(row, 2).toString();
+				Entity entity = Entity.valueOf(tableModel.getValueAt(row, 1).toString());
+				Double quantity = Double.parseDouble(tableModel.getValueAt(row, 0).toString());
+				for(int i = 0; i < ingredientList.size(); i++){
+					Ingredient tmp = ingredientList.get(i);
+					if(tmp.getName().equals(name) && tmp.getQuantity() == quantity && tmp.getEntity().equals(entity)){
+						return i;
+					}
+				}
+				return -1;
 			}
 		});
 
@@ -129,9 +162,6 @@ public class NewReceipt extends JFrame {
 			}
 		});
 
-		JTextPane textPane = new JTextPane();
-		JScrollPane scrollPaneForTextPane = new JScrollPane(textPane);
-		contentPane.add(scrollPaneForTextPane);
 
 		JLabel lblDifficulty = new JLabel("Schwierigkeit:");
 
@@ -143,7 +173,7 @@ public class NewReceipt extends JFrame {
 		JLabel lblDurationTitle = new JLabel("Dauer:");
 
 		JLabel lblDuration = new JLabel("min");
-		
+
 		spinner = new JSpinner();
 		spinner.addFocusListener(new FocusAdapter() {
 			@Override
@@ -155,131 +185,167 @@ public class NewReceipt extends JFrame {
 				}
 			}
 		});
-		
+
 		JLabel lblGang = new JLabel("Gang:");
-		
+
 		JComboBox comboBox = new JComboBox();
-		
+
 		JLabel lblBild = new JLabel("Bild:");
-		
+
 		txtPfad = new JTextField();
 		txtPfad.setText("Pfad");
 		txtPfad.setColumns(10);
-		
+
 		JButton btnSuchen = new JButton("Suchen");
-		
+
 		JLabel lblAnlegen = new JLabel("Anlegen");
 		lblAnlegen.setFont(new Font("Calibri", Font.BOLD, 18));
 
+		Object[][] data = { { "1", "gramm", "bier" } };
+		String[] columnNames = { "Anzahl", "Einheit", "Bezeichnung" };
+		table = new JTable(tableModel);
+		table.setShowVerticalLines(false);
+		table.setShowGrid(false);
+		// table.addColumn(new TableColumn(modelIndex, width, cellRenderer,
+		// cellEditor));
+		// table.addColumn(new TableColumn(1, 40));
+		// table.addColumn(new TableColumn(2, 30));
+
 		gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnSave)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDiscard))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblReceipt)
-								.addComponent(lblTag)
-								.addComponent(lblTitle)
-								.addComponent(lblIngredient)
-								.addComponent(lblDifficulty)
-								.addComponent(lblDurationTitle)
-								.addComponent(lblGang)
-								.addComponent(lblBild)
-								.addComponent(lblAnlegen))
-							.addGap(50)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollPaneForTextPane, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(txtPfad, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-									.addGap(18)
-									.addComponent(btnSuchen, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
-								.addComponent(comboBox, 0, 276, Short.MAX_VALUE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(comboBoxTag, 0, 217, Short.MAX_VALUE)
-									.addGap(18)
-									.addComponent(buttonAddTag, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
-								.addComponent(textFieldTitle, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-								.addComponent(comboBoxDifficulty, 0, 276, Short.MAX_VALUE)
-								.addComponent(jList, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(spinner, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-									.addGap(18)
-									.addComponent(lblDuration))))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnNewIngredient)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDeleteIngredient)))
-					.addGap(34))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblAnlegen)
-					.addGap(14)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textFieldTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTitle))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBoxTag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTag)
-						.addComponent(buttonAddTag))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jList, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-						.addComponent(lblIngredient))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewIngredient)
-						.addComponent(btnDeleteIngredient))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblReceipt)
-							.addGap(207))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPaneForTextPane, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-							.addGap(17)))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDifficulty)
-						.addComponent(comboBoxDifficulty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDurationTitle)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDuration))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblGang)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblBild)
-						.addComponent(txtPfad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnSuchen))
-					.addGap(27)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnDiscard)
-						.addComponent(btnSave))
-					.addGap(24))
-		);
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(
+						gl_contentPane
+								.createSequentialGroup()
+								.addContainerGap()
+								.addGroup(
+										gl_contentPane
+												.createParallelGroup(Alignment.TRAILING)
+												.addGroup(
+														gl_contentPane
+																.createSequentialGroup()
+																.addGroup(
+																		gl_contentPane.createParallelGroup(Alignment.TRAILING).addComponent(lblReceipt)
+																				.addComponent(lblTag).addComponent(lblTitle).addComponent(lblIngredient)
+																				.addComponent(lblDifficulty).addComponent(lblDurationTitle)
+																				.addComponent(lblGang).addComponent(lblBild).addComponent(lblAnlegen))
+																.addGap(50)
+																.addGroup(
+																		gl_contentPane
+																				.createParallelGroup(Alignment.LEADING)
+																				.addComponent(scrollPaneForTextPane, GroupLayout.DEFAULT_SIZE, 276,
+																						Short.MAX_VALUE)
+																				.addComponent(table, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 284,
+																						Short.MAX_VALUE)
+																				.addComponent(comboBox, 0, 276, Short.MAX_VALUE)
+																				.addGroup(
+																						gl_contentPane
+																								.createSequentialGroup()
+																								.addComponent(comboBoxCategory, 0, 217, Short.MAX_VALUE)
+																								.addGap(18)
+																								.addComponent(buttonAddTag, GroupLayout.PREFERRED_SIZE, 41,
+																										GroupLayout.PREFERRED_SIZE))
+																				.addComponent(textFieldTitle, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+																				.addComponent(comboBoxDifficulty, 0, 276, Short.MAX_VALUE)
+																				.addGroup(
+																						gl_contentPane
+																								.createSequentialGroup()
+																								.addComponent(spinner, GroupLayout.DEFAULT_SIZE, 242,
+																										Short.MAX_VALUE).addGap(18).addComponent(lblDuration))
+																				.addGroup(
+																						Alignment.TRAILING,
+																						gl_contentPane
+																								.createSequentialGroup()
+																								.addGroup(
+																										gl_contentPane
+																												.createParallelGroup(Alignment.TRAILING)
+																												.addComponent(btnSave)
+																												.addComponent(txtPfad,
+																														GroupLayout.DEFAULT_SIZE, 178,
+																														Short.MAX_VALUE))
+																								.addPreferredGap(ComponentPlacement.UNRELATED)
+																								.addGroup(
+																										gl_contentPane
+																												.createParallelGroup(Alignment.LEADING, false)
+																												.addComponent(btnDiscard,
+																														GroupLayout.DEFAULT_SIZE,
+																														GroupLayout.DEFAULT_SIZE,
+																														Short.MAX_VALUE)
+																												.addComponent(btnSuchen,
+																														GroupLayout.DEFAULT_SIZE, 88,
+																														Short.MAX_VALUE)))))
+												.addGroup(
+														gl_contentPane.createSequentialGroup().addComponent(btnNewIngredient)
+																.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnDeleteIngredient))).addGap(34)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_contentPane
+						.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(lblAnlegen)
+						.addGap(14)
+						.addGroup(
+								gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(textFieldTitle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTitle))
+						.addGap(18)
+						.addGroup(
+								gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(comboBoxCategory, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblTag).addComponent(buttonAddTag))
+						.addGap(18)
+						.addGroup(
+								gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblIngredient)
+										.addComponent(table, GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(btnNewIngredient).addComponent(btnDeleteIngredient))
+						.addGap(18)
+						.addGroup(
+								gl_contentPane
+										.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblReceipt).addGap(207))
+										.addGroup(
+												gl_contentPane.createSequentialGroup()
+														.addComponent(scrollPaneForTextPane, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE).addGap(17)))
+						.addGroup(
+								gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblDifficulty)
+										.addComponent(comboBoxDifficulty, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(
+								gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblDurationTitle)
+										.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE).addComponent(lblDuration))
+						.addGap(18)
+						.addGroup(
+								gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblGang)
+										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(
+								gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblBild)
+										.addComponent(txtPfad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnSuchen)).addGap(27)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(btnDiscard).addComponent(btnSave)).addGap(33)));
 		contentPane.setLayout(gl_contentPane);
 
 	}
 
-	public void setIngredient(Ingredient ingredient) {
-		ingredientList.add(ingredient);
-		insertInJList(ingredient);
+	private void addItemsToCategoryBox() {
+		Categories categories = Categories.getInstance();
+		for(int i = 0; i < categories.size(); i++){
+			comboBoxCategory.addItem(categories.get(i).toString());
+		}
 	}
 
-	private void insertInJList(Ingredient ingredient) {
-		entries.addElement(ingredient);
+	public void setIngredient(Ingredient ingredient) {
+		ingredientList.add(ingredient);
+		insertInTable(ingredient);
+	}
+
+	private void insertInTable(Ingredient ingredient) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.addRow(new Object[] { ingredient.getQuantity(), ingredient.getEntity(), ingredient.getName() });
+	}
+	
+	public void setCategory(String category){
+		Categories.getInstance().add(category);
+		comboBoxCategory.removeAllItems();
+		addItemsToCategoryBox();
 	}
 }

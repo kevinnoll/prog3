@@ -96,7 +96,7 @@ public class Kochbuch {
 		entries = new DefaultListModel();
 		entries.addElement("wtf?");
 		entries.addElement(ReceiptList.getInstance().get(0));
-		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, new LinkedList<Ingredient>()));
+		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, new LinkedList<Ingredient>(), new LinkedList<String>()));
 		entries.addElement(ReceiptList.getInstance().get(1));
 		
 		JPanel panel = new JPanel();
@@ -282,13 +282,15 @@ public class Kochbuch {
 		ingredients.add(ingredient2);
 		ingredients.add(ingredient3);
 		ingredients.add(ingredient4);
+		
+		LinkedList<String> categories = new LinkedList<String>();
+		categories.add("Kartoffel");
 		String rezeptname = "Salzkartoffeln mit Petersilie";
 		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die petersilie"
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie "
 				+ "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(rezeptname, anleitung, 25,
-				Difficulty.einfach, ingredients);
+		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, ingredients, categories);
 		return receipt;
 	}
 
