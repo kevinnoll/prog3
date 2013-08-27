@@ -24,6 +24,7 @@ import javax.swing.table.TableColumn;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.receipt.Categories;
+import com.receipt.Course;
 import com.receipt.Difficulty;
 import com.receipt.Entity;
 import com.receipt.Ingredient;
@@ -165,7 +166,7 @@ public class NewReceipt extends JFrame {
 
 		JLabel lblDifficulty = new JLabel("Schwierigkeit:");
 
-		JComboBox comboBoxDifficulty = new JComboBox();
+		JComboBox<Difficulty> comboBoxDifficulty = new JComboBox<Difficulty>();
 		comboBoxDifficulty.addItem(Difficulty.einfach);
 		comboBoxDifficulty.addItem(Difficulty.mittel);
 		comboBoxDifficulty.addItem(Difficulty.schwer);
@@ -188,8 +189,11 @@ public class NewReceipt extends JFrame {
 
 		JLabel lblGang = new JLabel("Gang:");
 
-		JComboBox comboBox = new JComboBox();
-
+		JComboBox<Course> comboBoxGang = new JComboBox<Course>();
+		comboBoxGang.addItem(Course.Vorspeise);
+		comboBoxGang.addItem(Course.Hauptgericht);
+		comboBoxGang.addItem(Course.Dessert);
+		
 		JLabel lblBild = new JLabel("Bild:");
 
 		txtPfad = new JTextField();
@@ -236,7 +240,7 @@ public class NewReceipt extends JFrame {
 																						Short.MAX_VALUE)
 																				.addComponent(table, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 284,
 																						Short.MAX_VALUE)
-																				.addComponent(comboBox, 0, 276, Short.MAX_VALUE)
+																				.addComponent(comboBoxGang, 0, 276, Short.MAX_VALUE)
 																				.addGroup(
 																						gl_contentPane
 																								.createSequentialGroup()
@@ -315,7 +319,7 @@ public class NewReceipt extends JFrame {
 						.addGap(18)
 						.addGroup(
 								gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblGang)
-										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addComponent(comboBoxGang, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(18)
 						.addGroup(
 								gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblBild)
