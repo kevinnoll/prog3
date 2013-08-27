@@ -2,6 +2,7 @@ package com.forms;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -29,6 +31,7 @@ import com.receipt.Difficulty;
 import com.receipt.Entity;
 import com.receipt.Ingredient;
 import com.receipt.IngredientList;
+import com.receipt.Receipt;
 
 import javax.swing.JSpinner;
 
@@ -53,8 +56,11 @@ public class NewReceipt extends JFrame {
 	private JTextField txtPfad;
 	private JComboBox<String> comboBoxCategory;
 	private JTable table;
+	private JComboBox<Course> comboBoxGang;
 	private JTextPane textPane;
 	private DefaultTableModel tableModel;
+	private JComboBox<Difficulty> comboBoxDifficulty;
+	private JButton btnSave;
 
 	public static synchronized NewReceipt getInstance() {
 		if (instance == null)
@@ -126,7 +132,6 @@ public class NewReceipt extends JFrame {
 				// delete selected Object from the List Form
 				tableModel.removeRow(row);
 				// entries.removeElement(jList.getSelectedValue());
-				textPane.setText(ingredientList.toString() + "////////////////" + tableModel.getDataVector().toArray().toString());
 			}
 
 			private int getIngredientIndexFromTable(int row) {
@@ -155,18 +160,30 @@ public class NewReceipt extends JFrame {
 
 		JButton btnDiscard = new JButton("Verwerfen");
 
-		JButton btnSave = new JButton("Speichern");
+		btnSave = new JButton("Speichern");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Receipt receipt = new Receipt();
-
+//				Receipt receipt = new Receipt();
+				if(textFieldTitle.getText().trim().isEmpty() || textPane.getText().trim().isEmpty()){
+					JOptionPane.showMessageDialog(btnSave, "Bitte alles ausfüllen!");
+				} else {
+					Receipt toReturn = new Receipt(textFieldTitle.getText(),
+							textPane.getText(),
+							Integer.parseInt(spinner.getValue().toString()),
+							Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()),
+							Course.valueOf(comboBoxGang.getSelectedItem().toString()),
+							ingredientList,
+							comboBoxCategory.getSelectedItem().toString());
+					Kochbuch.getInstance().setNewReceipt(toReturn);
+					dispose();
+				}
 			}
 		});
 
 
 		JLabel lblDifficulty = new JLabel("Schwierigkeit:");
 
-		JComboBox<Difficulty> comboBoxDifficulty = new JComboBox<Difficulty>();
+		comboBoxDifficulty = new JComboBox<Difficulty>();
 		comboBoxDifficulty.addItem(Difficulty.einfach);
 		comboBoxDifficulty.addItem(Difficulty.mittel);
 		comboBoxDifficulty.addItem(Difficulty.schwer);
@@ -189,7 +206,7 @@ public class NewReceipt extends JFrame {
 
 		JLabel lblGang = new JLabel("Gang:");
 
-		JComboBox<Course> comboBoxGang = new JComboBox<Course>();
+		comboBoxGang = new JComboBox<Course>();
 		comboBoxGang.addItem(Course.Vorspeise);
 		comboBoxGang.addItem(Course.Hauptgericht);
 		comboBoxGang.addItem(Course.Dessert);
