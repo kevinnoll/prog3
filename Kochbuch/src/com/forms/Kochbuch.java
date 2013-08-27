@@ -1,12 +1,8 @@
 package com.forms;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -32,6 +28,7 @@ import javax.swing.border.EtchedBorder;
 import net.miginfocom.swing.MigLayout;
 
 import com.factories.MenuBarFactory;
+import com.receipt.Course;
 import com.receipt.Difficulty;
 import com.receipt.Entity;
 import com.receipt.Ingredient;
@@ -44,9 +41,13 @@ public class Kochbuch {
 	private JFrame frmKochbuch;
 	private JTextField textField;
 	private ReceiptList receiptList;
-	private DefaultListModel entries;
+	private DefaultListModel<Receipt> entries;
 	private NewReceipt receiptDialog;
+	private JList<Receipt> list;
 	private static Kochbuch instance;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JScrollPane scrollPane_2;
 	
 	/**
 	 * Launch the application.
@@ -92,15 +93,9 @@ public class Kochbuch {
 		JMenuBar menuBar = MenuBarFactory.getTheMenuBar();
 		frmKochbuch.setJMenuBar(menuBar);
 
-		ReceiptList.getInstance().add(getMeTheReceipt());
-		entries = new DefaultListModel();
-		entries.addElement("wtf?");
-		entries.addElement(ReceiptList.getInstance().get(0));
-		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, new LinkedList<Ingredient>(), "bla"));
-		entries.addElement(ReceiptList.getInstance().get(1));
+
 		
-		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
 		JLabel lblRezepte = new JLabel("Rezepte");
@@ -108,7 +103,7 @@ public class Kochbuch {
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(frmKochbuch.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -212,11 +207,25 @@ public class Kochbuch {
 		
 		JButton btnRezeptLschen = new JButton("Rezept l\u00F6schen");
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2 = new JScrollPane();
+		GroupLayout gl_panel = new GroupLayout(panel);
+		
+		ReceiptList.getInstance().add(getMeTheReceipt());
+		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
+		
+		list = new JList<Receipt>();
+		scrollPane_2.setViewportView(list);
+		entries = new DefaultListModel<Receipt>();
+		list.setModel(entries);
+		
+		entries.addElement(ReceiptList.getInstance().get(0));
+		entries.addElement(ReceiptList.getInstance().get(1));
+		entries.addElement(ReceiptList.getInstance().get(1));
+		panel.setLayout(gl_panel);
+		frmKochbuch.getContentPane().setLayout(groupLayout);
 
 		// may I introduce you to the GroupLayout?
 		// Never touch, pure magic!
-		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
@@ -264,13 +273,24 @@ public class Kochbuch {
 					.addContainerGap())
 		);
 		
-		JList<String> list = new JList(entries);
-		scrollPane_2.setViewportView(list);
-		panel.setLayout(gl_panel);
-		frmKochbuch.getContentPane().setLayout(groupLayout);
-
+		
 		// GroupLayout ends here
 
+	}
+	
+	/**
+	 * adds a new receipt to the list of receipes
+	 * @param receipt
+	 */
+	public void setNewReceipt(Receipt receipt){ //<-- das geht, receipt ist gesetzt und korrekt
+		ReceiptList.getInstance().add(receipt); //<-- das geht auch
+		entries.addElement(receipt); //<-- das geht auch, der eintrag wird zu entries hinzugefügt
+		//GESTÖRT WTF DAFUQ das list (JList) ist tot. kann nixmehr ändern. liegt das irgendwie dran dass alle beteiligten dialoge singletons sind ? 
+		list.setModel(entries);
+		list.repaint();
+		scrollPane_2.repaint();
+		panel.repaint();
+		frmKochbuch.repaint();
 	}
 
 	private Receipt getMeTheReceipt() {
@@ -294,7 +314,7 @@ public class Kochbuch {
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie "
 				+ "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, ingredients, "jo gell");
+		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, "jo gell");
 		return receipt;
 	}
 
@@ -334,12 +354,5 @@ public class Kochbuch {
 		// System.out.println(INFO_WARTESCHLANGE_ANLEGEN);
 	}
 	
-	/**
-	 * adds a new receipt to the list of receipes
-	 * @param receipt
-	 */
-	public void setNewReceipt(Receipt receipt){
-		ReceiptList.getInstance().add(receipt);
-		entries.addElement(ReceiptList.getInstance().getLast());
-	}
+	
 }
