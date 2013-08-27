@@ -96,8 +96,9 @@ public class Kochbuch {
 		entries = new DefaultListModel();
 		entries.addElement("wtf?");
 		entries.addElement(ReceiptList.getInstance().get(0));
-		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, new LinkedList<Ingredient>(), new LinkedList<String>()));
+		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, new LinkedList<Ingredient>(), "bla"));
 		entries.addElement(ReceiptList.getInstance().get(1));
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -114,7 +115,7 @@ public class Kochbuch {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(lblRezepte))
 					.addGap(18)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
@@ -123,18 +124,18 @@ public class Kochbuch {
 					.addGap(26))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(8)
 					.addComponent(lblRezepte)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGap(35))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(29)
 					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
 					.addGap(37))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(8)
 					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
 					.addContainerGap())
@@ -192,9 +193,7 @@ public class Kochbuch {
 		JButton btnNewButton_2 = new JButton("ok");
 
 		JLabel lblZutatWaehlen = new JLabel("Kategorie w\u00E4hlen:");
-
-		JList list = new JList(entries);
-
+		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setToolTipText("bitte ausw\u00E4hlen!");
 
@@ -212,6 +211,8 @@ public class Kochbuch {
 		});
 		
 		JButton btnRezeptLschen = new JButton("Rezept l\u00F6schen");
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
 
 		// may I introduce you to the GroupLayout?
 		// Never touch, pure magic!
@@ -221,26 +222,26 @@ public class Kochbuch {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(btnNeuesRezept)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnNewButton_2))
-								.addComponent(comboBox, 0, 328, Short.MAX_VALUE))
-							.addGap(19))
-						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(btnRezeptLschen)
+							.addGap(20))
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(list, GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+								.addComponent(scrollPane_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
 								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(btnNeuesRezept)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNewLabel))
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnRezeptLschen)))
-							.addGap(20))))
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(textField, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnNewButton_2))
+										.addComponent(comboBox, 0, 365, Short.MAX_VALUE))))
+							.addGap(19))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -254,14 +255,17 @@ public class Kochbuch {
 						.addComponent(lblNewLabel)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_2))
-					.addGap(18)
-					.addComponent(list, GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
-					.addGap(13)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+					.addGap(14)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnRezeptLschen)
-						.addComponent(btnNeuesRezept))
+						.addComponent(btnNeuesRezept)
+						.addComponent(btnRezeptLschen))
 					.addContainerGap())
 		);
+		
+		JList<String> list = new JList(entries);
+		scrollPane_2.setViewportView(list);
 		panel.setLayout(gl_panel);
 		frmKochbuch.getContentPane().setLayout(groupLayout);
 
@@ -290,7 +294,7 @@ public class Kochbuch {
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie "
 				+ "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, ingredients, categories);
+		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, ingredients, "jo gell");
 		return receipt;
 	}
 
