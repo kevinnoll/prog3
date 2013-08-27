@@ -3,7 +3,7 @@ package com.receipt;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Receipt implements Serializable{
+public class Receipt implements Serializable {
 	/**
 	 * 
 	 */
@@ -13,16 +13,27 @@ public class Receipt implements Serializable{
 	private Difficulty difficulty;
 	private String receipt;
 	private LinkedList<Ingredient> ingredientList;
+	private Course course;
 	private String category;
-//TODO	private LinkedList<String> tagList;
-	
-	public Receipt(String name, String receipt, int duration, Difficulty difficulty, LinkedList<Ingredient> ingredientList, String category){
-		this.name=name;
-		this.receipt=receipt;
-		this.duration=duration;
-		this.difficulty=difficulty;
-		this.ingredientList=ingredientList;
-		this.category=category;
+
+	//TODO	private LinkedList<String> tagList;
+
+	public Receipt(String name, String receipt, int duration, Difficulty difficulty, Course course, LinkedList<Ingredient> ingredientList, String category) {
+		this.name = name;
+		this.receipt = receipt;
+		this.duration = duration;
+		this.difficulty = difficulty;
+		this.ingredientList = ingredientList;
+		this.course = course;
+		this.category = category;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	public String getName() {
@@ -65,7 +76,6 @@ public class Receipt implements Serializable{
 		this.ingredientList = ingredientList;
 	}
 
-	
 	public String getCategoryList() {
 		return category;
 	}
@@ -79,5 +89,5 @@ public class Receipt implements Serializable{
 		return "Receipt [name=" + name + ", duration=" + duration + ", difficulty=" + difficulty + ", receipt=" + receipt + ", ingredientList="
 				+ ingredientList + ", category=" + category + "]";
 	}
-	
+
 }
