@@ -36,18 +36,17 @@ import com.receipt.Receipt;
 import com.receipt.ReceiptList;
 import com.serializer.ReceiptListSerializer;
 
-public class Kochbuch {
+public class Kochbuch extends JFrame{
 
 	private JFrame frmKochbuch;
 	private JTextField textField;
 	private ReceiptList receiptList;
 	private DefaultListModel<Receipt> entries;
 	private NewReceipt receiptDialog;
-	private JList<Receipt> list;
 	private static Kochbuch instance;
 	private JPanel panel;
 	private JPanel panel_1;
-	private JScrollPane scrollPane_2;
+	private JList<Receipt> list;
 	
 	/**
 	 * Launch the application.
@@ -56,8 +55,8 @@ public class Kochbuch {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Kochbuch window = new Kochbuch();
-					window.frmKochbuch.setVisible(true);
+					Kochbuch window = Kochbuch.getInstance();
+//					window.frmKochbuch.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -89,6 +88,8 @@ public class Kochbuch {
 		frmKochbuch.setTitle("Kochbuch");
 		frmKochbuch.setBounds(100, 100, 1127, 677);
 		frmKochbuch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmKochbuch.setVisible(false);
+		frmKochbuch.setVisible(true);
 
 		JMenuBar menuBar = MenuBarFactory.getTheMenuBar();
 		frmKochbuch.setJMenuBar(menuBar);
@@ -204,53 +205,47 @@ public class Kochbuch {
 				receiptDialog.setVisible(true);
 			}
 		});
-		
+		list = new JList<Receipt>();
 		JButton btnRezeptLschen = new JButton("Rezept l\u00F6schen");
 		
-		scrollPane_2 = new JScrollPane();
+		JButton btnRemoverows = new JButton("removerows");
+		btnRemoverows.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultListModel<Receipt> defm = (DefaultListModel<Receipt>)list.getModel();
+				defm.removeAllElements();
+			}
+		});
+		
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
-		
-		ReceiptList.getInstance().add(getMeTheReceipt());
-		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
-		
-		list = new JList<Receipt>();
-		scrollPane_2.setViewportView(list);
-		entries = new DefaultListModel<Receipt>();
-		list.setModel(entries);
-		
-		entries.addElement(ReceiptList.getInstance().get(0));
-		entries.addElement(ReceiptList.getInstance().get(1));
-		entries.addElement(ReceiptList.getInstance().get(1));
-		panel.setLayout(gl_panel);
-		frmKochbuch.getContentPane().setLayout(groupLayout);
-
-		// may I introduce you to the GroupLayout?
-		// Never touch, pure magic!
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addComponent(btnNeuesRezept)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnRezeptLschen)
-							.addGap(20))
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(scrollPane_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblNewLabel))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(textField, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(btnNewButton_2))
-										.addComponent(comboBox, 0, 365, Short.MAX_VALUE))))
-							.addGap(19))))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(list, GroupLayout.PREFERRED_SIZE, 501, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_panel.createSequentialGroup()
+								.addComponent(btnRemoverows)
+								.addPreferredGap(ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+								.addComponent(btnNeuesRezept)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnRezeptLschen)
+								.addGap(20))
+							.addGroup(gl_panel.createSequentialGroup()
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblNewLabel))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(textField, GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnNewButton_2))
+									.addComponent(comboBox, 0, 365, Short.MAX_VALUE))
+								.addGap(19)))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -265,15 +260,26 @@ public class Kochbuch {
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_2))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-					.addGap(14)
+					.addComponent(list, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNeuesRezept)
-						.addComponent(btnRezeptLschen))
+						.addComponent(btnRezeptLschen)
+						.addComponent(btnRemoverows))
 					.addContainerGap())
 		);
 		
+		ReceiptList.getInstance().add(getMeTheReceipt());
+		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
+		entries = new DefaultListModel<Receipt>();
 		
+		entries.addElement(ReceiptList.getInstance().get(0));
+		entries.addElement(ReceiptList.getInstance().get(1));
+		entries.addElement(ReceiptList.getInstance().get(1));
+		panel.setLayout(gl_panel);
+		frmKochbuch.getContentPane().setLayout(groupLayout);
+		
+		list.setModel(entries);
 		// GroupLayout ends here
 
 	}
@@ -286,11 +292,8 @@ public class Kochbuch {
 		ReceiptList.getInstance().add(receipt); //<-- das geht auch
 		entries.addElement(receipt); //<-- das geht auch, der eintrag wird zu entries hinzugefügt
 		//GESTÖRT WTF DAFUQ das list (JList) ist tot. kann nixmehr ändern. liegt das irgendwie dran dass alle beteiligten dialoge singletons sind ? 
-		list.setModel(entries);
-		list.repaint();
-		scrollPane_2.repaint();
-		panel.repaint();
-		frmKochbuch.repaint();
+		//Es lag daran dass ich das Frame in der main bereits gestartet hab und es deshalb aus irgendwelchen gruenden nicht mehr accessible is nachdem 
+		//ein weiterer dialog gestartet wurde.
 	}
 
 	private Receipt getMeTheReceipt() {
@@ -353,6 +356,4 @@ public class Kochbuch {
 		// Ausgabe an den Nutzer
 		// System.out.println(INFO_WARTESCHLANGE_ANLEGEN);
 	}
-	
-	
 }
