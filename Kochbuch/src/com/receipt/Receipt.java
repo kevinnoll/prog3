@@ -76,11 +76,11 @@ public class Receipt implements Serializable {
 		this.ingredientList = ingredientList;
 	}
 
-	public String getCategoryList() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategoryList(String category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 

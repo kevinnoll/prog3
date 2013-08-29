@@ -159,6 +159,11 @@ public class NewReceipt extends JFrame {
 		JLabel lblReceipt = new JLabel("Rezept:");
 
 		JButton btnDiscard = new JButton("Verwerfen");
+		btnDiscard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Kochbuch.getInstance().setCategories();
+			}
+		});
 
 		btnSave = new JButton("Speichern");
 		btnSave.addActionListener(new ActionListener() {
@@ -365,7 +370,7 @@ public class NewReceipt extends JFrame {
 	}
 	
 	public void setCategory(String category){
-		Categories.getInstance().add(category);
+//		Categories.getInstance().add(category);
 		comboBoxCategory.removeAllItems();
 		addItemsToCategoryBox();
 	}

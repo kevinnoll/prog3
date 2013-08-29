@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+
+import com.receipt.Categories;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -58,6 +61,7 @@ public class AddCategory extends JFrame {
 				try {
 					if (!textFieldCategory.getText().trim().isEmpty()) {
 						String category = textFieldCategory.getText();
+						Categories.getInstance().add(category);
 						NewReceipt.getInstance().setCategory(category);
 						dispose();
 					}
