@@ -141,12 +141,15 @@ public class Kochbuch extends JFrame {
 		JLabel lblRezeptselektiert = new JLabel("Rezept (selektiert)");
 		panel_1.add(lblRezeptselektiert, "cell 0 0");
 
-		JList list_1 = new JList();
-		panel_1.add(list_1, "cell 0 1 4 1,grow");
-
 		JPanel panel_2 = new JPanel();
 
 		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		panel_1.add(scrollPane_3, "cell 0 1 4 1,grow");
+		
+		JList list_1 = new JList();
+		scrollPane_3.setViewportView(list_1);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_2.add(scrollPane_1, "flowx,cell 0 0,grow");
@@ -286,11 +289,18 @@ public class Kochbuch extends JFrame {
 		entries.addElement(ReceiptList.getInstance().get(1));
 		entries.addElement(ReceiptList.getInstance().get(2));
 		list.setModel(entries);
+		list.setSelectedIndex(0);
+		fillRightPanel();
 		panel.setLayout(gl_panel);
 		frmKochbuch.getContentPane().setLayout(groupLayout);
 
 		// GroupLayout ends here
 
+	}
+
+	private void fillRightPanel() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	protected void searchAndDisplay(String text) {
