@@ -40,14 +40,14 @@ public class NewIngredient extends JFrame {
 	private JSpinner spinnerAmount;
 	private static NewIngredient instance;
 
-	/**
-	 * Singleton pattern
-	 */
-	public static synchronized NewIngredient getInstance() {
-		if (instance == null)
-			instance = new NewIngredient();
-		return instance;
-	}
+//	/**
+//	 * Singleton pattern
+//	 */
+//	public static synchronized NewIngredient getInstance() {
+//		if (instance == null)
+//			instance = new NewIngredient();
+//		return instance;
+//	}
 
 	/**
 	 * Launch the application.
@@ -68,7 +68,7 @@ public class NewIngredient extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	private NewIngredient() {
+	public NewIngredient() {
 		setResizable(false);
 		setTitle("Zutat anlegen");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
