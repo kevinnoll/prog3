@@ -188,25 +188,7 @@ public class Kochbuch extends JFrame {
 		searchButton = new JButton("Los!");
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { //OnClick
-				String searchText = textFieldSearch.getText();
-
-				DefaultListModel<Receipt> tmpModel = (DefaultListModel<Receipt>)list.getModel();
-				DefaultListModel<Receipt> newModel = new DefaultListModel<Receipt>();
-				if (searchText.equals("")) {
-					filterList(comboBoxCategory.getSelectedItem().toString());
-				} else {
-					for (int i = 0; i < tmpModel.size(); i++) {
-						if (tmpModel.getElementAt(i).getName().contains(searchText) || tmpModel.getElementAt(i).getReceipt().contains(searchText)) {
-							newModel.addElement(tmpModel.get(i));
-						}
-						for (int j = 0; j < tmpModel.get(i).getIngredients().size(); j++) {
-							if (tmpModel.get(i).getIngredients().get(j).getName().contains(searchText)) {
-								newModel.addElement(tmpModel.get(i));
-							}
-						}
-					}
-					list.setModel(newModel);
-				}
+				searchAndDisplay(textFieldSearch.getText());
 			}
 		});
 
@@ -241,6 +223,7 @@ public class Kochbuch extends JFrame {
 				if (JOptionPane.showConfirmDialog(scrollPane_2, "Wirklich löschen?", "Bitte bestätigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
 					entries.removeElement(list.getSelectedValue());
 					ReceiptList.getInstance().remove(list.getSelectedValue());
+					searchAndDisplay(textFieldSearch.getText());
 				}
 			}
 		});
@@ -308,6 +291,29 @@ public class Kochbuch extends JFrame {
 
 		// GroupLayout ends here
 
+	}
+
+	protected void searchAndDisplay(String text) {
+		String searchText = textFieldSearch.getText();
+
+		DefaultListModel<Receipt> tmpModel = (DefaultListModel<Receipt>)list.getModel();
+		DefaultListModel<Receipt> newModel = new DefaultListModel<Receipt>();
+		if (searchText.equals("")) {
+			filterList(comboBoxCategory.getSelectedItem().toString());
+		} else {
+			for (int i = 0; i < tmpModel.size(); i++) {
+				if (tmpModel.getElementAt(i).getName().contains(searchText) || tmpModel.getElementAt(i).getReceipt().contains(searchText)) {
+					newModel.addElement(tmpModel.get(i));
+				}
+				for (int j = 0; j < tmpModel.get(i).getIngredients().size(); j++) {
+					if (tmpModel.get(i).getIngredients().get(j).getName().contains(searchText)) {
+						newModel.addElement(tmpModel.get(i));
+					}
+				}
+			}
+			list.setModel(newModel);
+		}
+		
 	}
 
 	protected void filterList(String selectedItem) {
