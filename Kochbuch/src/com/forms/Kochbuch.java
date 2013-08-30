@@ -50,7 +50,7 @@ public class Kochbuch extends JFrame {
 	private JTextField textFieldSearch;
 	private ReceiptList receiptList;
 	private DefaultListModel<Receipt> entries;
-	private NewReceipt receiptDialog;
+//	private NewReceipt receiptDialog;
 	private static Kochbuch instance;
 	private JPanel panel;
 	private JPanel panel_1;
@@ -94,7 +94,7 @@ public class Kochbuch extends JFrame {
 	 */
 	private void initialize() {
 		//external initializations
-		receiptDialog = NewReceipt.getInstance();
+//		receiptDialog = NewReceipt.getInstance();
 
 		frmKochbuch = new JFrame();
 		frmKochbuch.setTitle("Kochbuch");
@@ -102,6 +102,7 @@ public class Kochbuch extends JFrame {
 		frmKochbuch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmKochbuch.setVisible(false);
 		frmKochbuch.setVisible(true);
+		
 
 		JMenuBar menuBar = MenuBarFactory.getTheMenuBar();
 		frmKochbuch.setJMenuBar(menuBar);
@@ -217,7 +218,8 @@ public class Kochbuch extends JFrame {
 		JButton btnNeuesRezept = new JButton("Neues Rezept");
 		btnNeuesRezept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				receiptDialog.setVisible(true);
+				NewReceipt.getInstance().resetIngredientList();
+				NewReceipt.getInstance().setVisible(true);
 			}
 		});
 		btnRezeptLschen = new JButton("Rezept l\u00F6schen");
@@ -344,13 +346,21 @@ public class Kochbuch extends JFrame {
 	 * adds a new receipt to the list of receipes
 	 * @param receipt
 	 */
-	public void setNewReceipt(Receipt receipt) { //<-- das geht, receipt ist gesetzt und korrekt
-		ReceiptList.getInstance().add(receipt); //<-- das geht auch
-		entries.addElement(receipt);
+	public void setNewReceipt() { //<-- das geht, receipt ist gesetzt und korrekt
+//		ReceiptList.getInstance().add(receipt); //<-- das geht auch
+		entries.removeAllElements();
+		for(int i = 0; i < ReceiptList.getInstance().size(); i++){
+			entries.addElement(ReceiptList.getInstance().get(i));
+		}
+		frmKochbuch.revalidate();
+		list.validate();
+		list.revalidate();
+		list.repaint();
+//		entries.addElement(receipt);
+//		list.setModel(entries);
 		//Es lag daran dass ich das Frame in der main bereits gestartet hab und es deshalb aus irgendwelchen gruenden nicht mehr accessible is nachdem 
 		//ein weiterer dialog gestartet wurde.
 		setCategories();
-
 	}
 
 	public void setCategories() {
