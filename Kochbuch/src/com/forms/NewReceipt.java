@@ -30,13 +30,13 @@ import com.receipt.Course;
 import com.receipt.Difficulty;
 import com.receipt.Entity;
 import com.receipt.Ingredient;
-import com.receipt.IngredientList;
 import com.receipt.Receipt;
 
 import javax.swing.JSpinner;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.LinkedList;
 
 import javax.swing.JTable;
 
@@ -51,7 +51,7 @@ public class NewReceipt extends JFrame {
 	private GroupLayout gl_contentPane;
 	private NewIngredient ingredientDialog;
 	private static NewReceipt instance;
-	private IngredientList ingredientList;
+	private LinkedList<Ingredient> ingredientList;
 	private JSpinner spinner;
 	private JTextField txtPfad;
 	private JComboBox<String> comboBoxCategory;
@@ -88,7 +88,7 @@ public class NewReceipt extends JFrame {
 	 * Create the frame.
 	 */
 	private NewReceipt() {
-		ingredientList = new IngredientList();
+		ingredientList = new LinkedList<Ingredient>();
 		tableModel = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
