@@ -31,6 +31,7 @@ import com.receipt.Difficulty;
 import com.receipt.Entity;
 import com.receipt.Ingredient;
 import com.receipt.Receipt;
+import com.receipt.ReceiptList;
 
 import javax.swing.JSpinner;
 
@@ -49,7 +50,7 @@ public class NewReceipt extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldTitle;
 	private GroupLayout gl_contentPane;
-	private NewIngredient ingredientDialog;
+//	private NewIngredient ingredientDialog;
 	private static NewReceipt instance;
 	private LinkedList<Ingredient> ingredientList;
 	private JSpinner spinner;
@@ -101,7 +102,7 @@ public class NewReceipt extends JFrame {
 		JScrollPane scrollPaneForTextPane = new JScrollPane(textPane);
 		contentPane.add(scrollPaneForTextPane);
 
-		ingredientDialog = NewIngredient.getInstance();
+//		ingredientDialog = NewIngredient.getInstance();
 
 		JLabel lblTitle = new JLabel("Titel:");
 
@@ -151,7 +152,8 @@ public class NewReceipt extends JFrame {
 		JButton btnNewIngredient = new JButton("Neue Zutat");
 		btnNewIngredient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ingredientDialog.setVisible(true);
+				NewIngredient newIngredientDialog = new NewIngredient();
+				newIngredientDialog.setVisible(true);
 
 			}
 		});
@@ -179,7 +181,8 @@ public class NewReceipt extends JFrame {
 							Course.valueOf(comboBoxGang.getSelectedItem().toString()),
 							ingredientList,
 							comboBoxCategory.getSelectedItem().toString());
-					Kochbuch.getInstance().setNewReceipt(toReturn);
+					ReceiptList.getInstance().add(toReturn);
+					Kochbuch.getInstance().setNewReceipt();
 					dispose();
 				}
 			}
@@ -362,6 +365,15 @@ public class NewReceipt extends JFrame {
 	public void setIngredient(Ingredient ingredient) {
 		ingredientList.add(ingredient);
 		insertInTable(ingredient);
+	}
+	
+	public void resetIngredientList(){
+		ingredientList = new LinkedList<Ingredient>();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		for(int i = 0; i < model.getRowCount();i++){
+			model.removeRow(i);
+		}
+		table.setModel(model);
 	}
 
 	private void insertInTable(Ingredient ingredient) {
