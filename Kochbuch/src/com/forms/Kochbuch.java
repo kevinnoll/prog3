@@ -47,7 +47,7 @@ public class Kochbuch extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JFrame frmKochbuch;
-	private JTextField textField;
+	private JTextField textFieldSearch;
 	private ReceiptList receiptList;
 	private DefaultListModel<Receipt> entries;
 	private NewReceipt receiptDialog;
@@ -58,6 +58,7 @@ public class Kochbuch extends JFrame {
 	private JComboBox<String> comboBoxCategory;
 	private JList<Receipt> list;
 	private JScrollPane scrollPane_2;
+	private JButton searchButton;
 
 	/**
 	 * Launch the application.
@@ -184,7 +185,30 @@ public class Kochbuch extends JFrame {
 		JLabel lblDessert = new JLabel("Dessert");
 		panel_1.add(lblDessert, "cell 1 6");
 
-		JButton btnNewButton_2 = new JButton("ok");
+		searchButton = new JButton("Los!");
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) { //OnClick
+				String searchText = textFieldSearch.getText();
+
+				DefaultListModel<Receipt> tmpModel = (DefaultListModel<Receipt>)list.getModel();
+				DefaultListModel<Receipt> newModel = new DefaultListModel<Receipt>();
+				if (searchText.equals("")) {
+					filterList(comboBoxCategory.getSelectedItem().toString());
+				} else {
+					for (int i = 0; i < tmpModel.size(); i++) {
+						if (tmpModel.getElementAt(i).getName().contains(searchText) || tmpModel.getElementAt(i).getReceipt().contains(searchText)) {
+							newModel.addElement(tmpModel.get(i));
+						}
+						for (int j = 0; j < tmpModel.get(i).getIngredients().size(); j++) {
+							if (tmpModel.get(i).getIngredients().get(j).getName().contains(searchText)) {
+								newModel.addElement(tmpModel.get(i));
+							}
+						}
+					}
+					list.setModel(newModel);
+				}
+			}
+		});
 
 		JLabel lblZutatWaehlen = new JLabel("Kategorie w\u00E4hlen:");
 
@@ -202,9 +226,8 @@ public class Kochbuch extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Suchen:");
 
-		textField = new JTextField();
-		textField.setToolTipText("suchen!");
-		textField.setColumns(10);
+		textFieldSearch = new JTextField();
+		textFieldSearch.setToolTipText("suchen!");
 
 		JButton btnNeuesRezept = new JButton("Neues Rezept");
 		btnNeuesRezept.addActionListener(new ActionListener() {
@@ -226,36 +249,34 @@ public class Kochbuch extends JFrame {
 		list = new JList<Receipt>();
 
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(
-						gl_panel.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										gl_panel.createParallelGroup(Alignment.LEADING)
-												.addGroup(
-														Alignment.TRAILING,
-														gl_panel.createSequentialGroup().addComponent(btnNeuesRezept)
-																.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnRezeptLschen).addGap(20))
-												.addGroup(
-														Alignment.TRAILING,
-														gl_panel.createSequentialGroup()
-																.addGroup(
-																		gl_panel.createParallelGroup(Alignment.LEADING)
-																				.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136,
-																						GroupLayout.PREFERRED_SIZE).addComponent(lblNewLabel))
-																.addPreferredGap(ComponentPlacement.RELATED)
-																.addGroup(
-																		gl_panel.createParallelGroup(Alignment.LEADING)
-																				.addGroup(
-																						gl_panel.createSequentialGroup()
-																								.addComponent(textField, GroupLayout.DEFAULT_SIZE, 315,
-																										Short.MAX_VALUE)
-																								.addPreferredGap(ComponentPlacement.RELATED)
-																								.addComponent(btnNewButton_2))
-																				.addComponent(comboBoxCategory, 0, 364, Short.MAX_VALUE)).addGap(19))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE).addGap(22)))));
+		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_panel.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								gl_panel.createParallelGroup(Alignment.LEADING)
+										.addGroup(
+												Alignment.TRAILING,
+												gl_panel.createSequentialGroup().addComponent(btnNeuesRezept).addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(btnRezeptLschen).addGap(20))
+										.addGroup(
+												Alignment.TRAILING,
+												gl_panel.createSequentialGroup()
+														.addGroup(
+																gl_panel.createParallelGroup(Alignment.LEADING)
+																		.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136,
+																				GroupLayout.PREFERRED_SIZE).addComponent(lblNewLabel))
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(
+																gl_panel.createParallelGroup(Alignment.LEADING)
+																		.addGroup(
+																				gl_panel.createSequentialGroup()
+																						.addComponent(textFieldSearch, GroupLayout.DEFAULT_SIZE, 315,
+																								Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED)
+																						.addComponent(searchButton))
+																		.addComponent(comboBoxCategory, 0, 364, Short.MAX_VALUE)).addGap(19))
+										.addGroup(
+												gl_panel.createSequentialGroup().addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+														.addGap(22)))));
 		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_panel.createSequentialGroup()
 						.addContainerGap()
@@ -265,8 +286,8 @@ public class Kochbuch extends JFrame {
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(
 								gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel)
-										.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(btnNewButton_2)).addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(textFieldSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(searchButton)).addPreferredGap(ComponentPlacement.UNRELATED)
 						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE).addGap(13)
 						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(btnNeuesRezept).addComponent(btnRezeptLschen))
 						.addContainerGap()));
@@ -274,12 +295,13 @@ public class Kochbuch extends JFrame {
 		scrollPane_2.setViewportView(list);
 
 		ReceiptList.getInstance().add(getMeTheReceipt());
+		ReceiptList.getInstance().add(getMeTheReceipt2());
 		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
 		entries = new DefaultListModel<Receipt>();
 
 		entries.addElement(ReceiptList.getInstance().get(0));
 		entries.addElement(ReceiptList.getInstance().get(1));
-		entries.addElement(ReceiptList.getInstance().get(1));
+		entries.addElement(ReceiptList.getInstance().get(2));
 		list.setModel(entries);
 		panel.setLayout(gl_panel);
 		frmKochbuch.getContentPane().setLayout(groupLayout);
@@ -339,7 +361,26 @@ public class Kochbuch extends JFrame {
 		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die petersilie"
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, "jo gell");
+		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
+		return receipt;
+	}
+	
+	private Receipt getMeTheReceipt2() {
+		Ingredient ingredient1 = new Ingredient("Kartoffel", Entity.kg, 1);
+		Ingredient ingredient2 = new Ingredient("Salz", Entity.g, 10);
+		Ingredient ingredient3 = new Ingredient("Wasser", Entity.Liter, 2.5);
+		LinkedList<Ingredient> ingredients = new LinkedList<Ingredient>();
+		ingredients.add(ingredient1);
+		ingredients.add(ingredient2);
+		ingredients.add(ingredient3);
+
+		LinkedList<String> categories = new LinkedList<String>();
+		categories.add("Kartoffel");
+		String rezeptname = "Salzkartoffeln";
+		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die "
+				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die scheise " + "drüberstreuen. Fertig.";
+
+		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
 		return receipt;
 	}
 
