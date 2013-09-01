@@ -1,6 +1,7 @@
 package com.forms;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -41,6 +42,7 @@ import com.receipt.Ingredient;
 import com.receipt.Receipt;
 import com.receipt.ReceiptList;
 import com.serializer.ReceiptListSerializer;
+
 import java.awt.Dimension;
 
 public class Kochbuch extends JFrame {
@@ -148,7 +150,7 @@ public class Kochbuch extends JFrame {
 		panel_1.setLayout(new MigLayout("", "[grow][][][][grow]", "[][grow][][grow][][][]"));
 
 		lblRezeptselektiert = new JLabel("Rezept (selektiert)");
-		panel_1.add(lblRezeptselektiert, "cell 0 0");
+		panel_1.add(lblRezeptselektiert, "cell 0 0 5 1,growx");
 
 		JPanel panel_2 = new JPanel();
 
@@ -254,6 +256,8 @@ public class Kochbuch extends JFrame {
 					for (int i = 0; i < list.getSelectedValue().getIngredients().size(); i++) {
 						newModel.addElement(list.getSelectedValue().getIngredients().get(i));
 					}
+					lblRezeptselektiert.setText(list.getSelectedValue().getName());
+					lblRezeptselektiert.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 					listIngredientsRightSide.setModel(newModel);
 					textPane.setText(list.getSelectedValue().getReceipt());
 					lblCourse.setText(list.getSelectedValue().getCourse().toString());
@@ -263,6 +267,8 @@ public class Kochbuch extends JFrame {
 			}
 		};
 		list.addListSelectionListener(listSelectionListener);
+		Font font = new Font(Font.SANS_SERIF, Font.BOLD, 20);
+		list.setFont(font);
 
 		JButton btnRezeptBearbeiten = new JButton("Rezept bearbeiten");
 		btnRezeptBearbeiten.addActionListener(new ActionListener() {
