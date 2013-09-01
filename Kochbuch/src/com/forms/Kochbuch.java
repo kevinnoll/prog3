@@ -174,12 +174,13 @@ public class Kochbuch extends JFrame {
 		panel_1.add(btnNewButton_1, "cell 4 2,growx");
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(2, 200));
 		panel_1.add(scrollPane, "cell 0 3 5 1,grow");
 
 		textPane = new JTextPane();
+		textPane.setPreferredSize(new Dimension(6, 200));
+		textPane.setMaximumSize(new Dimension(2147483647, 200));
 		textPane.setEditable(false);
-		textPane.setPreferredSize(new Dimension(6, 150));
-		textPane.setMaximumSize(new Dimension(2147483647, 500));
 		scrollPane.setViewportView(textPane);
 
 		JLabel lblSchwierigkeit = new JLabel("Schwierigkeit:");
