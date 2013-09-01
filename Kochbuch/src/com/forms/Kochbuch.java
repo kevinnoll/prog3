@@ -376,20 +376,11 @@ public class Kochbuch extends JFrame {
 	 * adds a new receipt to the list of receipes
 	 * @param receipt
 	 */
-	public void setNewReceipt() { //<-- das geht, receipt ist gesetzt und korrekt
-//		ReceiptList.getInstance().add(receipt); //<-- das geht auch
+	public void setReceipts() { //<-- das geht, receipt ist gesetzt und korrekt
 		entries.removeAllElements();
 		for(int i = 0; i < ReceiptList.getInstance().size(); i++){
 			entries.addElement(ReceiptList.getInstance().get(i));
 		}
-		frmKochbuch.revalidate();
-		list.validate();
-		list.revalidate();
-		list.repaint();
-//		entries.addElement(receipt);
-//		list.setModel(entries);
-		//Es lag daran dass ich das Frame in der main bereits gestartet hab und es deshalb aus irgendwelchen gruenden nicht mehr accessible is nachdem 
-		//ein weiterer dialog gestartet wurde.
 		setCategories();
 	}
 

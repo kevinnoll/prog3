@@ -51,7 +51,7 @@ public class NewReceipt extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldTitle;
 	private GroupLayout gl_contentPane;
-//	private NewIngredient ingredientDialog;
+	//	private NewIngredient ingredientDialog;
 	private static NewReceipt instance;
 	private LinkedList<Ingredient> ingredientList;
 	private JSpinner spinner;
@@ -64,6 +64,7 @@ public class NewReceipt extends JFrame {
 	private JComboBox<Difficulty> comboBoxDifficulty;
 	private JButton btnSave;
 	private boolean newReceipt;
+	private int receiptId;
 
 	public static synchronized NewReceipt getInstance() {
 		if (instance == null)
@@ -99,12 +100,12 @@ public class NewReceipt extends JFrame {
 		setBounds(100, 100, 460, 777);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
-		
+
 		textPane = new JTextPane();
 		JScrollPane scrollPaneForTextPane = new JScrollPane(textPane);
 		contentPane.add(scrollPaneForTextPane);
 
-//		ingredientDialog = NewIngredient.getInstance();
+		//		ingredientDialog = NewIngredient.getInstance();
 
 		JLabel lblTitle = new JLabel("Titel:");
 
@@ -141,9 +142,9 @@ public class NewReceipt extends JFrame {
 				String name = tableModel.getValueAt(row, 2).toString();
 				Entity entity = Entity.valueOf(tableModel.getValueAt(row, 1).toString());
 				Double quantity = Double.parseDouble(tableModel.getValueAt(row, 0).toString());
-				for(int i = 0; i < ingredientList.size(); i++){
+				for (int i = 0; i < ingredientList.size(); i++) {
 					Ingredient tmp = ingredientList.get(i);
-					if(tmp.getName().equals(name) && tmp.getQuantity() == quantity && tmp.getEntity().equals(entity)){
+					if (tmp.getName().equals(name) && tmp.getQuantity() == quantity && tmp.getEntity().equals(entity)) {
 						return i;
 					}
 				}
@@ -172,25 +173,33 @@ public class NewReceipt extends JFrame {
 		btnSave = new JButton("Speichern");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				Receipt receipt = new Receipt();
-				if(textFieldTitle.getText().trim().isEmpty() || textPane.getText().trim().isEmpty()){
+				//				Receipt receipt = new Receipt();
+				if (textFieldTitle.getText().trim().isEmpty() || textPane.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(btnSave, "Bitte alles ausfüllen!");
 				} else {
-					Receipt toReturn = new Receipt(CURRENT_ID, textFieldTitle.getText(),
-							textPane.getText(),
-							Integer.parseInt(spinner.getValue().toString()),
-							Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()),
-							Course.valueOf(comboBoxGang.getSelectedItem().toString()),
-							ingredientList,
-							comboBoxCategory.getSelectedItem().toString());
-					CURRENT_ID++;
-					ReceiptList.getInstance().add(toReturn);
-					Kochbuch.getInstance().setNewReceipt();
-					dispose();
+					if (newReceipt) {
+						Receipt toReturn = new Receipt(CURRENT_ID, textFieldTitle.getText(), textPane.getText(), Integer
+								.parseInt(spinner.getValue().toString()), Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()), Course
+								.valueOf(comboBoxGang.getSelectedItem().toString()), ingredientList, comboBoxCategory.getSelectedItem().toString());
+						CURRENT_ID++;
+						ReceiptList.getInstance().add(toReturn);
+						Kochbuch.getInstance().setReceipts();
+						dispose();
+					} else {
+						for(int i = 0; i < ReceiptList.getInstance().size(); i++){
+							if(ReceiptList.getInstance().get(i).getiD() == receiptId){
+								Receipt toReturn = new Receipt(receiptId, textFieldTitle.getText(), textPane.getText(), Integer
+										.parseInt(spinner.getValue().toString()), Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()), Course
+										.valueOf(comboBoxGang.getSelectedItem().toString()), ingredientList, comboBoxCategory.getSelectedItem().toString());
+								ReceiptList.getInstance().set(i, toReturn);
+								Kochbuch.getInstance().setReceipts();
+								dispose();
+							}
+						}
+					}
 				}
 			}
 		});
-
 
 		JLabel lblDifficulty = new JLabel("Schwierigkeit:");
 
@@ -221,7 +230,7 @@ public class NewReceipt extends JFrame {
 		comboBoxGang.addItem(Course.Vorspeise);
 		comboBoxGang.addItem(Course.Hauptgericht);
 		comboBoxGang.addItem(Course.Dessert);
-		
+
 		JLabel lblBild = new JLabel("Bild:");
 
 		txtPfad = new JTextField();
@@ -360,7 +369,7 @@ public class NewReceipt extends JFrame {
 
 	private void addItemsToCategoryBox() {
 		Categories categories = Categories.getInstance();
-		for(int i = 0; i < categories.size(); i++){
+		for (int i = 0; i < categories.size(); i++) {
 			comboBoxCategory.addItem(categories.get(i).toString());
 		}
 	}
@@ -370,13 +379,10 @@ public class NewReceipt extends JFrame {
 		insertInTable(ingredient);
 	}
 
-	public void resetFields(){
+	public void resetFields() {
 		newReceipt = true;
 		ingredientList = new LinkedList<Ingredient>();
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for(int i = 0; i < model.getRowCount();i++){
-			model.removeRow(i);
-		}
+		DefaultTableModel model = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
 		table.setModel(model);
 		textFieldTitle.setText("");
 		textPane.setText("");
@@ -390,20 +396,23 @@ public class NewReceipt extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.addRow(new Object[] { ingredient.getQuantity(), ingredient.getEntity(), ingredient.getName() });
 	}
-	
-	public void setCategory(String category){
-//		Categories.getInstance().add(category);
+
+	public void setCategory(String category) {
+		//		Categories.getInstance().add(category);
 		comboBoxCategory.removeAllItems();
 		addItemsToCategoryBox();
 	}
 
 	public void setFields(Receipt selectedValue) {
-		newReceipt = false;
 		resetFields();
+		newReceipt = false;
+		receiptId = selectedValue.getiD();
 		ingredientList = new LinkedList<Ingredient>();
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		for(int i = 0; i < selectedValue.getIngredients().size();i++){
-			model.addRow(new Object[] { selectedValue.getIngredients().get(i).getQuantity(), selectedValue.getIngredients().get(i).getEntity(), selectedValue.getIngredients().get(i).getName() });
+		DefaultTableModel model = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
+		for (int i = 0; i < selectedValue.getIngredients().size(); i++) {
+			model.addRow(new Object[] { selectedValue.getIngredients().get(i).getQuantity(), selectedValue.getIngredients().get(i).getEntity(),
+					selectedValue.getIngredients().get(i).getName() });
+			ingredientList.add(selectedValue.getIngredients().get(i));
 		}
 		table.setModel(model);
 		textFieldTitle.setText(selectedValue.getName());
