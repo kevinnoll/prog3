@@ -177,6 +177,8 @@ public class Kochbuch extends JFrame {
 		panel_1.add(scrollPane, "cell 0 3 5 1,grow");
 
 		textPane = new JTextPane();
+		textPane.setEditable(false);
+		textPane.setPreferredSize(new Dimension(6, 150));
 		textPane.setMaximumSize(new Dimension(2147483647, 500));
 		scrollPane.setViewportView(textPane);
 
