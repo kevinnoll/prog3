@@ -63,7 +63,7 @@ public class NewReceipt extends JFrame {
 	private DefaultTableModel tableModel;
 	private JComboBox<Difficulty> comboBoxDifficulty;
 	private JButton btnSave;
-	
+	private boolean newReceipt;
 
 	public static synchronized NewReceipt getInstance() {
 		if (instance == null)
@@ -370,7 +370,8 @@ public class NewReceipt extends JFrame {
 		insertInTable(ingredient);
 	}
 
-	public void resetIngredientList(){
+	public void resetFields(){
+		newReceipt = true;
 		ingredientList = new LinkedList<Ingredient>();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for(int i = 0; i < model.getRowCount();i++){
@@ -394,5 +395,22 @@ public class NewReceipt extends JFrame {
 //		Categories.getInstance().add(category);
 		comboBoxCategory.removeAllItems();
 		addItemsToCategoryBox();
+	}
+
+	public void setFields(Receipt selectedValue) {
+		newReceipt = false;
+		resetFields();
+		ingredientList = new LinkedList<Ingredient>();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		for(int i = 0; i < selectedValue.getIngredients().size();i++){
+			model.addRow(new Object[] { selectedValue.getIngredients().get(i).getQuantity(), selectedValue.getIngredients().get(i).getEntity(), selectedValue.getIngredients().get(i).getName() });
+		}
+		table.setModel(model);
+		textFieldTitle.setText(selectedValue.getName());
+		textPane.setText(selectedValue.getReceipt());
+		spinner.setValue(selectedValue.getDuration());
+		comboBoxDifficulty.setSelectedItem(selectedValue.getDifficulty());
+		comboBoxGang.setSelectedItem(selectedValue.getCourse());
+		comboBoxCategory.setSelectedItem(selectedValue.getCategory());
 	}
 }

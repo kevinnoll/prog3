@@ -221,7 +221,7 @@ public class Kochbuch extends JFrame {
 		JButton btnNeuesRezept = new JButton("Neues Rezept");
 		btnNeuesRezept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				NewReceipt.getInstance().resetIngredientList();
+				NewReceipt.getInstance().resetFields();
 				NewReceipt.getInstance().setVisible(true);
 			}
 		});
@@ -250,50 +250,65 @@ public class Kochbuch extends JFrame {
 		      }
 		};
 		list.addListSelectionListener(listSelectionListener);
+		
+		JButton btnRezeptBearbeiten = new JButton("Rezept bearbeiten");
+		btnRezeptBearbeiten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NewReceipt.getInstance().setFields(list.getSelectedValue());
+				NewReceipt.getInstance().setVisible(true);
+			}
+		});
 
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(
-				gl_panel.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								gl_panel.createParallelGroup(Alignment.LEADING)
-										.addGroup(
-												Alignment.TRAILING,
-												gl_panel.createSequentialGroup().addComponent(btnNeuesRezept).addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(btnRezeptLschen).addGap(20))
-										.addGroup(
-												Alignment.TRAILING,
-												gl_panel.createSequentialGroup()
-														.addGroup(
-																gl_panel.createParallelGroup(Alignment.LEADING)
-																		.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136,
-																				GroupLayout.PREFERRED_SIZE).addComponent(lblNewLabel))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(
-																gl_panel.createParallelGroup(Alignment.LEADING)
-																		.addGroup(
-																				gl_panel.createSequentialGroup()
-																						.addComponent(textFieldSearch, GroupLayout.DEFAULT_SIZE, 315,
-																								Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED)
-																						.addComponent(searchButton))
-																		.addComponent(comboBoxCategory, 0, 364, Short.MAX_VALUE)).addGap(19))
-										.addGroup(
-												gl_panel.createSequentialGroup().addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
-														.addGap(22)))));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(
-				gl_panel.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblZutatWaehlen)
-										.addComponent(comboBoxCategory, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(
-								gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel)
-										.addComponent(textFieldSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(searchButton)).addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE).addGap(13)
-						.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(btnNeuesRezept).addComponent(btnRezeptLschen))
-						.addContainerGap()));
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(btnRezeptBearbeiten)
+							.addPreferredGap(ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
+							.addComponent(btnNeuesRezept)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnRezeptLschen)
+							.addGap(20))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(textFieldSearch, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(searchButton))
+								.addComponent(comboBoxCategory, 0, 369, Short.MAX_VALUE))
+							.addGap(19))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+							.addGap(22))))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblZutatWaehlen)
+						.addComponent(comboBoxCategory, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(textFieldSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(searchButton))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+					.addGap(13)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnNeuesRezept)
+						.addComponent(btnRezeptLschen)
+						.addComponent(btnRezeptBearbeiten))
+					.addContainerGap())
+		);
 
 		scrollPane_2.setViewportView(list);
 
