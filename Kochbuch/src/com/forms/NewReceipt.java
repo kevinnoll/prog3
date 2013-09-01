@@ -369,7 +369,7 @@ public class NewReceipt extends JFrame {
 		ingredientList.add(ingredient);
 		insertInTable(ingredient);
 	}
-	
+
 	public void resetIngredientList(){
 		ingredientList = new LinkedList<Ingredient>();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -377,6 +377,12 @@ public class NewReceipt extends JFrame {
 			model.removeRow(i);
 		}
 		table.setModel(model);
+		textFieldTitle.setText("");
+		textPane.setText("");
+		spinner.setValue(0);
+		comboBoxDifficulty.setSelectedIndex(0);
+		comboBoxGang.setSelectedIndex(0);
+		comboBoxCategory.setSelectedIndex(0);
 	}
 
 	private void insertInTable(Ingredient ingredient) {
