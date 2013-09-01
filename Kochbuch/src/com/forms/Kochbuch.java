@@ -52,7 +52,7 @@ public class Kochbuch extends JFrame {
 	private JTextField textFieldSearch;
 	private ReceiptList receiptList;
 	private DefaultListModel<Receipt> entries;
-//	private NewReceipt receiptDialog;
+	//	private NewReceipt receiptDialog;
 	private static Kochbuch instance;
 	private JPanel panel;
 	private JPanel panel_1;
@@ -97,7 +97,7 @@ public class Kochbuch extends JFrame {
 	 */
 	private void initialize() {
 		//external initializations
-//		receiptDialog = NewReceipt.getInstance();
+		//		receiptDialog = NewReceipt.getInstance();
 
 		frmKochbuch = new JFrame();
 		frmKochbuch.setTitle("Kochbuch");
@@ -105,7 +105,6 @@ public class Kochbuch extends JFrame {
 		frmKochbuch.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmKochbuch.setVisible(false);
 		frmKochbuch.setVisible(true);
-		
 
 		JMenuBar menuBar = MenuBarFactory.getTheMenuBar();
 		frmKochbuch.setJMenuBar(menuBar);
@@ -148,10 +147,10 @@ public class Kochbuch extends JFrame {
 		JPanel panel_2 = new JPanel();
 
 		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
-		
+
 		JScrollPane scrollPane_3 = new JScrollPane();
 		panel_1.add(scrollPane_3, "cell 0 1 4 1,grow");
-		
+
 		listIngredientsRightSide = new JList<Ingredient>();
 		scrollPane_3.setViewportView(listIngredientsRightSide);
 
@@ -239,82 +238,81 @@ public class Kochbuch extends JFrame {
 		scrollPane_2 = new JScrollPane();
 		list = new JList<Receipt>();
 		ListSelectionListener listSelectionListener = new ListSelectionListener() {
-		      public void valueChanged(ListSelectionEvent listSelectionEvent) {
-		    	  if(listSelectionEvent.getValueIsAdjusting()){
-		    		  DefaultListModel<Ingredient> newModel = new DefaultListModel<Ingredient>();
-		    		  for(int i = 0; i < list.getSelectedValue().getIngredients().size(); i++){
-		    			  newModel.addElement(list.getSelectedValue().getIngredients().get(i));
-		    		  }
-		    		  listIngredientsRightSide.setModel(newModel);
-		    	  }
-		      }
+			public void valueChanged(ListSelectionEvent listSelectionEvent) {
+				if (listSelectionEvent.getValueIsAdjusting()) {
+					DefaultListModel<Ingredient> newModel = new DefaultListModel<Ingredient>();
+					for (int i = 0; i < list.getSelectedValue().getIngredients().size(); i++) {
+						newModel.addElement(list.getSelectedValue().getIngredients().get(i));
+					}
+					listIngredientsRightSide.setModel(newModel);
+				}
+			}
 		};
 		list.addListSelectionListener(listSelectionListener);
-		
+
 		JButton btnRezeptBearbeiten = new JButton("Rezept bearbeiten");
 		btnRezeptBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewReceipt.getInstance().setFields(list.getSelectedValue());
-				NewReceipt.getInstance().setVisible(true);
+				if (list.getSelectedIndex() == -1) {
+					JOptionPane.showConfirmDialog(scrollPane_2, "Bitte ein Rezept zum bearbeiten auswählen", "Kein Rezept angeklickt", JOptionPane.DEFAULT_OPTION);
+				} else {
+					NewReceipt.getInstance().setFields(list.getSelectedValue());
+					NewReceipt.getInstance().setVisible(true);
+				}
 			}
 		});
 
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(btnRezeptBearbeiten)
-							.addPreferredGap(ComponentPlacement.RELATED, 209, Short.MAX_VALUE)
-							.addComponent(btnNeuesRezept)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnRezeptLschen)
-							.addGap(20))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(textFieldSearch, GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(searchButton))
-								.addComponent(comboBoxCategory, 0, 369, Short.MAX_VALUE))
-							.addGap(19))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
-							.addGap(22))))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblZutatWaehlen)
-						.addComponent(comboBoxCategory, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(textFieldSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(searchButton))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
-					.addGap(13)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNeuesRezept)
-						.addComponent(btnRezeptLschen)
-						.addComponent(btnRezeptBearbeiten))
-					.addContainerGap())
-		);
+		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_panel.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addGroup(
+												gl_panel.createSequentialGroup().addComponent(btnRezeptBearbeiten)
+														.addPreferredGap(ComponentPlacement.RELATED, 209, Short.MAX_VALUE).addComponent(btnNeuesRezept)
+														.addPreferredGap(ComponentPlacement.RELATED).addComponent(btnRezeptLschen).addGap(20))
+										.addGroup(
+												gl_panel.createSequentialGroup()
+														.addGroup(
+																gl_panel.createParallelGroup(Alignment.LEADING)
+																		.addComponent(lblZutatWaehlen, GroupLayout.PREFERRED_SIZE, 136,
+																				GroupLayout.PREFERRED_SIZE).addComponent(lblNewLabel))
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(
+																gl_panel.createParallelGroup(Alignment.LEADING)
+																		.addGroup(
+																				gl_panel.createSequentialGroup()
+																						.addComponent(textFieldSearch, GroupLayout.DEFAULT_SIZE, 310,
+																								Short.MAX_VALUE).addPreferredGap(ComponentPlacement.RELATED)
+																						.addComponent(searchButton))
+																		.addComponent(comboBoxCategory, 0, 369, Short.MAX_VALUE)).addGap(19))
+										.addGroup(
+												gl_panel.createSequentialGroup().addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+														.addGap(22)))));
+		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_panel.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblZutatWaehlen)
+										.addComponent(comboBoxCategory, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(
+								gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel)
+										.addComponent(textFieldSearch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(searchButton))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+						.addGap(13)
+						.addGroup(
+								gl_panel.createParallelGroup(Alignment.BASELINE).addComponent(btnNeuesRezept).addComponent(btnRezeptLschen)
+										.addComponent(btnRezeptBearbeiten)).addContainerGap()));
 
 		scrollPane_2.setViewportView(list);
 
 		ReceiptList.getInstance().add(getMeTheReceipt());
 		ReceiptList.getInstance().add(getMeTheReceipt2());
-		ReceiptList.getInstance().add(new Receipt(2,"test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
+		ReceiptList.getInstance().add(new Receipt(2, "test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
 		entries = new DefaultListModel<Receipt>();
 
 		entries.addElement(ReceiptList.getInstance().get(0));
@@ -332,13 +330,13 @@ public class Kochbuch extends JFrame {
 
 	private void fillRightPanel() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void searchAndDisplay(String text) {
 		String searchText = textFieldSearch.getText();
 
-		DefaultListModel<Receipt> tmpModel = (DefaultListModel<Receipt>)list.getModel();
+		DefaultListModel<Receipt> tmpModel = (DefaultListModel<Receipt>) list.getModel();
 		DefaultListModel<Receipt> newModel = new DefaultListModel<Receipt>();
 		if (searchText.equals("")) {
 			filterList(comboBoxCategory.getSelectedItem().toString());
@@ -355,7 +353,7 @@ public class Kochbuch extends JFrame {
 			}
 			list.setModel(newModel);
 		}
-		
+
 	}
 
 	protected void filterList(String selectedItem) {
@@ -378,7 +376,7 @@ public class Kochbuch extends JFrame {
 	 */
 	public void setReceipts() { //<-- das geht, receipt ist gesetzt und korrekt
 		entries.removeAllElements();
-		for(int i = 0; i < ReceiptList.getInstance().size(); i++){
+		for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
 			entries.addElement(ReceiptList.getInstance().get(i));
 		}
 		setCategories();
@@ -411,7 +409,7 @@ public class Kochbuch extends JFrame {
 		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
 		return receipt;
 	}
-	
+
 	private Receipt getMeTheReceipt2() {
 		Ingredient ingredient1 = new Ingredient("Kartoffel", Entity.kg, 1);
 		Ingredient ingredient2 = new Ingredient("Salz", Entity.g, 10);
