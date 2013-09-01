@@ -252,17 +252,7 @@ public class Kochbuch extends JFrame {
 		ListSelectionListener listSelectionListener = new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent listSelectionEvent) {
 				if (listSelectionEvent.getValueIsAdjusting()) {
-					DefaultListModel<Ingredient> newModel = new DefaultListModel<Ingredient>();
-					for (int i = 0; i < list.getSelectedValue().getIngredients().size(); i++) {
-						newModel.addElement(list.getSelectedValue().getIngredients().get(i));
-					}
-					lblRezeptselektiert.setText(list.getSelectedValue().getName());
-					lblRezeptselektiert.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-					listIngredientsRightSide.setModel(newModel);
-					textPane.setText(list.getSelectedValue().getReceipt());
-					lblCourse.setText(list.getSelectedValue().getCourse().toString());
-					lblDifficulty.setText(list.getSelectedValue().getDifficulty().toString());
-					lblDuration.setText(list.getSelectedValue().getDuration()+" min");
+					fillRightPanel();
 				}
 			}
 		};
@@ -349,8 +339,17 @@ public class Kochbuch extends JFrame {
 	}
 
 	private void fillRightPanel() {
-		// TODO Auto-generated method stub
-
+		DefaultListModel<Ingredient> newModel = new DefaultListModel<Ingredient>();
+		for (int i = 0; i < list.getSelectedValue().getIngredients().size(); i++) {
+			newModel.addElement(list.getSelectedValue().getIngredients().get(i));
+		}
+		lblRezeptselektiert.setText(list.getSelectedValue().getName());
+		lblRezeptselektiert.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		listIngredientsRightSide.setModel(newModel);
+		textPane.setText(list.getSelectedValue().getReceipt());
+		lblCourse.setText(list.getSelectedValue().getCourse().toString());
+		lblDifficulty.setText(list.getSelectedValue().getDifficulty().toString());
+		lblDuration.setText(list.getSelectedValue().getDuration()+" min");
 	}
 
 	protected void searchAndDisplay(String text) {
