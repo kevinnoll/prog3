@@ -27,6 +27,8 @@ import javax.swing.JTextPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -59,6 +61,7 @@ public class Kochbuch extends JFrame {
 	private JList<Receipt> list;
 	private JScrollPane scrollPane_2;
 	private JButton searchButton;
+	private JList<Ingredient> listIngredientsRightSide;
 
 	/**
 	 * Launch the application.
@@ -149,8 +152,8 @@ public class Kochbuch extends JFrame {
 		JScrollPane scrollPane_3 = new JScrollPane();
 		panel_1.add(scrollPane_3, "cell 0 1 4 1,grow");
 		
-		JList list_1 = new JList();
-		scrollPane_3.setViewportView(list_1);
+		listIngredientsRightSide = new JList<Ingredient>();
+		scrollPane_3.setViewportView(listIngredientsRightSide);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_2.add(scrollPane_1, "flowx,cell 0 0,grow");
@@ -204,7 +207,7 @@ public class Kochbuch extends JFrame {
 		comboBoxCategory.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == e.SELECTED) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
 					filterList(comboBoxCategory.getSelectedItem().toString());
 				}
 			}
@@ -235,6 +238,18 @@ public class Kochbuch extends JFrame {
 
 		scrollPane_2 = new JScrollPane();
 		list = new JList<Receipt>();
+		ListSelectionListener listSelectionListener = new ListSelectionListener() {
+		      public void valueChanged(ListSelectionEvent listSelectionEvent) {
+		    	  if(listSelectionEvent.getValueIsAdjusting()){
+		    		  DefaultListModel<Ingredient> newModel = new DefaultListModel<Ingredient>();
+		    		  for(int i = 0; i < list.getSelectedValue().getIngredients().size(); i++){
+		    			  newModel.addElement(list.getSelectedValue().getIngredients().get(i));
+		    		  }
+		    		  listIngredientsRightSide.setModel(newModel);
+		    	  }
+		      }
+		};
+		list.addListSelectionListener(listSelectionListener);
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING).addGroup(
