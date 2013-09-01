@@ -43,6 +43,7 @@ import javax.swing.JTable;
 
 public class NewReceipt extends JFrame {
 
+	public static int CURRENT_ID = 3;
 	/**
 	 * 
 	 */
@@ -62,6 +63,7 @@ public class NewReceipt extends JFrame {
 	private DefaultTableModel tableModel;
 	private JComboBox<Difficulty> comboBoxDifficulty;
 	private JButton btnSave;
+	
 
 	public static synchronized NewReceipt getInstance() {
 		if (instance == null)
@@ -174,13 +176,14 @@ public class NewReceipt extends JFrame {
 				if(textFieldTitle.getText().trim().isEmpty() || textPane.getText().trim().isEmpty()){
 					JOptionPane.showMessageDialog(btnSave, "Bitte alles ausfüllen!");
 				} else {
-					Receipt toReturn = new Receipt(textFieldTitle.getText(),
+					Receipt toReturn = new Receipt(CURRENT_ID, textFieldTitle.getText(),
 							textPane.getText(),
 							Integer.parseInt(spinner.getValue().toString()),
 							Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()),
 							Course.valueOf(comboBoxGang.getSelectedItem().toString()),
 							ingredientList,
 							comboBoxCategory.getSelectedItem().toString());
+					CURRENT_ID++;
 					ReceiptList.getInstance().add(toReturn);
 					Kochbuch.getInstance().setNewReceipt();
 					dispose();

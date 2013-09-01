@@ -8,6 +8,7 @@ public class Receipt implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int iD;
 	private String name;
 	private int duration;
 	private Difficulty difficulty;
@@ -18,7 +19,8 @@ public class Receipt implements Serializable {
 
 	//TODO	private LinkedList<String> tagList;
 
-	public Receipt(String name, String receipt, int duration, Difficulty difficulty, Course course, LinkedList<Ingredient> ingredientList, String category) {
+	public Receipt(int iD, String name, String receipt, int duration, Difficulty difficulty, Course course, LinkedList<Ingredient> ingredientList, String category) {
+		this.iD = iD;
 		this.name = name;
 		this.receipt = receipt;
 		this.duration = duration;
@@ -26,6 +28,14 @@ public class Receipt implements Serializable {
 		this.ingredientList = ingredientList;
 		this.course = course;
 		this.category = category;
+	}
+
+	public int getiD() {
+		return iD;
+	}
+
+	public void setiD(int iD) {
+		this.iD = iD;
 	}
 
 	public Course getCourse() {
@@ -86,8 +96,8 @@ public class Receipt implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Receipt [name=" + name + ", duration=" + duration + ", difficulty=" + difficulty + ", receipt=" + receipt + ", ingredientList="
-				+ ingredientList + ", category=" + category + "]";
+		return "Receipt [iD=" + iD + ", name=" + name + ", duration=" + duration + ", difficulty=" + difficulty + ", receipt=" + receipt + ", ingredientList="
+				+ ingredientList + ", course=" + course + ", category=" + category + "]";
 	}
 
 }

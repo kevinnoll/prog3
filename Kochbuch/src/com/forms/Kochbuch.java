@@ -284,7 +284,7 @@ public class Kochbuch extends JFrame {
 
 		ReceiptList.getInstance().add(getMeTheReceipt());
 		ReceiptList.getInstance().add(getMeTheReceipt2());
-		ReceiptList.getInstance().add(new Receipt("test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
+		ReceiptList.getInstance().add(new Receipt(2,"test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
 		entries = new DefaultListModel<Receipt>();
 
 		entries.addElement(ReceiptList.getInstance().get(0));
@@ -387,7 +387,7 @@ public class Kochbuch extends JFrame {
 		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die petersilie"
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
+		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
 		return receipt;
 	}
 	
@@ -406,7 +406,7 @@ public class Kochbuch extends JFrame {
 		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die "
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die scheise " + "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
+		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
 		return receipt;
 	}
 
