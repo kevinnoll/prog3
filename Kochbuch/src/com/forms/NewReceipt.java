@@ -136,16 +136,18 @@ public class NewReceipt extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// delete selected Object from the list of Ingredients
 				int row = table.getSelectedRow();
-				ingredientList.remove(getIngredientIndexFromTable(row));
+				ingredientList.remove(getIngredientIndexFromTable((DefaultTableModel)table.getModel(), row));
 				// delete selected Object from the List Form
-				tableModel.removeRow(row);
+				DefaultTableModel tmpModel = (DefaultTableModel)table.getModel();
+				tmpModel.removeRow(row);
+				table.setModel(tmpModel);
 				// entries.removeElement(jList.getSelectedValue());
 			}
 
-			private int getIngredientIndexFromTable(int row) {
-				String name = tableModel.getValueAt(row, 2).toString();
-				Entity entity = Entity.valueOf(tableModel.getValueAt(row, 1).toString());
-				Double quantity = Double.parseDouble(tableModel.getValueAt(row, 0).toString());
+			private int getIngredientIndexFromTable(DefaultTableModel defaultModel, int row) {
+				String name = defaultModel.getValueAt(row, 2).toString();
+				Entity entity = Entity.valueOf(defaultModel.getValueAt(row, 1).toString());
+				Double quantity = Double.parseDouble(defaultModel.getValueAt(row, 0).toString());
 				for (int i = 0; i < ingredientList.size(); i++) {
 					Ingredient tmp = ingredientList.get(i);
 					if (tmp.getName().equals(name) && tmp.getQuantity() == quantity && tmp.getEntity().equals(entity)) {
@@ -170,7 +172,7 @@ public class NewReceipt extends JFrame {
 		JButton btnDiscard = new JButton("Verwerfen");
 		btnDiscard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Kochbuch.getInstance().setCategories();
+				dispose();
 			}
 		});
 
@@ -358,6 +360,8 @@ public class NewReceipt extends JFrame {
 		);
 		
 		table = new JTable();
+		table.setShowVerticalLines(false);
+		table.setShowGrid(false);
 		table.setFillsViewportHeight(true);
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
