@@ -94,10 +94,15 @@ public class Receipt implements Serializable {
 		this.category = category;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Receipt [iD=" + iD + ", name=" + name + ", duration=" + duration + ", difficulty=" + difficulty + ", receipt=" + receipt + ", ingredientList="
+//				+ ingredientList + ", course=" + course + ", category=" + category + "]";
+//	}
+	
 	@Override
-	public String toString() {
-		return "Receipt [iD=" + iD + ", name=" + name + ", duration=" + duration + ", difficulty=" + difficulty + ", receipt=" + receipt + ", ingredientList="
-				+ ingredientList + ", course=" + course + ", category=" + category + "]";
+	public String toString(){
+		return name;
 	}
 
 }
