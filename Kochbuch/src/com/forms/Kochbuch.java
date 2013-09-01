@@ -41,6 +41,7 @@ import com.receipt.Ingredient;
 import com.receipt.Receipt;
 import com.receipt.ReceiptList;
 import com.serializer.ReceiptListSerializer;
+import java.awt.Dimension;
 
 public class Kochbuch extends JFrame {
 
@@ -62,7 +63,12 @@ public class Kochbuch extends JFrame {
 	private JScrollPane scrollPane_2;
 	private JButton searchButton;
 	private JList<Ingredient> listIngredientsRightSide;
-
+	private JTextPane textPane;
+	private JLabel lblRezeptselektiert;
+	private JLabel lblDifficulty;
+	private JLabel lblDuration;	
+	private JLabel lblCourse;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -141,7 +147,7 @@ public class Kochbuch extends JFrame {
 										.addContainerGap()));
 		panel_1.setLayout(new MigLayout("", "[grow][][][][grow]", "[][grow][][grow][][][]"));
 
-		JLabel lblRezeptselektiert = new JLabel("Rezept (selektiert)");
+		lblRezeptselektiert = new JLabel("Rezept (selektiert)");
 		panel_1.add(lblRezeptselektiert, "cell 0 0");
 
 		JPanel panel_2 = new JPanel();
@@ -170,26 +176,27 @@ public class Kochbuch extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		panel_1.add(scrollPane, "cell 0 3 5 1,grow");
 
-		JTextPane textPane = new JTextPane();
+		textPane = new JTextPane();
+		textPane.setMaximumSize(new Dimension(2147483647, 500));
 		scrollPane.setViewportView(textPane);
 
 		JLabel lblSchwierigkeit = new JLabel("Schwierigkeit:");
 		panel_1.add(lblSchwierigkeit, "cell 0 4");
 
-		JLabel lblNewLabel_1 = new JLabel("Einfach");
-		panel_1.add(lblNewLabel_1, "cell 1 4");
+		lblDifficulty = new JLabel("Einfach");
+		panel_1.add(lblDifficulty, "cell 1 4");
 
 		JLabel lblDauer = new JLabel("Dauer:");
 		panel_1.add(lblDauer, "cell 0 5");
 
-		JLabel lblMin = new JLabel("20 min");
-		panel_1.add(lblMin, "cell 1 5");
+		lblDuration = new JLabel("20 min");
+		panel_1.add(lblDuration, "cell 1 5");
 
 		JLabel lblPlatzImMenu = new JLabel("Platz im Menu:");
 		panel_1.add(lblPlatzImMenu, "cell 0 6");
 
-		JLabel lblDessert = new JLabel("Dessert");
-		panel_1.add(lblDessert, "cell 1 6");
+		lblCourse = new JLabel("Dessert");
+		panel_1.add(lblCourse, "cell 1 6");
 
 		searchButton = new JButton("Los!");
 		searchButton.addActionListener(new ActionListener() {
@@ -245,6 +252,10 @@ public class Kochbuch extends JFrame {
 						newModel.addElement(list.getSelectedValue().getIngredients().get(i));
 					}
 					listIngredientsRightSide.setModel(newModel);
+					textPane.setText(list.getSelectedValue().getReceipt());
+					lblCourse.setText(list.getSelectedValue().getCourse().toString());
+					lblDifficulty.setText(list.getSelectedValue().getDifficulty().toString());
+					lblDuration.setText(list.getSelectedValue().getDuration()+" min");
 				}
 			}
 		};
