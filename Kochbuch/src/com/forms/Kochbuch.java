@@ -6,9 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -70,6 +73,7 @@ public class Kochbuch extends JFrame {
 	private JLabel lblDifficulty;
 	private JLabel lblDuration;	
 	private JLabel lblCourse;
+	private JLabel labelPicture;
 	
 	/**
 	 * Launch the application.
@@ -154,7 +158,7 @@ public class Kochbuch extends JFrame {
 
 		JPanel panel_2 = new JPanel();
 
-		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
+		
 
 		JScrollPane scrollPane_3 = new JScrollPane();
 		panel_1.add(scrollPane_3, "cell 0 1 4 1,grow");
@@ -164,8 +168,10 @@ public class Kochbuch extends JFrame {
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_2.add(scrollPane_1, "flowx,cell 0 0,grow");
-		JLabel label = new JLabel("", image, SwingConstants.CENTER);
-		scrollPane_1.setViewportView(label);
+		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
+		
+		labelPicture = new JLabel("", image, SwingConstants.CENTER);
+		scrollPane_1.setViewportView(labelPicture);
 		panel_1.add(panel_2, "cell 4 1,grow");
 		panel_2.setLayout(new MigLayout("", "[grow]", "[50px,grow]"));
 
@@ -322,12 +328,10 @@ public class Kochbuch extends JFrame {
 
 		ReceiptList.getInstance().add(getMeTheReceipt());
 		ReceiptList.getInstance().add(getMeTheReceipt2());
-		ReceiptList.getInstance().add(new Receipt(2, "test", "test", 5, Difficulty.einfach, Course.Dessert, new LinkedList<Ingredient>(), "bla"));
 		entries = new DefaultListModel<Receipt>();
 
 		entries.addElement(ReceiptList.getInstance().get(0));
 		entries.addElement(ReceiptList.getInstance().get(1));
-		entries.addElement(ReceiptList.getInstance().get(2));
 		list.setModel(entries);
 		list.setSelectedIndex(0);
 		fillRightPanel();
@@ -350,6 +354,7 @@ public class Kochbuch extends JFrame {
 		lblCourse.setText(list.getSelectedValue().getCourse().toString());
 		lblDifficulty.setText(list.getSelectedValue().getDifficulty().toString());
 		lblDuration.setText(list.getSelectedValue().getDuration()+" min");
+		labelPicture.setIcon(list.getSelectedValue().getImage());
 	}
 
 	protected void searchAndDisplay(String text) {
@@ -430,6 +435,8 @@ public class Kochbuch extends JFrame {
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
 
 		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
+		File file = new File("C:/Users/Kev1n/Desktop/diegroessten.jpg");
+		receipt.setImage(file);
 		return receipt;
 	}
 
@@ -449,6 +456,8 @@ public class Kochbuch extends JFrame {
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die scheise " + "drüberstreuen. Fertig.";
 
 		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
+		File file = new File("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
+		receipt.setImage(file);
 		return receipt;
 	}
 

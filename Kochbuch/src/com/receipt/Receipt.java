@@ -1,7 +1,13 @@
 package com.receipt;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Receipt implements Serializable {
 	/**
@@ -16,6 +22,7 @@ public class Receipt implements Serializable {
 	private LinkedList<Ingredient> ingredientList;
 	private Course course;
 	private String category;
+	private ImageIcon image;
 
 	//TODO	private LinkedList<String> tagList;
 
@@ -100,6 +107,21 @@ public class Receipt implements Serializable {
 //				+ ingredientList + ", course=" + course + ", category=" + category + "]";
 //	}
 	
+	public ImageIcon getImage() {
+		return image;
+	}
+
+	public void setImage(File image) {
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(image);
+		} catch (IOException e) {
+			System.out.println(e.getStackTrace());
+		}
+		this.image = new ImageIcon(img, "bild");
+	}
+	
+
 	@Override
 	public String toString(){
 		return name;
