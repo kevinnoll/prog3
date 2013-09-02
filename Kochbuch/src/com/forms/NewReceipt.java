@@ -370,7 +370,7 @@ public class NewReceipt extends JFrame {
 
 	private void addItemsToCategoryBox() {
 		Categories categories = Categories.getInstance();
-		for (int i = 0; i < categories.size(); i++) {
+		for (int i = 1; i < categories.size(); i++) { //bei 1 anfangen schliesst kategorie ALLE aus. 
 			comboBoxCategory.addItem(categories.get(i).toString());
 		}
 	}
