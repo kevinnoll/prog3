@@ -361,13 +361,17 @@ public class Kochbuch extends JFrame {
 			filterList(comboBoxCategory.getSelectedItem().toString());
 		} else {
 			for (int i = 0; i < tmpModel.size(); i++) {
+				boolean found = false;
 				if (tmpModel.getElementAt(i).getName().contains(searchText) || tmpModel.getElementAt(i).getReceipt().contains(searchText)) {
-					newModel.addElement(tmpModel.get(i));
+					found = true;
 				}
 				for (int j = 0; j < tmpModel.get(i).getIngredients().size(); j++) {
 					if (tmpModel.get(i).getIngredients().get(j).getName().contains(searchText)) {
-						newModel.addElement(tmpModel.get(i));
+						found = true;
 					}
+				}
+				if(found){
+					newModel.addElement(tmpModel.get(i));
 				}
 			}
 			list.setModel(newModel);
