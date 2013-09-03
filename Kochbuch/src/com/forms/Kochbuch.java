@@ -213,7 +213,11 @@ public class Kochbuch extends JFrame {
 							JOptionPane.DEFAULT_OPTION);
 				} else {
 					List<Ingredient> listOfIngredients = listIngredientsRightSide.getSelectedValuesList();
-					ShoppingList.getInstance().addAll(listOfIngredients);
+					for(int i = 0; i < listOfIngredients.size();i++){
+						if(!ShoppingList.getInstance().contains(listOfIngredients.get(i))){
+							ShoppingList.getInstance().add(listOfIngredients.get(i));
+						}
+					}
 				}
 			}
 		});
