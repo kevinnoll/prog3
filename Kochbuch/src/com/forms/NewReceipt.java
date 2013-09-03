@@ -74,6 +74,7 @@ public class NewReceipt extends JFrame {
 	private int receiptId;
 	private JTable table;
 	private File file;
+	private JLabel lblAnlegen;
 
 	static private String newline = "\n";
 	private JFileChooser fc;
@@ -108,7 +109,7 @@ public class NewReceipt extends JFrame {
 		tableModel = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Neues Rezept");
+		setTitle("Neues Rezept/Rezept bearbeiten");
 		setBounds(100, 100, 460, 777);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
@@ -209,6 +210,7 @@ public class NewReceipt extends JFrame {
 								Receipt toReturn = new Receipt(receiptId, textFieldTitle.getText(), textPane.getText(), Integer.parseInt(spinner.getValue()
 										.toString()), Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()), Course.valueOf(comboBoxGang
 										.getSelectedItem().toString()), ingredientList, comboBoxCategory.getSelectedItem().toString());
+								toReturn.setImage(new File(txtPfad.getText()));
 								ReceiptList.getInstance().set(i, toReturn);
 								Kochbuch.getInstance().setReceipts();
 								dispose();
@@ -284,7 +286,7 @@ public class NewReceipt extends JFrame {
 			}
 		});
 
-		JLabel lblAnlegen = new JLabel("Anlegen");
+		lblAnlegen = new JLabel("Anlegen");
 		lblAnlegen.setFont(new Font("Calibri", Font.BOLD, 18));
 
 		Object[][] data = { { "1", "gramm", "bier" } };
@@ -435,6 +437,7 @@ public class NewReceipt extends JFrame {
 		comboBoxDifficulty.setSelectedIndex(0);
 		comboBoxGang.setSelectedIndex(0);
 		comboBoxCategory.setSelectedIndex(0);
+		lblAnlegen.setText("Anlegen:");
 	}
 
 	private void insertInTable(Ingredient ingredient) {
@@ -450,6 +453,7 @@ public class NewReceipt extends JFrame {
 
 	public void setFields(Receipt selectedValue) {
 		resetFields();
+		lblAnlegen.setText("Bearbeiten:");
 		newReceipt = false;
 		receiptId = selectedValue.getiD();
 		ingredientList = new LinkedList<Ingredient>();
@@ -466,5 +470,6 @@ public class NewReceipt extends JFrame {
 		comboBoxDifficulty.setSelectedItem(selectedValue.getDifficulty());
 		comboBoxGang.setSelectedItem(selectedValue.getCourse());
 		comboBoxCategory.setSelectedItem(selectedValue.getCategory());
+		txtPfad.setText(selectedValue.getImagefile().getAbsolutePath());
 	}
 }
