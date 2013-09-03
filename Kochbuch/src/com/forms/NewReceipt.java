@@ -34,7 +34,6 @@ import com.receipt.Entity;
 import com.receipt.Ingredient;
 import com.receipt.Receipt;
 import com.receipt.ReceiptList;
-import com.serializer.FileChooserDemo2;
 import com.serializer.ImageFileView;
 import com.serializer.ImageFilter;
 import com.serializer.ImagePreview;
