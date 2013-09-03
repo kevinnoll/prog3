@@ -1,6 +1,7 @@
 package com.factories;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
@@ -11,6 +12,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
+
+import com.forms.ShoppingListDialog;
 
 public class MenuBarFactory {
 	public static JMenuBar getTheMenuBar() {
@@ -27,20 +30,16 @@ public class MenuBarFactory {
 		// Build the first menu.
 		menu = new JMenu("Datei");
 		menu.setMnemonic(KeyEvent.VK_A);
-		menu.getAccessibleContext().setAccessibleDescription(
-				"Datei!");
+		menu.getAccessibleContext().setAccessibleDescription("Datei!");
 		menuBar.add(menu);
 
 		// a group of JMenuItems
 		menuItem = new JMenuItem("A text-only menu item", KeyEvent.VK_T);
-		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1,
-				ActionEvent.ALT_MASK));
-		menuItem.getAccessibleContext().setAccessibleDescription(
-				"This doesn't really do anything");
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
 		menu.add(menuItem);
 
-		menuItem = new JMenuItem("Both text and icon", new ImageIcon(
-				"images/middle.gif"));
+		menuItem = new JMenuItem("Both text and icon", new ImageIcon("images/middle.gif"));
 		menuItem.setMnemonic(KeyEvent.VK_B);
 		menu.add(menuItem);
 
@@ -78,8 +77,7 @@ public class MenuBarFactory {
 		submenu.setMnemonic(KeyEvent.VK_S);
 
 		menuItem = new JMenuItem("An item in the submenu");
-		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2,
-				ActionEvent.ALT_MASK));
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
 		submenu.add(menuItem);
 
 		menuItem = new JMenuItem("Another item");
@@ -89,9 +87,27 @@ public class MenuBarFactory {
 		// Build second menu in the menu bar.
 		menu = new JMenu("Another Menu");
 		menu.setMnemonic(KeyEvent.VK_N);
-		menu.getAccessibleContext().setAccessibleDescription(
-				"This menu does nothing");
+		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
 		menuBar.add(menu);
+
+		menu = new JMenu("ShoppingList");
+		menu.setMnemonic(KeyEvent.VK_S);
+		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
+		menuBar.add(menu);
+
+		// a group of JMenuItems
+		menuItem = new JMenuItem("ShoppingListe anzeigen", KeyEvent.VK_T);
+		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
+		menuItem.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+		menuItem.addActionListener(new ActionListener() {
+			public final void actionPerformed(final ActionEvent e) {
+				ShoppingListDialog shoppingListDialog = new ShoppingListDialog();
+				shoppingListDialog.setVisible(true);
+			}
+		});
+
+		menu.add(menuItem);
+
 		return menuBar;
 	}
 }
