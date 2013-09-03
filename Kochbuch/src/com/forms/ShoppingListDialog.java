@@ -3,6 +3,7 @@ package com.forms;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -16,7 +17,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import com.receipt.Entity;
 import com.receipt.Ingredient;
@@ -59,6 +59,16 @@ public class ShoppingListDialog extends JDialog {
 		JScrollPane scrollPane = new JScrollPane();
 
 		JButton btnDrucken = new JButton("Drucken");
+		btnDrucken.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					boolean complete = table.print();
+				} catch (PrinterException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 
 		JButton btnVerwerfen = new JButton("Verwerfen");
 		btnVerwerfen.addActionListener(new ActionListener() {
@@ -122,7 +132,6 @@ public class ShoppingListDialog extends JDialog {
 										.addComponent(btnAllesVerwerfen)).addGap(9)));
 
 		table = new JTable();
-		table.setShowHorizontalLines(false);
 		table.setShowVerticalLines(false);
 		table.setShowGrid(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
