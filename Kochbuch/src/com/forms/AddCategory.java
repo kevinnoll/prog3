@@ -1,24 +1,23 @@
 package com.forms;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
+import javax.swing.border.EmptyBorder;
 
 import com.receipt.Categories;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class AddCategory extends JFrame {
+public class AddCategory extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField textFieldCategory;
@@ -43,6 +42,7 @@ public class AddCategory extends JFrame {
 	 * Create the frame.
 	 */
 	public AddCategory() {
+		setModal(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 285, 112);

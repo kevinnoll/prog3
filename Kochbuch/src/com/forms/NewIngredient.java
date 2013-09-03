@@ -3,12 +3,15 @@ package com.forms;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,8 +22,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.receipt.Entity;
 import com.receipt.Ingredient;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 /**
  * DialogClass to create a Ingredient.
@@ -28,7 +29,7 @@ import java.awt.event.FocusEvent;
  * @author Kevin Noll
  * 
  */
-public class NewIngredient extends JFrame {
+public class NewIngredient extends JDialog {
 
 	/**
 	 * 
@@ -69,6 +70,7 @@ public class NewIngredient extends JFrame {
 	 * Create the frame.
 	 */
 	public NewIngredient() {
+		setModal(true);
 		setResizable(false);
 		setTitle("Zutat anlegen");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

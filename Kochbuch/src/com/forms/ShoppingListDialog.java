@@ -49,6 +49,8 @@ public class ShoppingListDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public ShoppingListDialog() {
+		setModal(true);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Shoppingliste");
 
 		setBounds(100, 100, 477, 541);
