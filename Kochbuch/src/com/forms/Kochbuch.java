@@ -151,17 +151,17 @@ public class Kochbuch extends JFrame {
 						.addGroup(
 								groupLayout.createSequentialGroup().addGap(8).addComponent(separator, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
 										.addContainerGap()));
-		panel_1.setLayout(new MigLayout("", "[grow][][][][grow]", "[][grow][][grow][][][]"));
+		panel_1.setLayout(new MigLayout("", "[][grow]", "[][grow][][grow][][][]"));
 
 		lblRezeptselektiert = new JLabel("Rezept (selektiert)");
-		panel_1.add(lblRezeptselektiert, "cell 0 0 5 1,growx");
+		panel_1.add(lblRezeptselektiert, "cell 0 0 2 1,growx");
 
 		JPanel panel_2 = new JPanel();
 
 		
 
 		JScrollPane scrollPane_3 = new JScrollPane();
-		panel_1.add(scrollPane_3, "cell 0 1 4 1,grow");
+		panel_1.add(scrollPane_3, "cell 0 1,grow");
 
 		listIngredientsRightSide = new JList<Ingredient>();
 		scrollPane_3.setViewportView(listIngredientsRightSide);
@@ -172,18 +172,18 @@ public class Kochbuch extends JFrame {
 		
 		labelPicture = new JLabel("", image, SwingConstants.CENTER);
 		scrollPane_1.setViewportView(labelPicture);
-		panel_1.add(panel_2, "cell 4 1,grow");
+		panel_1.add(panel_2, "cell 1 1,grow");
 		panel_2.setLayout(new MigLayout("", "[grow]", "[50px,grow]"));
 
 		JButton btnNewButton = new JButton("Auf Shoppingliste setzen");
-		panel_1.add(btnNewButton, "cell 0 2 4 1,growx");
+		panel_1.add(btnNewButton, "cell 0 2,growx");
 
 		JButton btnNewButton_1 = new JButton("Shoppingliste ansehen");
-		panel_1.add(btnNewButton_1, "cell 4 2,growx");
+		panel_1.add(btnNewButton_1, "cell 1 2,growx");
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setPreferredSize(new Dimension(2, 200));
-		panel_1.add(scrollPane, "cell 0 3 5 1,grow");
+		panel_1.add(scrollPane, "cell 0 3 2 1,grow");
 
 		textPane = new JTextPane();
 		textPane.setPreferredSize(new Dimension(6, 200));
@@ -193,21 +193,21 @@ public class Kochbuch extends JFrame {
 
 		JLabel lblSchwierigkeit = new JLabel("Schwierigkeit:");
 		panel_1.add(lblSchwierigkeit, "cell 0 4");
-
-		lblDifficulty = new JLabel("Einfach");
-		panel_1.add(lblDifficulty, "cell 1 4");
+		
+				lblDifficulty = new JLabel("Einfach");
+				panel_1.add(lblDifficulty, "cell 1 4");
 
 		JLabel lblDauer = new JLabel("Dauer:");
 		panel_1.add(lblDauer, "cell 0 5");
-
-		lblDuration = new JLabel("20 min");
-		panel_1.add(lblDuration, "cell 1 5");
+		
+				lblDuration = new JLabel("20 min");
+				panel_1.add(lblDuration, "cell 1 5");
 
 		JLabel lblPlatzImMenu = new JLabel("Platz im Menu:");
 		panel_1.add(lblPlatzImMenu, "cell 0 6");
-
-		lblCourse = new JLabel("Dessert");
-		panel_1.add(lblCourse, "cell 1 6");
+		
+				lblCourse = new JLabel("Dessert");
+				panel_1.add(lblCourse, "cell 1 6");
 
 		searchButton = new JButton("Los!");
 		searchButton.addActionListener(new ActionListener() {
@@ -418,21 +418,25 @@ public class Kochbuch extends JFrame {
 	}
 
 	private Receipt getMeTheReceipt() {
-		Ingredient ingredient1 = new Ingredient("Kartoffel", Entity.kg, 1);
+		Ingredient ingredient1 = new Ingredient("Rinderhack", Entity.g, 150);
 		Ingredient ingredient2 = new Ingredient("Salz", Entity.g, 10);
-		Ingredient ingredient3 = new Ingredient("Wasser", Entity.Liter, 2.5);
-		Ingredient ingredient4 = new Ingredient("Petersilie", Entity.Stück, 1);
+		Ingredient ingredient5 = new Ingredient("Pfeffer", Entity.g, 10);
+		Ingredient ingredient3 = new Ingredient("Salat", Entity.Stück, 1);
+		Ingredient ingredient4 = new Ingredient("Brötchen", Entity.Stück, 1);
+		Ingredient ingredient6 = new Ingredient("Ketchup", Entity.Milliliter, 20);
 		LinkedList<Ingredient> ingredients = new LinkedList<Ingredient>();
 		ingredients.add(ingredient1);
 		ingredients.add(ingredient2);
 		ingredients.add(ingredient3);
 		ingredients.add(ingredient4);
+		ingredients.add(ingredient5);
+		ingredients.add(ingredient6);
+		
 
-		LinkedList<String> categories = new LinkedList<String>();
-		categories.add("Kartoffel");
-		String rezeptname = "Salzkartoffeln mit Petersilie";
-		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die petersilie"
-				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
+		String rezeptname = "Burger";
+		String anleitung = "Das Hackfleisch mit dem Salz und dem Pfeffer würzen, eine flache Scheibe formen ganz durchbraten."
+				+ " Das Brötchen in der in der Hälfte aufschneiden, nach Wunsch toasten und mit dem Ketchup nach Belieben bestreichen."
+				+ " Das fertig gebratene Hackfleisch aus der Pfanne nehmen und auf den Ketchup legen. Anschließend mit Salat garnieren. Fertig. ";
 
 		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
 		File file = new File("images/burger.jpg");
@@ -452,11 +456,11 @@ public class Kochbuch extends JFrame {
 		LinkedList<String> categories = new LinkedList<String>();
 		categories.add("Kartoffel");
 		String rezeptname = "Salzkartoffeln";
-		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die "
-				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die scheise " + "drüberstreuen. Fertig.";
+		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die Petersilie"
+				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
 
 		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
-		File file = new File("images/burger.jpg");
+		File file = new File("images/salzkartoffeln.png");
 		receipt.setImage(file);
 		return receipt;
 	}
