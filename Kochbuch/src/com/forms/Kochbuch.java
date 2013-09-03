@@ -10,9 +10,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -45,8 +47,10 @@ import com.receipt.Ingredient;
 import com.receipt.Receipt;
 import com.receipt.ReceiptList;
 import com.serializer.ReceiptListSerializer;
+import com.shoppinglist.ShoppingList;
 
 import java.awt.Dimension;
+import java.awt.Cursor;
 
 public class Kochbuch extends JFrame {
 
@@ -71,10 +75,10 @@ public class Kochbuch extends JFrame {
 	private JTextPane textPane;
 	private JLabel lblRezeptselektiert;
 	private JLabel lblDifficulty;
-	private JLabel lblDuration;	
+	private JLabel lblDuration;
 	private JLabel lblCourse;
 	private JLabel labelPicture;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -158,27 +162,70 @@ public class Kochbuch extends JFrame {
 
 		JPanel panel_2 = new JPanel();
 
-		
-
 		JScrollPane scrollPane_3 = new JScrollPane();
 		panel_1.add(scrollPane_3, "cell 0 1,grow");
 
 		listIngredientsRightSide = new JList<Ingredient>();
+		listIngredientsRightSide.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		listIngredientsRightSide.setSelectionModel(new DefaultListSelectionModel() {
+			private int i0 = -1;
+			private int i1 = -1;
+
+			public void setSelectionInterval(int index0, int index1) {
+				if (i0 == index0 && i1 == index1) {
+					if (getValueIsAdjusting()) {
+						setValueIsAdjusting(false);
+						setSelection(index0, index1);
+					}
+				} else {
+					i0 = index0;
+					i1 = index1;
+					setValueIsAdjusting(false);
+					setSelection(index0, index1);
+				}
+			}
+
+			private void setSelection(int index0, int index1) {
+				if (super.isSelectedIndex(index0)) {
+					super.removeSelectionInterval(index0, index1);
+				} else {
+					super.addSelectionInterval(index0, index1);
+				}
+			}
+		});
 		scrollPane_3.setViewportView(listIngredientsRightSide);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_2.add(scrollPane_1, "flowx,cell 0 0,grow");
 		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
-		
+
 		labelPicture = new JLabel("", image, SwingConstants.CENTER);
+		labelPicture.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		scrollPane_1.setViewportView(labelPicture);
 		panel_1.add(panel_2, "cell 1 1,grow");
 		panel_2.setLayout(new MigLayout("", "[grow]", "[50px,grow]"));
 
 		JButton btnNewButton = new JButton("Auf Shoppingliste setzen");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (listIngredientsRightSide.getSelectedIndex() == -1) {
+					JOptionPane.showConfirmDialog(listIngredientsRightSide, "Bitte eine Zutat zum Hinzufügen auswählen", "Keine Zutat angeklickt",
+							JOptionPane.DEFAULT_OPTION);
+				} else {
+					List<Ingredient> listOfIngredients = listIngredientsRightSide.getSelectedValuesList();
+					ShoppingList.getInstance().addAll(listOfIngredients);
+				}
+			}
+		});
 		panel_1.add(btnNewButton, "cell 0 2,growx");
 
 		JButton btnNewButton_1 = new JButton("Shoppingliste ansehen");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ShoppingListDialog shoppingListDialog = new ShoppingListDialog();
+				shoppingListDialog.setVisible(true);
+			}
+		});
 		panel_1.add(btnNewButton_1, "cell 1 2,growx");
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -193,21 +240,21 @@ public class Kochbuch extends JFrame {
 
 		JLabel lblSchwierigkeit = new JLabel("Schwierigkeit:");
 		panel_1.add(lblSchwierigkeit, "cell 0 4");
-		
-				lblDifficulty = new JLabel("Einfach");
-				panel_1.add(lblDifficulty, "cell 1 4");
+
+		lblDifficulty = new JLabel("Einfach");
+		panel_1.add(lblDifficulty, "cell 1 4");
 
 		JLabel lblDauer = new JLabel("Dauer:");
 		panel_1.add(lblDauer, "cell 0 5");
-		
-				lblDuration = new JLabel("20 min");
-				panel_1.add(lblDuration, "cell 1 5");
+
+		lblDuration = new JLabel("20 min");
+		panel_1.add(lblDuration, "cell 1 5");
 
 		JLabel lblPlatzImMenu = new JLabel("Platz im Menu:");
 		panel_1.add(lblPlatzImMenu, "cell 0 6");
-		
-				lblCourse = new JLabel("Dessert");
-				panel_1.add(lblCourse, "cell 1 6");
+
+		lblCourse = new JLabel("Dessert");
+		panel_1.add(lblCourse, "cell 1 6");
 
 		searchButton = new JButton("Los!");
 		searchButton.addActionListener(new ActionListener() {
@@ -255,10 +302,13 @@ public class Kochbuch extends JFrame {
 
 		scrollPane_2 = new JScrollPane();
 		list = new JList<Receipt>();
+		list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		ListSelectionListener listSelectionListener = new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent listSelectionEvent) {
 				if (listSelectionEvent.getValueIsAdjusting()) {
-					fillRightPanel();
+					if (list.getSelectedIndex() != -1) {
+						fillRightPanel();
+					}
 				}
 			}
 		};
@@ -270,7 +320,8 @@ public class Kochbuch extends JFrame {
 		btnRezeptBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (list.getSelectedIndex() == -1) {
-					JOptionPane.showConfirmDialog(scrollPane_2, "Bitte ein Rezept zum bearbeiten auswählen", "Kein Rezept angeklickt", JOptionPane.DEFAULT_OPTION);
+					JOptionPane.showConfirmDialog(scrollPane_2, "Bitte ein Rezept zum bearbeiten auswählen", "Kein Rezept angeklickt",
+							JOptionPane.DEFAULT_OPTION);
 				} else {
 					NewReceipt.getInstance().setFields(list.getSelectedValue());
 					NewReceipt.getInstance().setVisible(true);
@@ -353,7 +404,7 @@ public class Kochbuch extends JFrame {
 		textPane.setText(list.getSelectedValue().getReceipt());
 		lblCourse.setText(list.getSelectedValue().getCourse().toString());
 		lblDifficulty.setText(list.getSelectedValue().getDifficulty().toString());
-		lblDuration.setText(list.getSelectedValue().getDuration()+" min");
+		lblDuration.setText(list.getSelectedValue().getDuration() + " min");
 		labelPicture.setIcon(list.getSelectedValue().getImage());
 	}
 
@@ -375,7 +426,7 @@ public class Kochbuch extends JFrame {
 						found = true;
 					}
 				}
-				if(found){
+				if (found) {
 					newModel.addElement(tmpModel.get(i));
 				}
 			}
@@ -431,7 +482,6 @@ public class Kochbuch extends JFrame {
 		ingredients.add(ingredient4);
 		ingredients.add(ingredient5);
 		ingredients.add(ingredient6);
-		
 
 		String rezeptname = "Burger";
 		String anleitung = "Das Hackfleisch mit dem Salz und dem Pfeffer würzen, eine flache Scheibe formen ganz durchbraten."
@@ -453,13 +503,11 @@ public class Kochbuch extends JFrame {
 		ingredients.add(ingredient2);
 		ingredients.add(ingredient3);
 
-		LinkedList<String> categories = new LinkedList<String>();
-		categories.add("Kartoffel");
 		String rezeptname = "Salzkartoffeln";
 		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die Petersilie"
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
+		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(1));
 		File file = new File("images/salzkartoffeln.png");
 		receipt.setImage(file);
 		return receipt;
