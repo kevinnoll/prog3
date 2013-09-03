@@ -57,7 +57,6 @@ public class ImageFilter extends FileFilter {
                 return false;
             }
         }
-
         return false;
     }
 

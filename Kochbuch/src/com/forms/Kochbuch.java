@@ -435,7 +435,7 @@ public class Kochbuch extends JFrame {
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
 
 		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
-		File file = new File("C:/Users/Kev1n/Desktop/diegroessten.jpg");
+		File file = new File("images/burger.jpg");
 		receipt.setImage(file);
 		return receipt;
 	}
@@ -456,7 +456,7 @@ public class Kochbuch extends JFrame {
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die scheise " + "drüberstreuen. Fertig.";
 
 		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
-		File file = new File("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
+		File file = new File("images/burger.jpg");
 		receipt.setImage(file);
 		return receipt;
 	}
