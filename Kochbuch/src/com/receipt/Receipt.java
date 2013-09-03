@@ -23,6 +23,7 @@ public class Receipt implements Serializable {
 	private Course course;
 	private String category;
 	private ImageIcon image;
+	private File imagefile;
 
 	//TODO	private LinkedList<String> tagList;
 
@@ -112,6 +113,7 @@ public class Receipt implements Serializable {
 	}
 
 	public void setImage(File image) {
+		setImagefile(image);
 		BufferedImage img = null;
 		try {
 		    img = ImageIO.read(image);
@@ -121,6 +123,14 @@ public class Receipt implements Serializable {
 		this.image = new ImageIcon(img, "bild");
 	}
 	
+
+	public File getImagefile() {
+		return imagefile;
+	}
+
+	public void setImagefile(File imagefile) {
+		this.imagefile = imagefile;
+	}
 
 	@Override
 	public String toString(){
