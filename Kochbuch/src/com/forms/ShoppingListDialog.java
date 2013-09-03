@@ -16,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import com.receipt.Entity;
 import com.receipt.Ingredient;
@@ -87,6 +88,9 @@ public class ShoppingListDialog extends JDialog {
 		JButton btnAllesVerwerfen = new JButton("Alles Verwerfen");
 		btnAllesVerwerfen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel tmpModel = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
+				table.setModel(tmpModel);
+				ShoppingList.getInstance().clear();
 			}
 		});
 
@@ -134,6 +138,11 @@ public class ShoppingListDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				cancelButton = new JButton("Schlie\u00DFen");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 			}
 			GroupLayout gl_buttonPane = new GroupLayout(buttonPane);
