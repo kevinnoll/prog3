@@ -48,6 +48,7 @@ import javax.swing.JTable;
 
 import java.awt.Dimension;
 import java.io.File;
+import javax.swing.ListSelectionModel;
 
 public class NewReceipt extends JFrame {
 
@@ -406,6 +407,7 @@ public class NewReceipt extends JFrame {
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(btnDiscard).addComponent(btnSave)).addGap(20)));
 
 		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setShowVerticalLines(false);
 		table.setShowGrid(false);
 		table.setFillsViewportHeight(true);

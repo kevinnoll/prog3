@@ -122,6 +122,9 @@ public class ShoppingListDialog extends JDialog {
 										.addComponent(btnAllesVerwerfen)).addGap(9)));
 
 		table = new JTable();
+		table.setShowHorizontalLines(false);
+		table.setShowVerticalLines(false);
+		table.setShowGrid(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFillsViewportHeight(true);
 		DefaultTableModel tableModel = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
