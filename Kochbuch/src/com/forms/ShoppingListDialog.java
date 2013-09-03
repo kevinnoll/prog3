@@ -1,7 +1,6 @@
 package com.forms;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,9 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.receipt.Entity;
+import com.receipt.Ingredient;
 import com.shoppinglist.ShoppingList;
 
 public class ShoppingListDialog extends JDialog {
@@ -58,6 +60,29 @@ public class ShoppingListDialog extends JDialog {
 		JButton btnDrucken = new JButton("Drucken");
 
 		JButton btnVerwerfen = new JButton("Verwerfen");
+		btnVerwerfen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// delete selected Object from the list of Ingredients
+				int row = table.getSelectedRow();
+				// delete selected Object from the List Form
+				DefaultTableModel tmpModel = (DefaultTableModel) table.getModel();
+				removeFromShoppingList(tmpModel, row);
+				tmpModel.removeRow(row);
+			}
+
+			private void removeFromShoppingList(DefaultTableModel defaultModel, int row) {
+				String name = defaultModel.getValueAt(row, 2).toString();
+				Entity entity = Entity.valueOf(defaultModel.getValueAt(row, 1).toString());
+				Double quantity = Double.parseDouble(defaultModel.getValueAt(row, 0).toString());
+				for (int i = 0; i < ShoppingList.getInstance().size(); i++) {
+					Ingredient tmp = ShoppingList.getInstance().get(i);
+					if (tmp.getName().equals(name) && tmp.getQuantity() == quantity && tmp.getEntity().equals(entity)) {
+						ShoppingList.getInstance().remove(i);
+					}
+				}
+			}
+
+		});
 
 		JButton btnAllesVerwerfen = new JButton("Alles Verwerfen");
 		btnAllesVerwerfen.addActionListener(new ActionListener() {
@@ -93,6 +118,7 @@ public class ShoppingListDialog extends JDialog {
 										.addComponent(btnAllesVerwerfen)).addGap(9)));
 
 		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setFillsViewportHeight(true);
 		DefaultTableModel tableModel = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
 		for (int i = 0; i < ShoppingList.getInstance().size(); i++) {
