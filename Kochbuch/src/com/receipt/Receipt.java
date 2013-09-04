@@ -1,5 +1,6 @@
 package com.receipt;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class Receipt implements Serializable {
 	private String category;
 	private ImageIcon image;
 	private File imagefile;
+	private ImageIcon icon;
 
 	//TODO	private LinkedList<String> tagList;
 
@@ -121,6 +123,7 @@ public class Receipt implements Serializable {
 			System.out.println(e.getStackTrace());
 		}
 		this.image = new ImageIcon(img, "bild");
+		setIcon(new ImageIcon(img.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
 	}
 	
 
@@ -130,6 +133,14 @@ public class Receipt implements Serializable {
 
 	public void setImagefile(File imagefile) {
 		this.imagefile = imagefile;
+	}
+
+	public ImageIcon getIcon() {
+		return icon;
+	}
+
+	public void setIcon(ImageIcon icon) {
+		this.icon = icon;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.forms;
 
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.GroupLayout;
@@ -304,6 +306,7 @@ public class Kochbuch extends JFrame {
 
 		scrollPane_2 = new JScrollPane();
 		list = new JList<Receipt>();
+		
 		list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		ListSelectionListener listSelectionListener = new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent listSelectionEvent) {
@@ -317,7 +320,8 @@ public class Kochbuch extends JFrame {
 		list.addListSelectionListener(listSelectionListener);
 		Font font = new Font(Font.SANS_SERIF, Font.BOLD, 20);
 		list.setFont(font);
-
+		
+		
 		JButton btnRezeptBearbeiten = new JButton("Rezept bearbeiten");
 		btnRezeptBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -387,6 +391,17 @@ public class Kochbuch extends JFrame {
 		entries.addElement(ReceiptList.getInstance().get(1));
 		list.setModel(entries);
 		list.setSelectedIndex(0);
+		list.setCellRenderer(new DefaultListCellRenderer() {
+			private static final long serialVersionUID = 1L;
+			@Override
+		    public Component getListCellRendererComponent(JList jlist, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+		        Receipt receipt = (Receipt) value;
+		        label.setIcon(receipt.getIcon());
+		        label.setText(receipt.getName());
+		        return label;
+		    }
+		});
 		fillRightPanel();
 		panel.setLayout(gl_panel);
 		frmKochbuch.getContentPane().setLayout(groupLayout);
@@ -569,4 +584,5 @@ public class Kochbuch extends JFrame {
 		// Ausgabe an den Nutzer
 		// System.out.println(INFO_WARTESCHLANGE_ANLEGEN);
 	}
+	
 }
