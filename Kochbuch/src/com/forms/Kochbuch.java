@@ -210,8 +210,8 @@ public class Kochbuch extends JFrame {
 							JOptionPane.DEFAULT_OPTION);
 				} else {
 					List<Ingredient> listOfIngredients = listIngredientsRightSide.getSelectedValuesList();
-					for(int i = 0; i < listOfIngredients.size();i++){
-						if(!ShoppingList.getInstance().contains(listOfIngredients.get(i))){
+					for (int i = 0; i < listOfIngredients.size(); i++) {
+						if (!ShoppingList.getInstance().contains(listOfIngredients.get(i))) {
 							ShoppingList.getInstance().add(listOfIngredients.get(i));
 						}
 					}
@@ -273,6 +273,7 @@ public class Kochbuch extends JFrame {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
+					textFieldSearch.setText("");
 					filterList(comboBoxCategory.getSelectedItem().toString());
 				}
 			}
@@ -410,20 +411,31 @@ public class Kochbuch extends JFrame {
 	}
 
 	protected void searchAndDisplay(String text) {
-		String searchText = textFieldSearch.getText();
 
-		DefaultListModel<Receipt> tmpModel = (DefaultListModel<Receipt>) list.getModel();
+		//		DefaultListModel<Receipt> tmpModel = (DefaultListModel<Receipt>)list.getModel();
+		DefaultListModel<Receipt> tmpModel = new DefaultListModel<Receipt>();
+		if (!comboBoxCategory.getSelectedItem().equals("Alle")) {
+			for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
+				if (ReceiptList.getInstance().get(i).getCategory().equals(comboBoxCategory.getSelectedItem())) {
+					tmpModel.addElement(ReceiptList.getInstance().get(i));
+				}
+			}
+		} else {
+			for(int i= 0; i < ReceiptList.getInstance().size();i++){
+				tmpModel.addElement(ReceiptList.getInstance().get(i));
+			}
+		}
 		DefaultListModel<Receipt> newModel = new DefaultListModel<Receipt>();
-		if (searchText.equals("")) {
+		if (text.equals("")) {
 			filterList(comboBoxCategory.getSelectedItem().toString());
 		} else {
 			for (int i = 0; i < tmpModel.size(); i++) {
 				boolean found = false;
-				if (tmpModel.getElementAt(i).getName().contains(searchText) || tmpModel.getElementAt(i).getReceipt().contains(searchText)) {
+				if (tmpModel.getElementAt(i).getName().contains(text) || tmpModel.getElementAt(i).getReceipt().contains(text)) {
 					found = true;
 				}
 				for (int j = 0; j < tmpModel.get(i).getIngredients().size(); j++) {
-					if (tmpModel.get(i).getIngredients().get(j).getName().contains(searchText)) {
+					if (tmpModel.get(i).getIngredients().get(j).getName().contains(text)) {
 						found = true;
 					}
 				}
@@ -439,7 +451,7 @@ public class Kochbuch extends JFrame {
 	protected void filterList(String selectedItem) {
 		if (selectedItem.equals("Alle")) {
 			DefaultListModel<Receipt> model = new DefaultListModel<Receipt>();
-			for(int i = 0; i < ReceiptList.getInstance().size(); i++){
+			for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
 				model.addElement(ReceiptList.getInstance().get(i));
 			}
 			list.setModel(model);
@@ -517,8 +529,8 @@ public class Kochbuch extends JFrame {
 		receipt.setImage(file);
 		return receipt;
 	}
-	
-	public void close(){
+
+	public void close() {
 		frmKochbuch.setVisible(false);
 		frmKochbuch.dispose();
 	}
