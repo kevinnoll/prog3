@@ -200,7 +200,11 @@ public class NewReceipt extends JFrame {
 						Receipt toReturn = new Receipt(CURRENT_ID, textFieldTitle.getText(), textPane.getText(), Integer
 								.parseInt(spinner.getValue().toString()), Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()), Course
 								.valueOf(comboBoxGang.getSelectedItem().toString()), ingredientList, comboBoxCategory.getSelectedItem().toString());
-						toReturn.setImage(file);
+						if(file != null && file.exists()){
+							toReturn.setImage(file);
+						} else {
+							toReturn.setImage(new File("images/placeholder.png"));
+						}
 						CURRENT_ID++;
 						ReceiptList.getInstance().add(toReturn);
 						Kochbuch.getInstance().setReceipts();
@@ -211,7 +215,12 @@ public class NewReceipt extends JFrame {
 								Receipt toReturn = new Receipt(receiptId, textFieldTitle.getText(), textPane.getText(), Integer.parseInt(spinner.getValue()
 										.toString()), Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()), Course.valueOf(comboBoxGang
 										.getSelectedItem().toString()), ingredientList, comboBoxCategory.getSelectedItem().toString());
-								toReturn.setImage(new File(txtPfad.getText()));
+								File newFile = new File(txtPfad.getText());
+								if(newFile != null && newFile.exists()){
+									toReturn.setImage(newFile); 
+								} else {
+									toReturn.setImage(new File("images/placeholder.png"));
+								}
 								ReceiptList.getInstance().set(i, toReturn);
 								Kochbuch.getInstance().setReceipts();
 								dispose();
@@ -255,6 +264,7 @@ public class NewReceipt extends JFrame {
 		JLabel lblBild = new JLabel("Bild:");
 
 		txtPfad = new JTextField();
+		txtPfad.setEditable(false);
 		txtPfad.setText("Pfad");
 		txtPfad.setColumns(10);
 
@@ -440,6 +450,7 @@ public class NewReceipt extends JFrame {
 		comboBoxGang.setSelectedIndex(0);
 		comboBoxCategory.setSelectedIndex(0);
 		lblAnlegen.setText("Anlegen:");
+		txtPfad.setText("Pfad");
 	}
 
 	private void insertInTable(Ingredient ingredient) {
