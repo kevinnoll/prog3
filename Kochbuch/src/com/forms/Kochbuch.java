@@ -1,18 +1,18 @@
 package com.forms;
 
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.GroupLayout;
@@ -48,9 +48,6 @@ import com.receipt.Receipt;
 import com.receipt.ReceiptList;
 import com.serializer.ReceiptListSerializer;
 import com.shoppinglist.ShoppingList;
-
-import java.awt.Dimension;
-import java.awt.Cursor;
 
 public class Kochbuch extends JFrame {
 
@@ -441,7 +438,11 @@ public class Kochbuch extends JFrame {
 
 	protected void filterList(String selectedItem) {
 		if (selectedItem.equals("Alle")) {
-			list.setModel(entries);
+			DefaultListModel<Receipt> model = new DefaultListModel<Receipt>();
+			for(int i = 0; i < ReceiptList.getInstance().size(); i++){
+				model.addElement(ReceiptList.getInstance().get(i));
+			}
+			list.setModel(model);
 		} else {
 			DefaultListModel<Receipt> tmpModel = new DefaultListModel<Receipt>();
 			for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
@@ -515,6 +516,11 @@ public class Kochbuch extends JFrame {
 		File file = new File("images/salzkartoffeln.png");
 		receipt.setImage(file);
 		return receipt;
+	}
+	
+	public void close(){
+		frmKochbuch.setVisible(false);
+		frmKochbuch.dispose();
 	}
 
 	/**
