@@ -75,12 +75,14 @@ public class ShoppingListDialog extends JDialog {
 		JButton btnVerwerfen = new JButton("Verwerfen");
 		btnVerwerfen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// delete selected Object from the list of Ingredients
-				int row = table.getSelectedRow();
-				// delete selected Object from the List Form
-				DefaultTableModel tmpModel = (DefaultTableModel) table.getModel();
-				removeFromShoppingList(tmpModel, row);
-				tmpModel.removeRow(row);
+				if (table.getSelectedRow() != -1) {
+					// delete selected Object from the list of Ingredients
+					int row = table.getSelectedRow();
+					// delete selected Object from the List Form
+					DefaultTableModel tmpModel = (DefaultTableModel) table.getModel();
+					removeFromShoppingList(tmpModel, row);
+					tmpModel.removeRow(row);
+				}
 			}
 
 			private void removeFromShoppingList(DefaultTableModel defaultModel, int row) {
