@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
 import com.forms.Kochbuch;
+import com.forms.MenuManager;
 import com.forms.NewReceipt;
 import com.forms.ShoppingListDialog;
 import com.shoppinglist.ShoppingList;
@@ -91,6 +92,7 @@ public class MenuBarFactory {
 		menuItem2 = new JMenuItem("Menüs verwalten", new ImageIcon("icons/icon_menu.png"));
 		menuItem2.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
+				MenuManager.getInstance().setVisible(true);
 			}
 		});
 		menu.add(menuItem2);

@@ -98,7 +98,7 @@ public class NewReceipt extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewReceipt frame = new NewReceipt();
+					NewReceipt frame = NewReceipt.getInstance();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
