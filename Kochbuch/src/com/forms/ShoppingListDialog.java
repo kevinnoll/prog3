@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import com.receipt.Entity;
 import com.receipt.Ingredient;
 import com.shoppinglist.ShoppingList;
+import java.awt.Color;
 
 public class ShoppingListDialog extends JDialog {
 
@@ -136,6 +137,7 @@ public class ShoppingListDialog extends JDialog {
 										.addComponent(btnAllesVerwerfen)).addGap(9)));
 
 		table = new JTable();
+		table.setSelectionBackground(new Color(154, 205, 50));
 		table.setShowVerticalLines(false);
 		table.setShowGrid(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

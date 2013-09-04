@@ -49,6 +49,7 @@ import javax.swing.JTable;
 import java.awt.Dimension;
 import java.io.File;
 import javax.swing.ListSelectionModel;
+import java.awt.Color;
 
 public class NewReceipt extends JFrame {
 
@@ -417,6 +418,7 @@ public class NewReceipt extends JFrame {
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(btnDiscard).addComponent(btnSave)).addGap(20)));
 
 		table = new JTable();
+		table.setSelectionBackground(new Color(154, 205, 50));
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setShowVerticalLines(false);
 		table.setShowGrid(false);

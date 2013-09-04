@@ -50,6 +50,7 @@ import com.receipt.Receipt;
 import com.receipt.ReceiptList;
 import com.serializer.ReceiptListSerializer;
 import com.shoppinglist.ShoppingList;
+import java.awt.Color;
 
 public class Kochbuch extends JFrame {
 
@@ -165,6 +166,7 @@ public class Kochbuch extends JFrame {
 		panel_1.add(scrollPane_3, "cell 0 1,grow");
 
 		listIngredientsRightSide = new JList<Ingredient>();
+		listIngredientsRightSide.setSelectionBackground(new Color(154, 205, 50));
 		listIngredientsRightSide.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		listIngredientsRightSide.setSelectionModel(new DefaultListSelectionModel() {
 			private int i0 = -1;
@@ -306,6 +308,7 @@ public class Kochbuch extends JFrame {
 
 		scrollPane_2 = new JScrollPane();
 		list = new JList<Receipt>();
+		list.setSelectionBackground(new Color(154, 205, 50));
 		
 		list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		ListSelectionListener listSelectionListener = new ListSelectionListener() {
