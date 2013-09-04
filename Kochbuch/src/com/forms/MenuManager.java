@@ -18,6 +18,8 @@ import javax.swing.JList;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
 
 public class MenuManager extends JDialog {
 
@@ -47,7 +49,7 @@ public class MenuManager extends JDialog {
 	public MenuManager() {
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 706, 502);
+		setBounds(100, 100, 641, 434);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -64,14 +66,23 @@ public class MenuManager extends JDialog {
 		JButton btnLschen = new JButton("L\u00F6schen");
 		
 		JLabel lblMens = new JLabel("Men\u00FCs");
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(gl_contentPanel.createSequentialGroup()
 								.addComponent(btnBearbeiten)
 								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnLschen)
@@ -81,24 +92,42 @@ public class MenuManager extends JDialog {
 						.addComponent(lblMens))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-					.addGap(401))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+							.addContainerGap())))
 		);
 		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addGap(10)
 					.addComponent(lblMens)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnBearbeiten)
 						.addComponent(btnNeu)
 						.addComponent(btnLschen))
 					.addGap(5))
-				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+							.addGap(10))
+						.addComponent(separator, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
 		);
 		
 		JList list = new JList();
