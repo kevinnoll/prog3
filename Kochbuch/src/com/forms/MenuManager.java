@@ -2,23 +2,25 @@ package com.forms;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.Window.Type;
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JList;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.border.BevelBorder;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 public class MenuManager extends JDialog {
@@ -129,6 +131,69 @@ public class MenuManager extends JDialog {
 							.addGap(10))
 						.addComponent(separator, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
 		);
+		
+		JPanel panel_5 = new JPanel();
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+					.addContainerGap(203, Short.MAX_VALUE)
+					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		panel_5.add(lblNewLabel_2);
+		panel_2.setLayout(gl_panel_2);
+		
+		JPanel panel_4 = new JPanel();
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addGap(200)
+					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		panel_4.add(lblNewLabel_1);
+		panel_1.setLayout(gl_panel_1);
+		
+		JPanel panel_3 = new JPanel();
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addGap(198)
+					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		panel_3.add(lblNewLabel);
+		panel.setLayout(gl_panel);
 		
 		JList list = new JList();
 		scrollPane.setViewportView(list);
