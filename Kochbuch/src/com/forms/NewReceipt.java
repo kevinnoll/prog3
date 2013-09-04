@@ -21,7 +21,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SpinnerModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -48,7 +50,9 @@ import javax.swing.JTable;
 
 import java.awt.Dimension;
 import java.io.File;
+
 import javax.swing.ListSelectionModel;
+
 import java.awt.Color;
 
 public class NewReceipt extends JFrame {
@@ -243,7 +247,8 @@ public class NewReceipt extends JFrame {
 
 		JLabel lblDuration = new JLabel("min");
 
-		spinner = new JSpinner();
+		SpinnerModel spinnerModel = new SpinnerNumberModel(0.0,0.0,500.0,0.1);
+		spinner = new JSpinner(spinnerModel);
 		spinner.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
