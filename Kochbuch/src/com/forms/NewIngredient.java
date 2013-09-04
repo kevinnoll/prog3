@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
 import com.receipt.Entity;
@@ -90,7 +92,8 @@ public class NewIngredient extends JDialog {
 		textFieldIngredient.setColumns(10);
 
 		JLabel lblIngredient = new JLabel("Lebensmittel");
-		spinnerAmount = new JSpinner();
+		SpinnerModel spinnerModel = new SpinnerNumberModel(0.0,0.0,500.0,0.1);
+		spinnerAmount = new JSpinner(spinnerModel);
 		spinnerAmount.setValue(0);
 		
 		JButton btnDiscard = new JButton("Verwerfen");
