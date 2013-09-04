@@ -4,16 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.KeyStroke;
 
+import com.forms.Kochbuch;
+import com.forms.NewReceipt;
 import com.forms.ShoppingListDialog;
+import com.shoppinglist.ShoppingList;
 
 public class MenuBarFactory {
 	public static JMenuBar getTheMenuBar() {
@@ -27,86 +29,95 @@ public class MenuBarFactory {
 		// Create the menu bar.
 		menuBar = new JMenuBar();
 
-		// Build the first menu.
+		//Menu selbst
 		menu = new JMenu("Datei");
 		menu.setMnemonic(KeyEvent.VK_A);
 		menu.getAccessibleContext().setAccessibleDescription("Datei!");
 		menuBar.add(menu);
 
-		// a group of JMenuItems
-		menuItem = new JMenuItem("A text-only menu item", KeyEvent.VK_T);
-		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
-		menuItem.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+		//Menuitem neues Rezept
+		menuItem = new JMenuItem("Neues Rezept", new ImageIcon("icons/icon_recipe.png"));
+		menuItem.addActionListener(new ActionListener() {
+			public final void actionPerformed(final ActionEvent e) {
+				NewReceipt.getInstance().resetFields();
+				NewReceipt.getInstance().setVisible(true);
+			}
+		});
 		menu.add(menuItem);
+		menu.addSeparator();
 
-		menuItem = new JMenuItem("Both text and icon", new ImageIcon("images/middle.gif"));
-		menuItem.setMnemonic(KeyEvent.VK_B);
+		//Menuitem Favoriten
+		menuItem = new JMenu("Favoriten");
+		menuItem.setIcon(new ImageIcon("icons/icon_star.png"));
+		JMenuItem subMenuItem1 = new JMenuItem("Favorit1");
+		JMenuItem subMenuItem2 = new JMenuItem("Favorit2");
+		JMenuItem subMenuItem3 = new JMenuItem("Favorit3");
+		JMenuItem subMenuItem4 = new JMenuItem("Favorit4");
+		JMenuItem subMenuItem5 = new JMenuItem("Favorit5");
+		JMenuItem subMenuItem6 = new JMenuItem("...");
+		menuItem.add(subMenuItem1);
+		menuItem.add(subMenuItem2);
+		menuItem.add(subMenuItem3);
+		menuItem.add(subMenuItem4);
+		menuItem.add(subMenuItem5);
+		menuItem.add(subMenuItem6);
 		menu.add(menuItem);
+		menu.addSeparator();
 
-		menuItem = new JMenuItem(new ImageIcon("images/middle.gif"));
-		menuItem.setMnemonic(KeyEvent.VK_D);
+		// Schließen
+		menuItem = new JMenuItem("Schließen");
+		menuItem.addActionListener(new ActionListener() {
+			public final void actionPerformed(final ActionEvent e) {
+				Kochbuch.getInstance().close();
+			}
+		});
 		menu.add(menuItem);
-
-		// a group of radio button menu items
-		menu.addSeparator();
-		ButtonGroup group = new ButtonGroup();
-		rbMenuItem = new JRadioButtonMenuItem("A radio button menu item");
-		rbMenuItem.setSelected(true);
-		rbMenuItem.setMnemonic(KeyEvent.VK_R);
-		group.add(rbMenuItem);
-		menu.add(rbMenuItem);
-
-		rbMenuItem = new JRadioButtonMenuItem("Another one");
-		rbMenuItem.setMnemonic(KeyEvent.VK_O);
-		group.add(rbMenuItem);
-		menu.add(rbMenuItem);
-
-		// a group of check box menu items
-		menu.addSeparator();
-		cbMenuItem = new JCheckBoxMenuItem("A check box menu item");
-		cbMenuItem.setMnemonic(KeyEvent.VK_C);
-		menu.add(cbMenuItem);
-
-		cbMenuItem = new JCheckBoxMenuItem("Another one");
-		cbMenuItem.setMnemonic(KeyEvent.VK_H);
-		menu.add(cbMenuItem);
-
-		// a submenu
-		menu.addSeparator();
-		submenu = new JMenu("A submenu");
-		submenu.setMnemonic(KeyEvent.VK_S);
-
-		menuItem = new JMenuItem("An item in the submenu");
-		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_2, ActionEvent.ALT_MASK));
-		submenu.add(menuItem);
-
-		menuItem = new JMenuItem("Another item");
-		submenu.add(menuItem);
-		menu.add(submenu);
-
-		// Build second menu in the menu bar.
-		menu = new JMenu("Another Menu");
-		menu.setMnemonic(KeyEvent.VK_N);
+		
+		//Menues
+		menu = new JMenu("Menüs");
+		menu.setMnemonic(KeyEvent.VK_M);
 		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
 		menuBar.add(menu);
-
-		menu = new JMenu("ShoppingList");
+		
+		// a group of JMenuItems
+		menuItem = new JMenuItem("Menü erstellen", new ImageIcon("icons/icon_menu.png"));
+		menuItem.addActionListener(new ActionListener() {
+			public final void actionPerformed(final ActionEvent e) {
+			}
+		});
+		menu.add(menuItem);
+		
+		JMenuItem menuItem2;
+		menuItem2 = new JMenuItem("Menüs verwalten", new ImageIcon("icons/icon_menu.png"));
+		menuItem2.addActionListener(new ActionListener() {
+			public final void actionPerformed(final ActionEvent e) {
+			}
+		});
+		menu.add(menuItem2);
+		
+		//Shoppingliste
+		menu = new JMenu("Shoppingliste");
 		menu.setMnemonic(KeyEvent.VK_S);
 		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
 		menuBar.add(menu);
 
 		// a group of JMenuItems
-		menuItem = new JMenuItem("ShoppingListe anzeigen", KeyEvent.VK_T);
-		menuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
-		menuItem.getAccessibleContext().setAccessibleDescription("This doesn't really do anything");
+		menuItem = new JMenuItem("Shoppingliste anzeigen", new ImageIcon("icons/icon_dollar.png"));
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				ShoppingListDialog shoppingListDialog = new ShoppingListDialog();
 				shoppingListDialog.setVisible(true);
 			}
 		});
-
 		menu.add(menuItem);
+		
+		menuItem2 = new JMenuItem("Shoppingliste leeren", new ImageIcon("icons/icon_cross.png"));
+		menuItem2.addActionListener(new ActionListener() {
+			public final void actionPerformed(final ActionEvent e) {
+				ShoppingList.getInstance().clear();
+			}
+		});
+		menu.add(menuItem2);
 
 		return menuBar;
 	}
