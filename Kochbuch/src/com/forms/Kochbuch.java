@@ -238,6 +238,7 @@ public class Kochbuch extends JFrame {
 		panel_1.add(scrollPane, "cell 0 3 2 1,grow");
 
 		textPane = new JTextPane();
+		textPane.setSelectionColor(new Color(154, 205, 50));
 		textPane.setPreferredSize(new Dimension(6, 200));
 		textPane.setMaximumSize(new Dimension(2147483647, 200));
 		textPane.setEditable(false);
