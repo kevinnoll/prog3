@@ -81,6 +81,7 @@ public class NewReceipt extends JFrame {
 	private JTable table;
 	private File file;
 	private JLabel lblAnlegen;
+	private JScrollPane scrollPane;
 
 	static private String newline = "\n";
 	private JFileChooser fc;
@@ -152,14 +153,19 @@ public class NewReceipt extends JFrame {
 		JButton btnDeleteIngredient = new JButton("Zutat l\u00F6schen");
 		btnDeleteIngredient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// delete selected Object from the list of Ingredients
-				int row = table.getSelectedRow();
-				ingredientList.remove(getIngredientIndexFromTable((DefaultTableModel) table.getModel(), row));
-				// delete selected Object from the List Form
-				DefaultTableModel tmpModel = (DefaultTableModel) table.getModel();
-				tmpModel.removeRow(row);
-				table.setModel(tmpModel);
-				// entries.removeElement(jList.getSelectedValue());
+				if (table.getSelectedRow() == -1) {
+					JOptionPane.showConfirmDialog(scrollPane, "Bitte eine Zutat zum Löschen auswählen", "Keine Zutat angeklickt",
+							JOptionPane.DEFAULT_OPTION);
+				} else {
+					// delete selected Object from the list of Ingredients
+					int row = table.getSelectedRow();
+					ingredientList.remove(getIngredientIndexFromTable((DefaultTableModel) table.getModel(), row));
+					// delete selected Object from the List Form
+					DefaultTableModel tmpModel = (DefaultTableModel) table.getModel();
+					tmpModel.removeRow(row);
+					table.setModel(tmpModel);
+					// entries.removeElement(jList.getSelectedValue());
+				}
 			}
 
 			private int getIngredientIndexFromTable(DefaultTableModel defaultModel, int row) {
@@ -205,7 +211,7 @@ public class NewReceipt extends JFrame {
 						Receipt toReturn = new Receipt(CURRENT_ID, textFieldTitle.getText(), textPane.getText(), Integer
 								.parseInt(spinner.getValue().toString()), Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()), Course
 								.valueOf(comboBoxGang.getSelectedItem().toString()), ingredientList, comboBoxCategory.getSelectedItem().toString());
-						if(file != null && file.exists()){
+						if (file != null && file.exists()) {
 							toReturn.setImage(file);
 						} else {
 							toReturn.setImage(new File("images/placeholder.png"));
@@ -221,8 +227,8 @@ public class NewReceipt extends JFrame {
 										.toString()), Difficulty.valueOf(comboBoxDifficulty.getSelectedItem().toString()), Course.valueOf(comboBoxGang
 										.getSelectedItem().toString()), ingredientList, comboBoxCategory.getSelectedItem().toString());
 								File newFile = new File(txtPfad.getText());
-								if(newFile != null && newFile.exists()){
-									toReturn.setImage(newFile); 
+								if (newFile != null && newFile.exists()) {
+									toReturn.setImage(newFile);
 								} else {
 									toReturn.setImage(new File("images/placeholder.png"));
 								}
@@ -247,8 +253,7 @@ public class NewReceipt extends JFrame {
 
 		JLabel lblDuration = new JLabel("min");
 
-		SpinnerModel spinnerModel = new SpinnerNumberModel(0.0,0.0,500.0,0.1);
-		spinner = new JSpinner(spinnerModel);
+		spinner = new JSpinner();
 		spinner.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
@@ -290,15 +295,15 @@ public class NewReceipt extends JFrame {
 					fc.setAccessory(new ImagePreview(fc));
 				}
 				//Show it.
-				int returnVal = fc.showDialog(contentPane, "Attach");
+				int returnVal = fc.showDialog(contentPane, "Hinzufügen");
 				//Process the results.
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					if (fc.getSelectedFile().getName().endsWith(".gif") || fc.getSelectedFile().getName().endsWith(".png") || fc.getSelectedFile().getName().endsWith(".jpg")
-							|| fc.getSelectedFile().getName().endsWith(".jpeg")) {
+					if (fc.getSelectedFile().getName().endsWith(".gif") || fc.getSelectedFile().getName().endsWith(".png")
+							|| fc.getSelectedFile().getName().endsWith(".jpg") || fc.getSelectedFile().getName().endsWith(".jpeg")) {
 						file = fc.getSelectedFile();
 						txtPfad.setText(file.getAbsolutePath());
 					}
-				} 
+				}
 				fc.setSelectedFile(null);
 			}
 		});
@@ -309,11 +314,7 @@ public class NewReceipt extends JFrame {
 		Object[][] data = { { "1", "gramm", "bier" } };
 		String[] columnNames = { "Anzahl", "Einheit", "Bezeichnung" };
 
-		JScrollPane scrollPane = new JScrollPane();
-		// table.addColumn(new TableColumn(modelIndex, width, cellRenderer,
-		// cellEditor));
-		// table.addColumn(new TableColumn(1, 40));
-		// table.addColumn(new TableColumn(2, 30));
+		scrollPane = new JScrollPane();
 
 		gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING).addGroup(

@@ -92,8 +92,7 @@ public class NewIngredient extends JDialog {
 		textFieldIngredient.setColumns(10);
 
 		JLabel lblIngredient = new JLabel("Lebensmittel");
-		SpinnerModel spinnerModel = new SpinnerNumberModel(0.0,0.0,500.0,0.1);
-		spinnerAmount = new JSpinner(spinnerModel);
+		spinnerAmount = new JSpinner();
 		spinnerAmount.setValue(0);
 		
 		JButton btnDiscard = new JButton("Verwerfen");
