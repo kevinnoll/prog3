@@ -44,6 +44,7 @@ import javax.swing.event.ListSelectionListener;
 import net.miginfocom.swing.MigLayout;
 
 import com.factories.MenuBarFactory;
+import com.factories.MenuEntries;
 import com.factories.StarButton;
 import com.receipt.Categories;
 import com.receipt.Course;
@@ -397,12 +398,14 @@ public class Kochbuch extends JFrame {
 
 		scrollPane_2.setViewportView(list);
 
-		ReceiptList.getInstance().add(getMeTheReceipt());
-		ReceiptList.getInstance().add(getMeTheReceipt2());
+		ReceiptList.getInstance().add(MenuEntries.get_Burger());
+		ReceiptList.getInstance().add(MenuEntries.get_Kartoffeln());
+		ReceiptList.getInstance().add(MenuEntries.get_Eis());
 		entries = new DefaultListModel<Receipt>();
 
-		entries.addElement(ReceiptList.getInstance().get(0));
-		entries.addElement(ReceiptList.getInstance().get(1));
+		for(int i = 0; i < ReceiptList.getInstance().size();i++){
+			entries.addElement(ReceiptList.getInstance().get(i));
+		}
 		list.setModel(entries);
 		list.setSelectedIndex(0);
 		list.setCellRenderer(new DefaultListCellRenderer() {
@@ -513,51 +516,6 @@ public class Kochbuch extends JFrame {
 		for (int i = 0; i < Categories.getInstance().size(); i++) {
 			comboBoxCategory.addItem(Categories.getInstance().get(i));
 		}
-	}
-
-	private Receipt getMeTheReceipt() {
-		Ingredient ingredient1 = new Ingredient("Rinderhack", Entity.g, 150);
-		Ingredient ingredient2 = new Ingredient("Salz", Entity.g, 10);
-		Ingredient ingredient5 = new Ingredient("Pfeffer", Entity.g, 10);
-		Ingredient ingredient3 = new Ingredient("Salat", Entity.Stück, 1);
-		Ingredient ingredient4 = new Ingredient("Brötchen", Entity.Stück, 1);
-		Ingredient ingredient6 = new Ingredient("Ketchup", Entity.Milliliter, 20);
-		LinkedList<Ingredient> ingredients = new LinkedList<Ingredient>();
-		ingredients.add(ingredient1);
-		ingredients.add(ingredient2);
-		ingredients.add(ingredient3);
-		ingredients.add(ingredient4);
-		ingredients.add(ingredient5);
-		ingredients.add(ingredient6);
-
-		String rezeptname = "Burger";
-		String anleitung = "Das Hackfleisch mit dem Salz und dem Pfeffer würzen, eine flache Scheibe formen ganz durchbraten."
-				+ " Das Brötchen in der in der Hälfte aufschneiden, nach Wunsch toasten und mit dem Ketchup nach Belieben bestreichen."
-				+ " Das fertig gebratene Hackfleisch aus der Pfanne nehmen und auf den Ketchup legen. Anschließend mit Salat garnieren. Fertig. ";
-
-		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
-		File file = new File("images/burger.jpg");
-		receipt.setImage(file);
-		return receipt;
-	}
-
-	private Receipt getMeTheReceipt2() {
-		Ingredient ingredient1 = new Ingredient("Kartoffel", Entity.kg, 1);
-		Ingredient ingredient2 = new Ingredient("Salz", Entity.g, 10);
-		Ingredient ingredient3 = new Ingredient("Wasser", Entity.Liter, 2.5);
-		LinkedList<Ingredient> ingredients = new LinkedList<Ingredient>();
-		ingredients.add(ingredient1);
-		ingredients.add(ingredient2);
-		ingredients.add(ingredient3);
-
-		String rezeptname = "Salzkartoffeln";
-		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die Petersilie"
-				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
-
-		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(1));
-		File file = new File("images/salzkartoffeln.png");
-		receipt.setImage(file);
-		return receipt;
 	}
 
 	public void close() {
