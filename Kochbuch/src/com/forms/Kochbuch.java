@@ -1,5 +1,6 @@
 package com.forms;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -9,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -41,6 +44,7 @@ import javax.swing.event.ListSelectionListener;
 import net.miginfocom.swing.MigLayout;
 
 import com.factories.MenuBarFactory;
+import com.factories.StarButton;
 import com.receipt.Categories;
 import com.receipt.Course;
 import com.receipt.Difficulty;
@@ -50,7 +54,6 @@ import com.receipt.Receipt;
 import com.receipt.ReceiptList;
 import com.serializer.ReceiptListSerializer;
 import com.shoppinglist.ShoppingList;
-import java.awt.Color;
 
 public class Kochbuch extends JFrame {
 
@@ -78,6 +81,7 @@ public class Kochbuch extends JFrame {
 	private JLabel lblDuration;
 	private JLabel lblCourse;
 	private JLabel labelPicture;
+	private StarButton starButton;
 
 	/**
 	 * Launch the application.
@@ -155,12 +159,18 @@ public class Kochbuch extends JFrame {
 						.addGroup(
 								groupLayout.createSequentialGroup().addGap(8).addComponent(separator, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
 										.addContainerGap()));
-		panel_1.setLayout(new MigLayout("", "[][grow]", "[][grow][][grow][][][]"));
+		panel_1.setLayout(new MigLayout("", "[][grow][]", "[][grow][][grow][][][]"));
 
 		lblRezeptselektiert = new JLabel("Rezept (selektiert)");
-		panel_1.add(lblRezeptselektiert, "cell 0 0 2 1,growx");
+		panel_1.add(lblRezeptselektiert, "cell 0 0,growx");
 
 		JPanel panel_2 = new JPanel();
+		
+		JLabel lblFavoritHinzufgen = new JLabel("Favorit hinzuf\u00FCgen -->");
+		panel_1.add(lblFavoritHinzufgen, "cell 1 0,alignx right");
+
+		starButton = new StarButton("");
+		panel_1.add(starButton, "cell 2 0");
 
 		JScrollPane scrollPane_3 = new JScrollPane();
 		panel_1.add(scrollPane_3, "cell 0 1,grow");
@@ -203,7 +213,7 @@ public class Kochbuch extends JFrame {
 		labelPicture = new JLabel("", image, SwingConstants.CENTER);
 		labelPicture.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		scrollPane_1.setViewportView(labelPicture);
-		panel_1.add(panel_2, "cell 1 1,grow");
+		panel_1.add(panel_2, "cell 1 1 2 1,grow");
 		panel_2.setLayout(new MigLayout("", "[grow]", "[50px,grow]"));
 
 		JButton btnNewButton = new JButton("Auf Shoppingliste setzen");
@@ -231,11 +241,11 @@ public class Kochbuch extends JFrame {
 				shoppingListDialog.setVisible(true);
 			}
 		});
-		panel_1.add(btnNewButton_1, "cell 1 2,growx");
+		panel_1.add(btnNewButton_1, "cell 1 2 2 1,growx");
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setPreferredSize(new Dimension(2, 200));
-		panel_1.add(scrollPane, "cell 0 3 2 1,grow");
+		panel_1.add(scrollPane, "cell 0 3 3 1,grow");
 
 		textPane = new JTextPane();
 		textPane.setSelectionColor(new Color(154, 205, 50));
@@ -288,6 +298,7 @@ public class Kochbuch extends JFrame {
 
 		textFieldSearch = new JTextField();
 		textFieldSearch.setToolTipText("suchen!");
+		textFieldSearch.addKeyListener(new TextFieldListener());
 
 		JButton btnNeuesRezept = new JButton("Neues Rezept");
 		btnNeuesRezept.addActionListener(new ActionListener() {
@@ -310,7 +321,7 @@ public class Kochbuch extends JFrame {
 		scrollPane_2 = new JScrollPane();
 		list = new JList<Receipt>();
 		list.setSelectionBackground(new Color(154, 205, 50));
-		
+
 		list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		ListSelectionListener listSelectionListener = new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent listSelectionEvent) {
@@ -324,8 +335,7 @@ public class Kochbuch extends JFrame {
 		list.addListSelectionListener(listSelectionListener);
 		Font font = new Font(Font.SANS_SERIF, Font.BOLD, 20);
 		list.setFont(font);
-		
-		
+
 		JButton btnRezeptBearbeiten = new JButton("Rezept bearbeiten");
 		btnRezeptBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -397,14 +407,15 @@ public class Kochbuch extends JFrame {
 		list.setSelectedIndex(0);
 		list.setCellRenderer(new DefaultListCellRenderer() {
 			private static final long serialVersionUID = 1L;
+
 			@Override
-		    public Component getListCellRendererComponent(JList jlist, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-		        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-		        Receipt receipt = (Receipt) value;
-		        label.setIcon(receipt.getIcon());
-		        label.setText(receipt.getName());
-		        return label;
-		    }
+			public Component getListCellRendererComponent(JList jlist, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				Receipt receipt = (Receipt) value;
+				label.setIcon(receipt.getIcon());
+				label.setText(receipt.getName());
+				return label;
+			}
 		});
 		fillRightPanel();
 		panel.setLayout(gl_panel);
@@ -440,7 +451,7 @@ public class Kochbuch extends JFrame {
 				}
 			}
 		} else {
-			for(int i= 0; i < ReceiptList.getInstance().size();i++){
+			for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
 				tmpModel.addElement(ReceiptList.getInstance().get(i));
 			}
 		}
@@ -588,5 +599,28 @@ public class Kochbuch extends JFrame {
 		// Ausgabe an den Nutzer
 		// System.out.println(INFO_WARTESCHLANGE_ANLEGEN);
 	}
-	
+
+	private class TextFieldListener implements KeyListener {
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				searchAndDisplay(textFieldSearch.getText());
+			}
+
+		}
+
+	}
 }
