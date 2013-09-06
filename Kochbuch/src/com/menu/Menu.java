@@ -41,6 +41,11 @@ public class Menu {
 	public void setDessert(Receipt dessert) {
 		this.dessert = dessert;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 	
 	
 }

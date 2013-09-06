@@ -2,16 +2,10 @@ package com.forms;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.Menu;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -24,10 +18,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
+import com.menu.Menu;
+import com.receipt.ReceiptList;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -255,8 +247,12 @@ public class MenuManager extends JDialog {
 		JLabel lblDessertCat = new JLabel("New label");
 		panel_2.add(lblDessertCat, "cell 1 4");
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
+		Menu menu = new Menu("erstes Menu",	ReceiptList.getInstance().get(1),ReceiptList.getInstance().get(0),ReceiptList.getInstance().get(2));
+		DefaultListModel<Menu> entries = new DefaultListModel<Menu>();
+		entries.addElement(menu);
+		JList<Menu> menuList = new JList<Menu>(entries);
+		
+		scrollPane.setViewportView(menuList);
 		contentPanel.setLayout(gl_contentPanel);
 		{
 			JPanel buttonPane = new JPanel();
