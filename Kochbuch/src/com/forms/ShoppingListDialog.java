@@ -1,6 +1,7 @@
 package com.forms;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
@@ -10,6 +11,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,7 +23,6 @@ import javax.swing.table.DefaultTableModel;
 import com.receipt.Entity;
 import com.receipt.Ingredient;
 import com.shoppinglist.ShoppingList;
-import java.awt.Color;
 
 public class ShoppingListDialog extends JDialog {
 
@@ -32,7 +33,8 @@ public class ShoppingListDialog extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private JButton cancelButton;
-
+	private JScrollPane scrollPane;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -59,7 +61,7 @@ public class ShoppingListDialog extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 
 		JButton btnDrucken = new JButton("Drucken");
 		btnDrucken.addActionListener(new ActionListener() {
@@ -76,7 +78,10 @@ public class ShoppingListDialog extends JDialog {
 		JButton btnVerwerfen = new JButton("Verwerfen");
 		btnVerwerfen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (table.getSelectedRow() != -1) {
+				if (table.getSelectedRow() == -1) {
+					JOptionPane.showConfirmDialog(scrollPane, "Bitte eine Zutat zum Verwerfen auswählen", "Keine Zutat angeklickt",
+							JOptionPane.DEFAULT_OPTION);
+				} else {
 					// delete selected Object from the list of Ingredients
 					int row = table.getSelectedRow();
 					// delete selected Object from the List Form
