@@ -282,22 +282,14 @@ public class NewReceipt extends JFrame {
 		JButton btnSuchen = new JButton("Suchen");
 		btnSuchen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Set up the file chooser.
 				if (fc == null) {
 					fc = new JFileChooser();
-					//Add a custom file filter and disable the default
-					//(Accept All) file filter.
-//					fc.addChoosableFileFilter(new ImageFilter());
 					fc.setFileFilter(new ImageFilter());
 					fc.setAcceptAllFileFilterUsed(false);
-					//Add custom icons for file types.
 					fc.setFileView(new ImageFileView());
-					//Add the preview pane.
 					fc.setAccessory(new ImagePreview(fc));
 				}
-				//Show it.
 				int returnVal = fc.showDialog(contentPane, "Hinzufügen");
-				//Process the results.
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					if (fc.getSelectedFile().getName().endsWith(".gif") || fc.getSelectedFile().getName().endsWith(".png")
 							|| fc.getSelectedFile().getName().endsWith(".jpg") || fc.getSelectedFile().getName().endsWith(".jpeg")) {
