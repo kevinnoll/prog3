@@ -31,7 +31,7 @@ public class MenuEntries {
 				+ " Das Brötchen in der in der Hälfte aufschneiden, nach Wunsch toasten und mit dem Ketchup nach Belieben bestreichen."
 				+ " Das fertig gebratene Hackfleisch aus der Pfanne nehmen und auf den Ketchup legen. Anschließend mit Salat garnieren. Fertig. ";
 
-		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
+		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(3));
 		File file = new File("images/burger.jpg");
 		receipt.setImage(file);
 		return receipt;
@@ -57,7 +57,7 @@ public class MenuEntries {
 				+ " Das Brötchen in der in der Hälfte aufschneiden, nach Wunsch toasten und mit dem Ketchup nach Belieben bestreichen."
 				+ " Das fertig gebratene Hackfleisch aus der Pfanne nehmen und auf den Ketchup legen. Anschließend mit Salat garnieren. Fertig. ";
 
-		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(2));
+		Receipt receipt = new Receipt(0, rezeptname, anleitung, 25, Difficulty.einfach, Course.Hauptgericht, ingredients, Categories.getInstance().get(3));
 		File file = new File("images/burger.jpg");
 		receipt.setImage(file);
 		return receipt;
@@ -76,7 +76,7 @@ public class MenuEntries {
 		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die Petersilie"
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Vorspeise, ingredients, Categories.getInstance().get(1));
+		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Vorspeise, ingredients, Categories.getInstance().get(2));
 		File file = new File("images/salzkartoffeln.png");
 		receipt.setImage(file);
 		return receipt;
@@ -95,7 +95,7 @@ public class MenuEntries {
 		String anleitung = "Alles zusamnwerfen und 25 minuten kochen(außer die Petersilie"
 				+ ") dann mit der Gabel prüfen ob die Kartoffeln weich sind und das Wasser abgießen und die Petersilie " + "drüberstreuen. Fertig.";
 
-		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Vorspeise, ingredients, Categories.getInstance().get(1));
+		Receipt receipt = new Receipt(1, rezeptname, anleitung, 25, Difficulty.einfach, Course.Vorspeise, ingredients, Categories.getInstance().get(2));
 		File file = new File("images/salzkartoffeln.png");
 		receipt.setImage(file);
 		return receipt;
@@ -113,7 +113,7 @@ public class MenuEntries {
 		ingredients.add(ingredient4);
 		String rezeptname = "Schokoladeneis";
 		String anleitung = "Die Milch erwärmen. Schokolade darin schmelzen und abkühlen lassen. Sahne mit dem Puderzucker halbsteif schlagen. Die abgekühlte Schokomasse unter die Sahne rühren. Mischung in die Eismaschine füllen und nach Herstellerangaben gefrieren lassen.";
-		Receipt receipt = new Receipt(2, rezeptname, anleitung, 25, Difficulty.einfach, Course.Dessert, ingredients, Categories.getInstance().get(12));
+		Receipt receipt = new Receipt(2, rezeptname, anleitung, 25, Difficulty.einfach, Course.Dessert, ingredients, Categories.getInstance().get(13));
 		File file = new File("images/schokoeis.jpg");
 		receipt.setImage(file);
 		return receipt;
@@ -131,7 +131,7 @@ public class MenuEntries {
 		ingredients.add(ingredient4);
 		String rezeptname = "Schokoladeneiszz";
 		String anleitung = "Die Milch erwärmen. Schokolade darin schmelzen und abkühlen lassen. Sahne mit dem Puderzucker halbsteif schlagen. Die abgekühlte Schokomasse unter die Sahne rühren. Mischung in die Eismaschine füllen und nach Herstellerangaben gefrieren lassen.";
-		Receipt receipt = new Receipt(2, rezeptname, anleitung, 25, Difficulty.einfach, Course.Dessert, ingredients, Categories.getInstance().get(12));
+		Receipt receipt = new Receipt(2, rezeptname, anleitung, 25, Difficulty.einfach, Course.Dessert, ingredients, Categories.getInstance().get(13));
 		File file = new File("images/schokoeis.jpg");
 		receipt.setImage(file);
 		return receipt;

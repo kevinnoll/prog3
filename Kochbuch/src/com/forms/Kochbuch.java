@@ -12,9 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.DefaultListCellRenderer;
@@ -22,7 +20,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -46,10 +43,8 @@ import net.miginfocom.swing.MigLayout;
 import com.factories.MenuBarFactory;
 import com.factories.MenuEntries;
 import com.factories.StarButton;
+import com.favorites.FavoritList;
 import com.receipt.Categories;
-import com.receipt.Course;
-import com.receipt.Difficulty;
-import com.receipt.Entity;
 import com.receipt.Ingredient;
 import com.receipt.Receipt;
 import com.receipt.ReceiptList;
@@ -166,15 +161,19 @@ public class Kochbuch extends JFrame {
 		panel_1.add(lblRezeptselektiert, "cell 0 0,growx");
 
 		JPanel panel_2 = new JPanel();
-		
+
 		JLabel lblFavoritHinzufgen = new JLabel("Favorit hinzuf\u00FCgen -->");
 		panel_1.add(lblFavoritHinzufgen, "cell 1 0,alignx right");
 
 		starButton = new StarButton("");
 		starButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(starButton.isSelected()){
-					
+				if (starButton.isSelected()) {
+					FavoritList.getInstance().add(list.getSelectedValue());
+				} else {
+					if(FavoritList.getInstance().contains(list.getSelectedValue())){
+						FavoritList.getInstance().remove(list.getSelectedValue());
+					}
 				}
 			}
 		});
@@ -265,19 +264,23 @@ public class Kochbuch extends JFrame {
 		panel_1.add(lblSchwierigkeit, "cell 0 4");
 
 		lblDifficulty = new JLabel("Einfach");
-		panel_1.add(lblDifficulty, "cell 1 4");
+		panel_1.add(lblDifficulty, "cell 1 4 2 1");
 
 		JLabel lblDauer = new JLabel("Dauer:");
 		panel_1.add(lblDauer, "cell 0 5");
 
 		lblDuration = new JLabel("20 min");
-		panel_1.add(lblDuration, "cell 1 5");
+		panel_1.add(lblDuration, "cell 1 5 2 1");
 
 		JLabel lblPlatzImMenu = new JLabel("Platz im Menu:");
 		panel_1.add(lblPlatzImMenu, "cell 0 6");
 
 		lblCourse = new JLabel("Dessert");
-		panel_1.add(lblCourse, "cell 1 6");
+		lblCourse.setPreferredSize(new Dimension(100, 14));
+		lblCourse.setMinimumSize(new Dimension(100, 14));
+		lblCourse.setMaximumSize(new Dimension(100, 14));
+		lblCourse.setOpaque(true);
+		panel_1.add(lblCourse, "cell 1 6 2 1");
 
 		searchButton = new JButton("Los!");
 		searchButton.addActionListener(new ActionListener() {
@@ -410,10 +413,10 @@ public class Kochbuch extends JFrame {
 		ReceiptList.getInstance().add(MenuEntries.get_Burger2());
 		ReceiptList.getInstance().add(MenuEntries.get_Kartoffeln2());
 		ReceiptList.getInstance().add(MenuEntries.get_Eis6());
-		
+
 		entries = new DefaultListModel<Receipt>();
 
-		for(int i = 0; i < ReceiptList.getInstance().size();i++){
+		for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
 			entries.addElement(ReceiptList.getInstance().get(i));
 		}
 		list.setModel(entries);
@@ -451,6 +454,11 @@ public class Kochbuch extends JFrame {
 		lblDifficulty.setText(list.getSelectedValue().getDifficulty().toString());
 		lblDuration.setText(list.getSelectedValue().getDuration() + " min");
 		labelPicture.setIcon(list.getSelectedValue().getImage());
+		if(FavoritList.getInstance().contains(list.getSelectedValue())){
+			starButton.setSelected(true);
+		} else {
+			starButton.setSelected(false);
+		}
 	}
 
 	protected void searchAndDisplay(String text) {
@@ -496,6 +504,12 @@ public class Kochbuch extends JFrame {
 			DefaultListModel<Receipt> model = new DefaultListModel<Receipt>();
 			for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
 				model.addElement(ReceiptList.getInstance().get(i));
+			}
+			list.setModel(model);
+		} else if (selectedItem.equals("Favoriten")) {
+			DefaultListModel<Receipt> model = new DefaultListModel<Receipt>();
+			for (int i = 0; i < FavoritList.getInstance().size(); i++) {
+				model.addElement(FavoritList.getInstance().get(i));
 			}
 			list.setModel(model);
 		} else {

@@ -13,6 +13,7 @@ public class Categories extends LinkedList<String>{
 	
 	private Categories() {
 		add("Alle");
+		add("Favoriten");
 		add("Kartoffeln");
 		add("Rindfleisch");
 		add("Hühnchen");

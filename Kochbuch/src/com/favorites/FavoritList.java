@@ -11,7 +11,7 @@ public class FavoritList extends LinkedList<Receipt>{
 	private static final long serialVersionUID = 1L;
 	private static FavoritList instance = null;
 	
-	public FavoritList getInstance(){
+	public static synchronized FavoritList getInstance(){
 		if(instance==null){
 			instance=new FavoritList();
 		}

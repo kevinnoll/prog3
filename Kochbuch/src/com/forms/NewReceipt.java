@@ -311,9 +311,6 @@ public class NewReceipt extends JFrame {
 		lblAnlegen = new JLabel("Anlegen");
 		lblAnlegen.setFont(new Font("Calibri", Font.BOLD, 18));
 
-		Object[][] data = { { "1", "gramm", "bier" } };
-		String[] columnNames = { "Anzahl", "Einheit", "Bezeichnung" };
-
 		scrollPane = new JScrollPane();
 
 		gl_contentPane = new GroupLayout(contentPane);
@@ -436,7 +433,7 @@ public class NewReceipt extends JFrame {
 
 	private void addItemsToCategoryBox() {
 		Categories categories = Categories.getInstance();
-		for (int i = 1; i < categories.size(); i++) { //bei 1 anfangen schliesst kategorie ALLE aus. 
+		for (int i = 2; i < categories.size(); i++) { //bei 1 anfangen schliesst kategorien ALLE und Favoriten aus. 
 			comboBoxCategory.addItem(categories.get(i).toString());
 		}
 	}
