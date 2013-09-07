@@ -6,13 +6,13 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
 import com.forms.Kochbuch;
+import com.forms.MenuCreator;
 import com.forms.MenuManager;
 import com.forms.NewReceipt;
 import com.forms.ShoppingListDialog;
@@ -84,6 +84,8 @@ public class MenuBarFactory {
 		menuItem = new JMenuItem("Menü erstellen", new ImageIcon("icons/icon_menu.png"));
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
+				MenuCreator menuCreator = new MenuCreator();
+				menuCreator.setVisible(true);
 			}
 		});
 		menu.add(menuItem);

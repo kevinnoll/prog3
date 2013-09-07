@@ -209,9 +209,8 @@ public class Kochbuch extends JFrame {
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_2.add(scrollPane_1, "flowx,cell 0 0,grow");
-		ImageIcon image = new ImageIcon("C:/Users/Kev1n/Desktop/Fraeulein-Burger.jpg");
 
-		labelPicture = new JLabel("", image, SwingConstants.CENTER);
+		labelPicture = new JLabel("");
 		labelPicture.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 		scrollPane_1.setViewportView(labelPicture);
 		panel_1.add(panel_2, "cell 1 1 2 1,grow");
@@ -401,6 +400,10 @@ public class Kochbuch extends JFrame {
 		ReceiptList.getInstance().add(MenuEntries.get_Burger());
 		ReceiptList.getInstance().add(MenuEntries.get_Kartoffeln());
 		ReceiptList.getInstance().add(MenuEntries.get_Eis());
+		ReceiptList.getInstance().add(MenuEntries.get_Burger2());
+		ReceiptList.getInstance().add(MenuEntries.get_Kartoffeln2());
+		ReceiptList.getInstance().add(MenuEntries.get_Eis6());
+		
 		entries = new DefaultListModel<Receipt>();
 
 		for(int i = 0; i < ReceiptList.getInstance().size();i++){

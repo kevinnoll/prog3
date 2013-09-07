@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -12,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -25,6 +29,7 @@ import javax.swing.event.ListSelectionListener;
 import net.miginfocom.swing.MigLayout;
 
 import com.menu.Menu;
+import com.menu.MenuList;
 import com.receipt.Ingredient;
 import com.receipt.Receipt;
 import com.receipt.ReceiptList;
@@ -52,6 +57,7 @@ public class MenuManager extends JDialog {
 	private JLabel lblStarterImage;
 	private JLabel lblMainImage;
 	private JLabel lblDessertImage;
+	private JScrollPane scrollPane;
 	
 	/**
 	 * Launch the application.
@@ -73,7 +79,7 @@ public class MenuManager extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public MenuManager() {
+	private MenuManager() {
 		setTitle("Men\u00FCs verwalten");
 		setResizable(false);
 		setModal(true);
@@ -83,18 +89,40 @@ public class MenuManager extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
 		
 		JButton btnNeu = new JButton("Neu");
+		btnNeu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuCreator menuCreator = new MenuCreator();
+				menuCreator.setVisible(true);
+			}
+		});
 		
 		JButton btnLschen = new JButton("L\u00F6schen");
+		btnLschen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(scrollPane, "Wirklich löschen?", "Bitte bestätigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+					DefaultListModel<Menu> model = (DefaultListModel<Menu>)menuList.getModel();
+					MenuList.getInstance().remove(menuList.getSelectedValue());
+					model.removeElement(menuList.getSelectedValue());
+				}
+			}
+		});
 		
 		JLabel lblMens = new JLabel("Men\u00FCs");
+		lblMens.setFont(new Font("Calibri", Font.BOLD, 18));
 		
 		JButton btnBearbeiten = new JButton("Bearbeiten");
+		btnBearbeiten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenuCreator menuCreator = new MenuCreator(menuList.getSelectedValue());
+				menuCreator.setVisible(true);
+			}
+		});
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -157,6 +185,7 @@ public class MenuManager extends JDialog {
 		);
 		
 		JLabel lblVorspeise = new JLabel("Vorspeise");
+		lblVorspeise.setFont(new Font("Calibri", Font.BOLD, 18));
 		panel.add(lblVorspeise, "cell 0 0");
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
@@ -195,8 +224,9 @@ public class MenuManager extends JDialog {
 		lblVorspeiseCat = new JLabel("New label");
 		panel.add(lblVorspeiseCat, "cell 1 4");
 		
-		JLabel label_10 = new JLabel("Hauptgang");
-		panel_1.add(label_10, "cell 0 0");
+		JLabel labelMain = new JLabel("Hauptgang");
+		labelMain.setFont(new Font("Calibri", Font.BOLD, 18));
+		panel_1.add(labelMain, "cell 0 0");
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panel_1.add(scrollPane_1, "cell 2 0 1 5,grow");
@@ -235,6 +265,7 @@ public class MenuManager extends JDialog {
 		panel_1.add(lblMainCat, "cell 1 4");
 		
 		JLabel lblDessert = new JLabel("Dessert");
+		lblDessert.setFont(new Font("Calibri", Font.BOLD, 18));
 		panel_2.add(lblDessert, "cell 0 0");
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
@@ -273,9 +304,13 @@ public class MenuManager extends JDialog {
 		lblDessertCat = new JLabel("New label");
 		panel_2.add(lblDessertCat, "cell 1 4");
 		
-		Menu menu = new Menu("erstes Menu",	ReceiptList.getInstance().get(1),ReceiptList.getInstance().get(0),ReceiptList.getInstance().get(2));
+		Menu menu = new Menu(0, "erstes Menu",	ReceiptList.getInstance().get(1),ReceiptList.getInstance().get(0),ReceiptList.getInstance().get(2));
+		MenuList.getInstance().add(menu);
 		DefaultListModel<Menu> entries = new DefaultListModel<Menu>();
-		entries.addElement(menu);
+//		entries.addElement(menu);
+		for(int i= 0; i < MenuList.getInstance().size(); i++){
+			entries.addElement(MenuList.getInstance().get(i));
+		}
 		menuList = new JList<Menu>(entries);
 		menuList.setSelectionBackground(new Color(154, 205, 50));
 		menuList.setSelectedIndex(0);
@@ -299,15 +334,15 @@ public class MenuManager extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("Schlie\u00DFen");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 	}
@@ -358,5 +393,13 @@ public class MenuManager extends JDialog {
 		starterList.setModel(listModel);
 		lblStarterImage.setIcon(starter.getIcon_big());
 		lblStarterImage.setText("");
+	}
+	
+	public void setMenus(){
+		DefaultListModel<Menu> model = (DefaultListModel<Menu>)menuList.getModel();
+		model.clear();
+		for(int i = 0; i < MenuList.getInstance().size(); i++){
+			model.addElement(MenuList.getInstance().get(i));
+		}
 	}
 }
