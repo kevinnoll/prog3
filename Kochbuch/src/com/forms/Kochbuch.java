@@ -171,6 +171,13 @@ public class Kochbuch extends JFrame {
 		panel_1.add(lblFavoritHinzufgen, "cell 1 0,alignx right");
 
 		starButton = new StarButton("");
+		starButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(starButton.isSelected()){
+					
+				}
+			}
+		});
 		panel_1.add(starButton, "cell 2 0");
 
 		JScrollPane scrollPane_3 = new JScrollPane();
@@ -311,8 +318,8 @@ public class Kochbuch extends JFrame {
 		btnRezeptLschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(scrollPane_2, "Wirklich löschen?", "Bitte bestätigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
-					entries.removeElement(list.getSelectedValue());
 					ReceiptList.getInstance().remove(list.getSelectedValue());
+					entries.removeElement(list.getSelectedValue());
 					searchAndDisplay(textFieldSearch.getText());
 				}
 			}
