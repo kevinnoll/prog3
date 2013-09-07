@@ -287,7 +287,8 @@ public class NewReceipt extends JFrame {
 					fc = new JFileChooser();
 					//Add a custom file filter and disable the default
 					//(Accept All) file filter.
-					fc.addChoosableFileFilter(new ImageFilter());
+//					fc.addChoosableFileFilter(new ImageFilter());
+					fc.setFileFilter(new ImageFilter());
 					fc.setAcceptAllFileFilterUsed(false);
 					//Add custom icons for file types.
 					fc.setFileView(new ImageFileView());
