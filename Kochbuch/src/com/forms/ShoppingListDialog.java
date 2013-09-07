@@ -65,7 +65,7 @@ public class ShoppingListDialog extends JDialog {
 		btnDrucken.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					boolean complete = table.print();
+					table.print();
 				} catch (PrinterException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
