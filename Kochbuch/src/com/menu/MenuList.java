@@ -2,9 +2,11 @@ package com.menu;
 
 import java.util.LinkedList;
 
-import com.receipt.Categories;
-
 public class MenuList extends LinkedList<Menu>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static MenuList instance = null;
 	
 	public static synchronized MenuList getInstance() {

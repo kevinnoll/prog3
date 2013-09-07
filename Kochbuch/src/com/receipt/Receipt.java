@@ -26,6 +26,7 @@ public class Receipt implements Serializable {
 	private ImageIcon image;
 	private File imagefile;
 	private ImageIcon icon;
+	private ImageIcon icon_big;
 
 	//TODO	private LinkedList<String> tagList;
 
@@ -124,7 +125,9 @@ public class Receipt implements Serializable {
 		}
 		this.image = new ImageIcon(img, "bild");
 		setIcon(new ImageIcon(img.getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+		setIcon_big(new ImageIcon(img.getScaledInstance(105, 105, Image.SCALE_SMOOTH)));
 	}
+	
 	
 
 	public File getImagefile() {
@@ -141,6 +144,16 @@ public class Receipt implements Serializable {
 
 	public void setIcon(ImageIcon icon) {
 		this.icon = icon;
+	}
+
+	
+	
+	public ImageIcon getIcon_big() {
+		return icon_big;
+	}
+
+	public void setIcon_big(ImageIcon icon_big) {
+		this.icon_big = icon_big;
 	}
 
 	@Override
