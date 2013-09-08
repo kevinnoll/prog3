@@ -459,9 +459,33 @@ public class Kochbuch extends JFrame {
 		} else {
 			starButton.setSelected(false);
 		}
+		JMenuBar menuBar = MenuBarFactory.getTheMenuBar();
+		frmKochbuch.setJMenuBar(menuBar);
+	}
+	
+	public void fillRightPanelWithFav(Receipt receipt){
+		DefaultListModel<Ingredient> newModel = new DefaultListModel<Ingredient>();
+		for (int i = 0; i < receipt.getIngredients().size(); i++) {
+			newModel.addElement(receipt.getIngredients().get(i));
+		}
+		lblRezeptselektiert.setText(receipt.getName());
+		lblRezeptselektiert.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		listIngredientsRightSide.setModel(newModel);
+		textPane.setText(receipt.getReceipt());
+		lblCourse.setText(receipt.getCourse().toString());
+		lblDifficulty.setText(receipt.getDifficulty().toString());
+		lblDuration.setText(receipt.getDuration() + " min");
+		labelPicture.setIcon(receipt.getImage());
+		if(FavoritList.getInstance().contains(receipt)){
+			starButton.setSelected(true);
+		} else {
+			starButton.setSelected(false);
+		}
+		JMenuBar menuBar = MenuBarFactory.getTheMenuBar();
+		frmKochbuch.setJMenuBar(menuBar);
 	}
 
-	protected void searchAndDisplay(String text) {
+	private void searchAndDisplay(String text) {
 
 		//		DefaultListModel<Receipt> tmpModel = (DefaultListModel<Receipt>)list.getModel();
 		DefaultListModel<Receipt> tmpModel = new DefaultListModel<Receipt>();
@@ -499,7 +523,7 @@ public class Kochbuch extends JFrame {
 
 	}
 
-	protected void filterList(String selectedItem) {
+	private void filterList(String selectedItem) {
 		if (selectedItem.equals("Alle")) {
 			DefaultListModel<Receipt> model = new DefaultListModel<Receipt>();
 			for (int i = 0; i < ReceiptList.getInstance().size(); i++) {

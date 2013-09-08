@@ -17,9 +17,11 @@ import com.forms.MenuCreator;
 import com.forms.MenuManager;
 import com.forms.NewReceipt;
 import com.forms.ShoppingListDialog;
+import com.receipt.Receipt;
 import com.shoppinglist.ShoppingList;
 
 public class MenuBarFactory {
+	private static Receipt currentReceipt;
 	public static JMenuBar getTheMenuBar() {
 		// Where the GUI is created:
 		JMenuBar menuBar;
@@ -27,7 +29,7 @@ public class MenuBarFactory {
 		JMenuItem menuItem;
 		JRadioButtonMenuItem rbMenuItem;
 		JCheckBoxMenuItem cbMenuItem;
-
+		
 		// Create the menu bar.
 		menuBar = new JMenuBar();
 
@@ -67,6 +69,12 @@ public class MenuBarFactory {
 		} else {
 			for(int i= 0; i< FavoritList.getInstance().size();i++){
 				JMenuItem subMenutItem = new JMenuItem(FavoritList.getInstance().get(i).getName());
+				currentReceipt = FavoritList.getInstance().get(i);
+				subMenutItem.addActionListener(new ActionListener() {
+					public final void actionPerformed(final ActionEvent e) {
+						Kochbuch.getInstance().fillRightPanelWithFav(currentReceipt);
+					}
+				});
 				menuItem.add(subMenutItem);
 			}
 		}

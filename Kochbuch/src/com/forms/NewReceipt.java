@@ -1,12 +1,16 @@
 package com.forms;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.io.File;
+import java.util.LinkedList;
 
-import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -14,21 +18,17 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.SpinnerModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
-import com.jgoodies.forms.layout.ColumnSpec;
 import com.receipt.Categories;
 import com.receipt.Course;
 import com.receipt.Difficulty;
@@ -39,21 +39,6 @@ import com.receipt.ReceiptList;
 import com.serializer.ImageFileView;
 import com.serializer.ImageFilter;
 import com.serializer.ImagePreview;
-
-import javax.swing.JSpinner;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.util.LinkedList;
-
-import javax.swing.JTable;
-
-import java.awt.Dimension;
-import java.io.File;
-
-import javax.swing.ListSelectionModel;
-
-import java.awt.Color;
 
 public class NewReceipt extends JFrame {
 
@@ -73,7 +58,6 @@ public class NewReceipt extends JFrame {
 	private JComboBox<String> comboBoxCategory;
 	private JComboBox<Course> comboBoxGang;
 	private JTextPane textPane;
-	private DefaultTableModel tableModel;
 	private JComboBox<Difficulty> comboBoxDifficulty;
 	private JButton btnSave;
 	private boolean newReceipt;
@@ -83,7 +67,6 @@ public class NewReceipt extends JFrame {
 	private JLabel lblAnlegen;
 	private JScrollPane scrollPane;
 
-	static private String newline = "\n";
 	private JFileChooser fc;
 
 	public static synchronized NewReceipt getInstance() {
@@ -113,7 +96,6 @@ public class NewReceipt extends JFrame {
 	 */
 	private NewReceipt() {
 		ingredientList = new LinkedList<Ingredient>();
-		tableModel = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Neues Rezept/Rezept bearbeiten");
