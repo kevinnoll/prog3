@@ -98,13 +98,14 @@ public class Kochbuch extends JFrame {
 	/**
 	 * Create the application.
 	 */
-	private Kochbuch() {
+	private Kochbuch(String name) {
+		super(name);
 		initialize();
 	}
 
 	public static synchronized Kochbuch getInstance() {
 		if (instance == null)
-			instance = new Kochbuch();
+			instance = new Kochbuch("Kevin der Strolch");
 		return instance;
 	}
 
