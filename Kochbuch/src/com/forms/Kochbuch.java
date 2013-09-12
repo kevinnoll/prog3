@@ -105,7 +105,7 @@ public class Kochbuch extends JFrame {
 
 	public static synchronized Kochbuch getInstance() {
 		if (instance == null)
-			instance = new Kochbuch("Kevin der Strolch");
+			instance = new Kochbuch("");
 		return instance;
 	}
 
