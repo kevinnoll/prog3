@@ -14,19 +14,14 @@ public class Categories extends LinkedList<String>{
 	private Categories() {
 		add("Alle");
 		add("Favoriten");
-		add("Kartoffeln");
-		add("Rindfleisch");
-		add("Hühnchen");
-		add("Schweinefleisch");
+		add("Fleischgerichte");
+		add("Regional");
 		add("Asiatisch");
-		add("Tomatig");
 		add("Vegetarisch");
 		add("Nudelgerichte");
 		add("Fischgerichte");
 		add("Suppen");
-		add("Vorspeisen");
-		add("Dessert");
-		
+		add("Süßes");
 	}
 
 	public static synchronized Categories getInstance() {
