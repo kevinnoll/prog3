@@ -11,3 +11,4 @@ Kochbuch_v2_03062013.rar
 *.classpath
 *.project
 # Kochbuch/.settings/ #
+Kochbuch/bin/.gitignore
