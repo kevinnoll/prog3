@@ -11,10 +11,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class Receipt implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	
 	private int iD;
 	private String name;
 	private int duration;

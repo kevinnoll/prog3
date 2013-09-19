@@ -1,9 +1,13 @@
 package com.menu;
 
+import java.io.Serializable;
+
 import com.receipt.Receipt;
 
-public class Menu {
+public class Menu implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private int iD;
 	private String name;
 	private Receipt starter;

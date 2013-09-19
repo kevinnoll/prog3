@@ -1,5 +1,5 @@
 package com.receipt;
 
 public enum Entity {
-	g, kg, Liter, Milliliter, Stück
+	g, kg, Liter, Milliliter, Stueck
 }

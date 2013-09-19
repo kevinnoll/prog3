@@ -12,6 +12,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -38,30 +41,35 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import sun.awt.WindowClosingListener;
+
 import net.miginfocom.swing.MigLayout;
 
 import com.factories.MenuBarFactory;
 import com.factories.MenuEntries;
 import com.factories.StarButton;
 import com.favorites.FavoritList;
+import com.menu.MenuList;
 import com.receipt.Categories;
 import com.receipt.Ingredient;
 import com.receipt.Receipt;
 import com.receipt.ReceiptList;
-import com.serializer.ReceiptListSerializer;
+import com.serializer.CategorieSerializer;
+import com.serializer.MenuSerializer;
+import com.serializer.ReceiptSerializer;
 import com.shoppinglist.ShoppingList;
 
 public class Kochbuch extends JFrame {
 
+	public final static String APP_DATA_FOLDER = System.getProperty("user.home") + "/kochbuch";
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JFrame frmKochbuch;
 	private JTextField textFieldSearch;
-	private ReceiptList receiptList;
 	private DefaultListModel<Receipt> entries;
-	//	private NewReceipt receiptDialog;
 	private static Kochbuch instance;
 	private JPanel panel;
 	private JPanel panel_1;
@@ -87,7 +95,14 @@ public class Kochbuch extends JFrame {
 			public void run() {
 				try {
 					Kochbuch.getInstance();
-					//					window.frmKochbuch.setVisible(true);
+					
+					Runtime.getRuntime().addShutdownHook(new Thread() {
+						public void run() {
+							CategorieSerializer.serializeValues(APP_DATA_FOLDER + "/" + CategorieSerializer.CATEGORIES_FILE, Categories.getInstance());
+							ReceiptSerializer.serializeValues(APP_DATA_FOLDER + "/" + ReceiptSerializer.RECEIPT_FILE, ReceiptList.getInstance());
+							MenuSerializer.serializeValues(APP_DATA_FOLDER + "/" + MenuSerializer.MENU_FILE, MenuList.getInstance());
+						}
+					});
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -100,7 +115,8 @@ public class Kochbuch extends JFrame {
 	 */
 	private Kochbuch(String name) {
 		super(name);
-		initialize();
+		createDataFolder();
+		initialize();		
 	}
 
 	public static synchronized Kochbuch getInstance() {
@@ -116,6 +132,8 @@ public class Kochbuch extends JFrame {
 		//external initializations
 		//		receiptDialog = NewReceipt.getInstance();
 
+		
+		
 		frmKochbuch = new JFrame();
 		frmKochbuch.setTitle("Kochbuch");
 		frmKochbuch.setBounds(100, 100, 1127, 677);
@@ -158,7 +176,7 @@ public class Kochbuch extends JFrame {
 										.addContainerGap()));
 		panel_1.setLayout(new MigLayout("", "[][grow][]", "[][grow][][grow][][][]"));
 
-		lblRezeptselektiert = new JLabel("Rezept (selektiert)");
+		lblRezeptselektiert = new JLabel("Bitte Rezept selektieren");
 		panel_1.add(lblRezeptselektiert, "cell 0 0,growx");
 
 		JPanel panel_2 = new JPanel();
@@ -227,7 +245,7 @@ public class Kochbuch extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (listIngredientsRightSide.getSelectedIndex() == -1) {
-					JOptionPane.showConfirmDialog(listIngredientsRightSide, "Bitte eine Zutat zum Hinzufügen auswählen", "Keine Zutat angeklickt",
+					JOptionPane.showConfirmDialog(listIngredientsRightSide, "Bitte eine Zutat zum Hinzuf\u00FCgen ausw\u00E4hlen", "Keine Zutat angeklickt",
 							JOptionPane.DEFAULT_OPTION);
 				} else {
 					List<Ingredient> listOfIngredients = listIngredientsRightSide.getSelectedValuesList();
@@ -264,19 +282,19 @@ public class Kochbuch extends JFrame {
 		JLabel lblSchwierigkeit = new JLabel("Schwierigkeit:");
 		panel_1.add(lblSchwierigkeit, "cell 0 4");
 
-		lblDifficulty = new JLabel("Einfach");
+		lblDifficulty = new JLabel("");
 		panel_1.add(lblDifficulty, "cell 1 4 2 1");
 
 		JLabel lblDauer = new JLabel("Dauer:");
 		panel_1.add(lblDauer, "cell 0 5");
 
-		lblDuration = new JLabel("20 min");
+		lblDuration = new JLabel("");
 		panel_1.add(lblDuration, "cell 1 5 2 1");
 
 		JLabel lblPlatzImMenu = new JLabel("Platz im Menu:");
 		panel_1.add(lblPlatzImMenu, "cell 0 6");
 
-		lblCourse = new JLabel("Dessert");
+		lblCourse = new JLabel("");
 		lblCourse.setPreferredSize(new Dimension(100, 14));
 		lblCourse.setMinimumSize(new Dimension(100, 14));
 		lblCourse.setMaximumSize(new Dimension(100, 14));
@@ -321,7 +339,7 @@ public class Kochbuch extends JFrame {
 		btnRezeptLschen = new JButton("Rezept l\u00F6schen");
 		btnRezeptLschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(scrollPane_2, "Wirklich löschen?", "Bitte bestätigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+				if (JOptionPane.showConfirmDialog(scrollPane_2, "Wirklich l\u00F6schen?", "Bitte best\u00E4tigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
 					ReceiptList.getInstance().remove(list.getSelectedValue());
 					entries.removeElement(list.getSelectedValue());
 					searchAndDisplay(textFieldSearch.getText());
@@ -351,7 +369,7 @@ public class Kochbuch extends JFrame {
 		btnRezeptBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (list.getSelectedIndex() == -1) {
-					JOptionPane.showConfirmDialog(scrollPane_2, "Bitte ein Rezept zum bearbeiten auswählen", "Kein Rezept angeklickt",
+					JOptionPane.showConfirmDialog(scrollPane_2, "Bitte ein Rezept zum bearbeiten auswaehlen", "Kein Rezept angeklickt",
 							JOptionPane.DEFAULT_OPTION);
 				} else {
 					NewReceipt.getInstance().setFields(list.getSelectedValue());
@@ -408,13 +426,6 @@ public class Kochbuch extends JFrame {
 
 		scrollPane_2.setViewportView(list);
 
-		ReceiptList.getInstance().add(MenuEntries.get_Burger());
-		ReceiptList.getInstance().add(MenuEntries.get_Kartoffeln());
-		ReceiptList.getInstance().add(MenuEntries.get_Eis());
-		ReceiptList.getInstance().add(MenuEntries.get_Burger2());
-		ReceiptList.getInstance().add(MenuEntries.get_Kartoffeln2());
-		ReceiptList.getInstance().add(MenuEntries.get_Eis6());
-
 		entries = new DefaultListModel<Receipt>();
 
 		for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
@@ -444,22 +455,28 @@ public class Kochbuch extends JFrame {
 
 	private void fillRightPanel() {
 		DefaultListModel<Ingredient> newModel = new DefaultListModel<Ingredient>();
-		for (int i = 0; i < list.getSelectedValue().getIngredients().size(); i++) {
-			newModel.addElement(list.getSelectedValue().getIngredients().get(i));
+		
+		if (list.getSize().height > 0) {
+		
+			for (int i = 0; i < list.getSelectedValue().getIngredients().size(); i++) {
+				newModel.addElement(list.getSelectedValue().getIngredients().get(i));
+			}
+			lblRezeptselektiert.setText(list.getSelectedValue().getName());
+			lblRezeptselektiert.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+			listIngredientsRightSide.setModel(newModel);
+			textPane.setText(list.getSelectedValue().getReceipt());
+			lblCourse.setText(list.getSelectedValue().getCourse().toString());
+			lblDifficulty.setText(list.getSelectedValue().getDifficulty().toString());
+			lblDuration.setText(list.getSelectedValue().getDuration() + " min");
+			labelPicture.setIcon(list.getSelectedValue().getImage());
+			if(FavoritList.getInstance().contains(list.getSelectedValue())){
+				starButton.setSelected(true);
+			} else {
+				starButton.setSelected(false);
+			}
+			
 		}
-		lblRezeptselektiert.setText(list.getSelectedValue().getName());
-		lblRezeptselektiert.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
-		listIngredientsRightSide.setModel(newModel);
-		textPane.setText(list.getSelectedValue().getReceipt());
-		lblCourse.setText(list.getSelectedValue().getCourse().toString());
-		lblDifficulty.setText(list.getSelectedValue().getDifficulty().toString());
-		lblDuration.setText(list.getSelectedValue().getDuration() + " min");
-		labelPicture.setIcon(list.getSelectedValue().getImage());
-		if(FavoritList.getInstance().contains(list.getSelectedValue())){
-			starButton.setSelected(true);
-		} else {
-			starButton.setSelected(false);
-		}
+		
 		JMenuBar menuBar = MenuBarFactory.getTheMenuBar();
 		frmKochbuch.setJMenuBar(menuBar);
 	}
@@ -572,39 +589,15 @@ public class Kochbuch extends JFrame {
 		frmKochbuch.dispose();
 	}
 
-	/**
-	 * Auslesen der Warteschlange aus einer Datei
-	 * 
-	 * @throws IOException
-	 * @throws ClassNotFoundException
-	 */
-	private void ReadReceiptListFromDisk() throws IOException, ClassNotFoundException {
-		// Dateiname einlesen
-		// TODO PFAD AUSLESEN ! ! ! ! String dateiname =
-		// Stdin.readString(EINGABE_WARTESCHLANGE_EINLESEN);
-		String dateiname = "%APPDATA%/Prog3Kochbuch/savegame";
-		// die Studentenliste serialisieren
-		receiptList = ReceiptListSerializer.deserialize(dateiname);
-
-		// Ausgabe an den Nutzer
-		// System.out.println(INFO_WARTESCHLANGE_EINLESEN);
-	}
-
-	/**
-	 * Schreibt eine Warteschlange in eine vom Nutzer ausgewaehlte Datei
-	 * 
-	 * @throws IOException
-	 */
-	private void writeReceiptListToDisk() throws IOException {
-		// Datiename einlesen
-		// TODO String dateiname =
-		// Stdin.readString(EINGABE_WARTESCHLANGE_ANLEGEN);
-		String dateiname = "%APPDATA%/Prog3Kochbuch/savegame";
-		// Objekt wegschreiben
-		ReceiptListSerializer.serialize(dateiname, receiptList);
-
-		// Ausgabe an den Nutzer
-		// System.out.println(INFO_WARTESCHLANGE_ANLEGEN);
+	private void createDataFolder() {
+		
+		File appDataFolder = new File(APP_DATA_FOLDER);
+		
+		//Pruefen, ob das Kochbuchverzeichniss exisitert !
+		if (!appDataFolder.exists()) {				
+			appDataFolder.mkdir();				
+		}
+		
 	}
 
 	private class TextFieldListener implements KeyListener {
@@ -630,4 +623,6 @@ public class Kochbuch extends JFrame {
 		}
 
 	}
+
+
 }

@@ -105,7 +105,7 @@ public class MenuManager extends JDialog {
 		JButton btnLschen = new JButton("L\u00F6schen");
 		btnLschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(scrollPane, "Wirklich löschen?", "Bitte bestätigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+				if (JOptionPane.showConfirmDialog(scrollPane, "Wirklich loeschen?", "Bitte bestaetigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
 					DefaultListModel<Menu> model = (DefaultListModel<Menu>)menuList.getModel();
 					MenuList.getInstance().remove(menuList.getSelectedValue());
 					model.removeElement(menuList.getSelectedValue());
@@ -197,31 +197,31 @@ public class MenuManager extends JDialog {
 		JPanel panel_3 = new JPanel();
 		panel.add(panel_3, "cell 3 0 1 5");
 		
-		lblStarterImage = new JLabel("New label");
+		lblStarterImage = new JLabel("");
 		panel_3.add(lblStarterImage);
 		
 		JLabel label_21 = new JLabel("Titel:");
 		panel.add(label_21, "cell 0 1");
 		
-		lblVorspeiseTitle = new JLabel("asd");
+		lblVorspeiseTitle = new JLabel("");
 		panel.add(lblVorspeiseTitle, "cell 1 1");
 		
 		JLabel label_22 = new JLabel("Schwierigkeit:");
 		panel.add(label_22, "cell 0 2");
 		
-		lblVorspeiseDiff = new JLabel("New label");
+		lblVorspeiseDiff = new JLabel("");
 		panel.add(lblVorspeiseDiff, "cell 1 2");
 		
 		JLabel label_23 = new JLabel("Dauer:");
 		panel.add(label_23, "cell 0 3");
 		
-		lblVorspeiseDur = new JLabel("New label");
+		lblVorspeiseDur = new JLabel("");
 		panel.add(lblVorspeiseDur, "cell 1 3");
 		
 		JLabel label_24 = new JLabel("Kategorie:");
 		panel.add(label_24, "cell 0 4");
 		
-		lblVorspeiseCat = new JLabel("New label");
+		lblVorspeiseCat = new JLabel("");
 		panel.add(lblVorspeiseCat, "cell 1 4");
 		
 		JLabel labelMain = new JLabel("Hauptgang");
@@ -237,31 +237,31 @@ public class MenuManager extends JDialog {
 		JPanel panel_4 = new JPanel();
 		panel_1.add(panel_4, "cell 3 0 1 5");
 		
-		lblMainImage = new JLabel("New label");
+		lblMainImage = new JLabel("");
 		panel_4.add(lblMainImage);
 		
 		JLabel label_11 = new JLabel("Titel:");
 		panel_1.add(label_11, "cell 0 1");
 		
-		lblMainTitle = new JLabel("New label");
+		lblMainTitle = new JLabel("");
 		panel_1.add(lblMainTitle, "cell 1 1");
 		
 		JLabel label_12 = new JLabel("Schwierigkeit:");
 		panel_1.add(label_12, "cell 0 2");
 		
-		lblMainDiff = new JLabel("New label");
+		lblMainDiff = new JLabel("");
 		panel_1.add(lblMainDiff, "cell 1 2");
 		
 		JLabel label_13 = new JLabel("Dauer:");
 		panel_1.add(label_13, "cell 0 3");
 		
-		lblMainDur = new JLabel("New label");
+		lblMainDur = new JLabel("");
 		panel_1.add(lblMainDur, "cell 1 3");
 		
 		JLabel label_14 = new JLabel("Kategorie:");
 		panel_1.add(label_14, "cell 0 4");
 		
-		lblMainCat = new JLabel("New label");
+		lblMainCat = new JLabel("");
 		panel_1.add(lblMainCat, "cell 1 4");
 		
 		JLabel lblDessert = new JLabel("Dessert");
@@ -277,35 +277,35 @@ public class MenuManager extends JDialog {
 		JPanel panel_5 = new JPanel();
 		panel_2.add(panel_5, "cell 3 0 1 5");
 		
-		lblDessertImage = new JLabel("New label");
+		lblDessertImage = new JLabel("");
 		panel_5.add(lblDessertImage);
 		
 		JLabel label_1 = new JLabel("Titel:");
 		panel_2.add(label_1, "cell 0 1");
 		
-		lblDessertTitle = new JLabel("New label");
+		lblDessertTitle = new JLabel("");
 		panel_2.add(lblDessertTitle, "cell 1 1");
 		
 		JLabel label_2 = new JLabel("Schwierigkeit:");
 		panel_2.add(label_2, "cell 0 2");
 		
-		lblDessertDiff = new JLabel("New label");
+		lblDessertDiff = new JLabel("");
 		panel_2.add(lblDessertDiff, "cell 1 2");
 		
 		JLabel label_3 = new JLabel("Dauer:");
 		panel_2.add(label_3, "cell 0 3");
 		
-		lblDessertDur = new JLabel("New label");
+		lblDessertDur = new JLabel("");
 		panel_2.add(lblDessertDur, "cell 1 3");
 		
 		JLabel label_4 = new JLabel("Kategorie:");
 		panel_2.add(label_4, "cell 0 4");
 		
-		lblDessertCat = new JLabel("New label");
+		lblDessertCat = new JLabel("");
 		panel_2.add(lblDessertCat, "cell 1 4");
 		
-		Menu menu = new Menu(0, "erstes Menu",	ReceiptList.getInstance().get(1),ReceiptList.getInstance().get(0),ReceiptList.getInstance().get(2));
-		MenuList.getInstance().add(menu);
+		//Menu menu = new Menu(0, "erstes Menu",	ReceiptList.getInstance().get(1),ReceiptList.getInstance().get(0),ReceiptList.getInstance().get(2));
+		//MenuList.getInstance().add(menu);
 		DefaultListModel<Menu> entries = new DefaultListModel<Menu>();
 //		entries.addElement(menu);
 		for(int i= 0; i < MenuList.getInstance().size(); i++){
@@ -348,9 +348,13 @@ public class MenuManager extends JDialog {
 	}
 	
 	private void fillRightPanel(Menu selectedMenu) {
-		setStarter(selectedMenu.getStarter());
-		setMain(selectedMenu.getMain());
-		setDessert(selectedMenu.getDessert());
+		
+		if (selectedMenu != null) {
+			setStarter(selectedMenu.getStarter());
+			setMain(selectedMenu.getMain());
+			setDessert(selectedMenu.getDessert());
+		}		
+		
 	}
 
 	private void setDessert(Receipt dessert) {

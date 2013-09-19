@@ -136,7 +136,7 @@ public class NewReceipt extends JFrame {
 		btnDeleteIngredient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() == -1) {
-					JOptionPane.showConfirmDialog(scrollPane, "Bitte eine Zutat zum Löschen auswählen", "Keine Zutat angeklickt",
+					JOptionPane.showConfirmDialog(scrollPane, "Bitte eine Zutat zum Lï¿½schen auswï¿½hlen", "Keine Zutat angeklickt",
 							JOptionPane.DEFAULT_OPTION);
 				} else {
 					// delete selected Object from the list of Ingredients
@@ -187,7 +187,7 @@ public class NewReceipt extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//				Receipt receipt = new Receipt();
 				if (textFieldTitle.getText().trim().isEmpty() || textPane.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(btnSave, "Bitte alles ausfüllen!");
+					JOptionPane.showMessageDialog(btnSave, "Bitte alles ausfuellen!");
 				} else {
 					if (newReceipt) {
 						Receipt toReturn = new Receipt(CURRENT_ID, textFieldTitle.getText(), textPane.getText(), Integer
@@ -271,7 +271,7 @@ public class NewReceipt extends JFrame {
 					fc.setFileView(new ImageFileView());
 					fc.setAccessory(new ImagePreview(fc));
 				}
-				int returnVal = fc.showDialog(contentPane, "Hinzufügen");
+				int returnVal = fc.showDialog(contentPane, "Hinzufuegen");
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					if (fc.getSelectedFile().getName().endsWith(".gif") || fc.getSelectedFile().getName().endsWith(".png")
 							|| fc.getSelectedFile().getName().endsWith(".jpg") || fc.getSelectedFile().getName().endsWith(".jpeg")) {

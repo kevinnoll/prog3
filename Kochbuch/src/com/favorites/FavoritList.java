@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import com.receipt.Receipt;
 
-public class FavoritList extends LinkedList<Receipt>{
+public class FavoritList extends LinkedList<Receipt> {
 	/**
 	 * 
 	 */

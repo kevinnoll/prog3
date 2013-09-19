@@ -49,23 +49,26 @@ public class MenuBarFactory {
 		});
 		menu.add(menuItem);
 		menu.addSeparator();
+		
+		menuItem = new JMenuItem("Kategorien verwalten", new ImageIcon("icons/icon_menu.png"));
+		menuItem.addActionListener(new ActionListener() {
+			public final void actionPerformed(final ActionEvent e) {
+				//TODO verwaltung einfuegen...
+			}
+		});
+		menu.add(menuItem);
+		menu.add(menuItem);
+		
+		menu.addSeparator();
 
 		//Menuitem Favoriten
 		menuItem = new JMenu("Favoriten");
 		menuItem.setIcon(new ImageIcon("icons/icon_star.png"));
 		if (FavoritList.getInstance().isEmpty()) {
-			JMenuItem subMenuItem1 = new JMenuItem("Favorit1");
-			JMenuItem subMenuItem2 = new JMenuItem("Favorit2");
-			JMenuItem subMenuItem3 = new JMenuItem("Favorit3");
-			JMenuItem subMenuItem4 = new JMenuItem("Favorit4");
-			JMenuItem subMenuItem5 = new JMenuItem("Favorit5");
-			JMenuItem subMenuItem6 = new JMenuItem("...");
+			JMenuItem subMenuItem1 = new JMenuItem("Keine Favoriten anlegelt");	
+			subMenuItem1.enable(false);
 			menuItem.add(subMenuItem1);
-			menuItem.add(subMenuItem2);
-			menuItem.add(subMenuItem3);
-			menuItem.add(subMenuItem4);
-			menuItem.add(subMenuItem5);
-			menuItem.add(subMenuItem6);
+			
 		} else {
 			for(int i= 0; i< FavoritList.getInstance().size();i++){
 				JMenuItem subMenutItem = new JMenuItem(FavoritList.getInstance().get(i).getName());
@@ -81,8 +84,8 @@ public class MenuBarFactory {
 		menu.add(menuItem);
 		menu.addSeparator();
 
-		// Schließen
-		menuItem = new JMenuItem("Schließen");
+		// Schlieï¿½en
+		menuItem = new JMenuItem("Schliessen");
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				Kochbuch.getInstance().close();
@@ -91,13 +94,13 @@ public class MenuBarFactory {
 		menu.add(menuItem);
 
 		//Menues
-		menu = new JMenu("Menüs");
+		menu = new JMenu("Menues");
 		menu.setMnemonic(KeyEvent.VK_M);
 		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
 		menuBar.add(menu);
 
 		// a group of JMenuItems
-		menuItem = new JMenuItem("Menü erstellen", new ImageIcon("icons/icon_menu.png"));
+		menuItem = new JMenuItem("Menue erstellen", new ImageIcon("icons/icon_menu.png"));
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				MenuCreator menuCreator = new MenuCreator();
@@ -107,7 +110,7 @@ public class MenuBarFactory {
 		menu.add(menuItem);
 
 		JMenuItem menuItem2;
-		menuItem2 = new JMenuItem("Menüs verwalten", new ImageIcon("icons/icon_menu.png"));
+		menuItem2 = new JMenuItem("Menues verwalten", new ImageIcon("icons/icon_menu.png"));
 		menuItem2.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				MenuManager.getInstance().setVisible(true);
