@@ -41,7 +41,7 @@ public class AddCategory extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public AddCategory() {
+	public AddCategory(final boolean catManager) {
 		setModal(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -50,19 +50,24 @@ public class AddCategory extends JDialog {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JLabel lblKategorie = new JLabel("Kategorie");
+		JLabel lblKategorie = new JLabel(Messages.getString("AddCategory.categorie")); //$NON-NLS-1$
 		
 		textFieldCategory = new JTextField();
 		textFieldCategory.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Hinzuf\u00FCgen");
+		JButton btnNewButton = new JButton(Messages.getString("AddCategory.add")); //$NON-NLS-1$
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (!textFieldCategory.getText().trim().isEmpty()) {
 						String category = textFieldCategory.getText();
 						Categories.getInstance().add(category);
-						NewReceipt.getInstance().setCategory(category);
+						if (catManager) {
+							CategorieManager.getInstance().setKategories();	
+						} else {
+							NewReceipt.getInstance().setCategory(category);
+						}
+						Kochbuch.getInstance().setReceipts();
 						dispose();
 					}
 				} catch (NumberFormatException ex) {

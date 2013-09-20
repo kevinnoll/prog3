@@ -3,6 +3,9 @@ package com.receipt;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.forms.Kochbuch;
+import com.serializer.CategorieSerializer;
+
 public class Categories extends LinkedList<String>{
 
 	/**
@@ -21,13 +24,16 @@ public class Categories extends LinkedList<String>{
 		add("Nudelgerichte");
 		add("Fischgerichte");
 		add("Suppen");
-		add("Süßes");
+		add("Suesses");
 	}
 
 	public static synchronized Categories getInstance() {
 		if (instance == null) {
-			instance = new Categories();
+			if ((instance = CategorieSerializer.deserializeValues(Kochbuch.APP_DATA_FOLDER + "/" + CategorieSerializer.CATEGORIES_FILE)) == null) {
+				instance = new Categories();
+			}			
 		}
 		return instance;
 	}
+	
 }

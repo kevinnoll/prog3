@@ -117,6 +117,13 @@ public class Receipt implements Serializable {
 	public void setImage(File image) {
 		setImagefile(image);
 		BufferedImage img = null;
+		
+		if (!image.exists()) {
+			image = new File("images/placeholder.png");
+		} else if (!image.canRead()) {
+			image = new File("images/placeholder.png");
+		}
+		
 		try {
 		    img = ImageIO.read(image);
 		} catch (IOException e) {

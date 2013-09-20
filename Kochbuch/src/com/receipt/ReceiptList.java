@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import com.factories.MenuEntries;
 import com.forms.Kochbuch;
+import com.forms.Messages;
 import com.menu.Menu;
 import com.serializer.ReceiptSerializer;
 
@@ -28,7 +29,7 @@ public class ReceiptList extends LinkedList<Receipt> implements Serializable {
 	 */
 	public static synchronized ReceiptList getInstance() {
 		if (instance == null) {
-			if ((instance = ReceiptSerializer.deserializeValues(Kochbuch.APP_DATA_FOLDER + "/" + ReceiptSerializer.RECEIPT_FILE)) == null) {
+			if ((instance = ReceiptSerializer.deserializeValues(Kochbuch.APP_DATA_FOLDER + "/" + ReceiptSerializer.RECEIPT_FILE)) == null) { //$NON-NLS-1$
 				instance = new ReceiptList();
 			}	
 		}
@@ -37,11 +38,21 @@ public class ReceiptList extends LinkedList<Receipt> implements Serializable {
 	
 	public void addDefaultReceipts() {
 		
-		int answer = JOptionPane.showConfirmDialog(null, "Dies scheint Ihr erster Start zu sein !\nMöchten Sie die Beispiel Rezepte laden ?", "Keine Menues gefunden", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		int answer = JOptionPane.showConfirmDialog(null, Messages.getString("ReceiptList.first_start_dialog_receipt"), Messages.getString("ReceiptList.no_reiceipts_found"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		switch (answer) {
 			case JOptionPane.YES_OPTION:
-				add(MenuEntries.get_Burger());
+				add(MenuEntries.getMeat1());
+				add(MenuEntries.getMeat2());
+				add(MenuEntries.getMeat3());
+				
+				add(MenuEntries.getRegio1());
+				add(MenuEntries.getRegio2());
+				add(MenuEntries.getRegio3());
+				
+				add(MenuEntries.getAsia1());
+				add(MenuEntries.getAsia2());
+				add(MenuEntries.getAsia3());
 				break;
 			case JOptionPane.NO_OPTION:
 				//Do nothing

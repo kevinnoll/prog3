@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import com.receipt.Categories;
 import com.receipt.Ingredient;
 
-public class ShoppingList extends LinkedList<Ingredient>{
+public class ShoppingList extends LinkedList<Ingredient> {
 	
 	private static ShoppingList instance;
 	/**

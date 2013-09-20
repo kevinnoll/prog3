@@ -60,7 +60,7 @@ public class MenuCreator extends JDialog {
 	 * Create the dialog.
 	 */
 	public MenuCreator() {
-		setTitle("Men\u00FC erstellen");
+		setTitle(Messages.getString("MenuCreator.create_menu")); //$NON-NLS-1$
 		setResizable(false);
 		setModal(true);
 		setBounds(100, 100, 364, 258);
@@ -68,12 +68,12 @@ public class MenuCreator extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
-		JLabel lblName = new JLabel("Name:");
+		JLabel lblName = new JLabel(Messages.getString("MenuCreator.name")); //$NON-NLS-1$
 
 		textField = new JTextField();
 		textField.setColumns(10);
 
-		JLabel lblVorspeise = new JLabel("Vorspeise:");
+		JLabel lblVorspeise = new JLabel(Messages.getString("MenuCreator.starter")); //$NON-NLS-1$
 
 		comboBoxStarter = new JComboBox<Receipt>();
 		for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
@@ -82,7 +82,7 @@ public class MenuCreator extends JDialog {
 			}
 		}
 
-		JLabel lblHauptgericht = new JLabel("Hauptgericht:");
+		JLabel lblHauptgericht = new JLabel(Messages.getString("MenuCreator.main_course")); //$NON-NLS-1$
 
 		comboBoxMain = new JComboBox<Receipt>();
 		for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
@@ -91,7 +91,7 @@ public class MenuCreator extends JDialog {
 			}
 		}
 
-		JLabel lblDessert = new JLabel("Dessert:");
+		JLabel lblDessert = new JLabel(Messages.getString("MenuCreator.dessert")); //$NON-NLS-1$
 
 		comboBoxDessert = new JComboBox<Receipt>();
 		for (int i = 0; i < ReceiptList.getInstance().size(); i++) {
@@ -141,7 +141,7 @@ public class MenuCreator extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Hinzuf\u00FCgen");
+				JButton okButton = new JButton(Messages.getString("MenuCreator.add")); //$NON-NLS-1$
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (newMenu) {
@@ -162,18 +162,18 @@ public class MenuCreator extends JDialog {
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
+				okButton.setActionCommand(Messages.getString("MenuCreator.ok")); //$NON-NLS-1$
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Verwerfen");
+				JButton cancelButton = new JButton(Messages.getString("MenuCreator.discard")); //$NON-NLS-1$
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
+				cancelButton.setActionCommand(Messages.getString("MenuCreator.cancel")); //$NON-NLS-1$
 				buttonPane.add(cancelButton);
 			}
 		}

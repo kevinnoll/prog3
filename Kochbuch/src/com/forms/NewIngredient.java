@@ -74,29 +74,29 @@ public class NewIngredient extends JDialog {
 	public NewIngredient() {
 		setModal(true);
 		setResizable(false);
-		setTitle("Zutat anlegen");
+		setTitle(Messages.getString("NewIngredient.new_ingredient")); //$NON-NLS-1$
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 405, 152);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 
-		JLabel lblAmount = new JLabel("Menge");
+		JLabel lblAmount = new JLabel(Messages.getString("NewIngredient.quantity")); //$NON-NLS-1$
 
 		comboBoxEntity = new JComboBox();
 		comboBoxEntity.setModel(new DefaultComboBoxModel(Entity.values()));
 
-		JLabel lblEntity = new JLabel("Einheit");
+		JLabel lblEntity = new JLabel(Messages.getString("NewIngredient.entiy")); //$NON-NLS-1$
 
 		textFieldIngredient = new JTextField();
 		textFieldIngredient.setColumns(10);
 
-		JLabel lblIngredient = new JLabel("Lebensmittel");
+		JLabel lblIngredient = new JLabel(Messages.getString("NewIngredient.food")); //$NON-NLS-1$
 		spinnerAmount = new JSpinner();
 		spinnerAmount.setValue(0);
 		
-		JButton btnDiscard = new JButton("Verwerfen");
-		JButton btnSave = new JButton("Speichern");
+		JButton btnDiscard = new JButton(Messages.getString("NewIngredient.discard")); //$NON-NLS-1$
+		JButton btnSave = new JButton(Messages.getString("NewIngredient.save")); //$NON-NLS-1$
 		
 		/**
 		 * EventListener on focusLost-event to set a correct double value into the 
@@ -119,7 +119,7 @@ public class NewIngredient extends JDialog {
 		 */
 		btnDiscard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textFieldIngredient.setText("");
+				textFieldIngredient.setText(""); //$NON-NLS-1$
 				dispose();
 			}
 		});

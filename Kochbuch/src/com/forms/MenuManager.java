@@ -80,7 +80,7 @@ public class MenuManager extends JDialog {
 	 * Create the dialog.
 	 */
 	private MenuManager() {
-		setTitle("Men\u00FCs verwalten");
+		setTitle(Messages.getString("MenuManager.manage_menus")); //$NON-NLS-1$
 		setResizable(false);
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -94,7 +94,7 @@ public class MenuManager extends JDialog {
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
 		
-		JButton btnNeu = new JButton("Neu");
+		JButton btnNeu = new JButton(Messages.getString("MenuManager.new")); //$NON-NLS-1$
 		btnNeu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuCreator menuCreator = new MenuCreator();
@@ -102,10 +102,10 @@ public class MenuManager extends JDialog {
 			}
 		});
 		
-		JButton btnLschen = new JButton("L\u00F6schen");
+		JButton btnLschen = new JButton(Messages.getString("MenuManager.delete")); //$NON-NLS-1$
 		btnLschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(scrollPane, "Wirklich loeschen?", "Bitte bestaetigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) {
+				if (JOptionPane.showConfirmDialog(scrollPane, Messages.getString("MenuManager.confirm_delete"), Messages.getString("MenuManager.please_confirm"), JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) { //$NON-NLS-1$ //$NON-NLS-2$
 					DefaultListModel<Menu> model = (DefaultListModel<Menu>)menuList.getModel();
 					MenuList.getInstance().remove(menuList.getSelectedValue());
 					model.removeElement(menuList.getSelectedValue());
@@ -113,10 +113,10 @@ public class MenuManager extends JDialog {
 			}
 		});
 		
-		JLabel lblMens = new JLabel("Men\u00FCs");
-		lblMens.setFont(new Font("Calibri", Font.BOLD, 18));
+		JLabel lblMens = new JLabel(Messages.getString("MenuManager.menus")); //$NON-NLS-1$
+		lblMens.setFont(new Font("Calibri", Font.BOLD, 18)); //$NON-NLS-1$
 		
-		JButton btnBearbeiten = new JButton("Bearbeiten");
+		JButton btnBearbeiten = new JButton(Messages.getString("MenuManager.edit")); //$NON-NLS-1$
 		btnBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuCreator menuCreator = new MenuCreator(menuList.getSelectedValue());
@@ -126,15 +126,15 @@ public class MenuManager extends JDialog {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_2.setLayout(new MigLayout("", "[][150px:150px:150px][250px:250px:250px,grow][110px:110px:110px,grow]", "[grow][][][][]"));
+		panel_2.setLayout(new MigLayout("", "[][150px:150px:150px][250px:250px:250px,grow][110px:110px:110px,grow]", "[grow][][][][]")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_1.setLayout(new MigLayout("", "[][150px:150px:150px][250px:250px:250px,grow][110px:110px:110px,grow]", "[grow][][][][]"));
+		panel_1.setLayout(new MigLayout("", "[][150px:150px:150px][250px:250px:250px,grow][110px:110px:110px,grow]", "[grow][][][][]")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setLayout(new MigLayout("", "[][150px:150px:150px][250px:250px:250px,grow][110px:110px:110px,grow]", "[grow][][][][]"));
+		panel.setLayout(new MigLayout("", "[][150px:150px:150px][250px:250px:250px,grow][110px:110px:110px,grow]", "[grow][][][][]")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -184,125 +184,125 @@ public class MenuManager extends JDialog {
 						.addComponent(separator, GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)))
 		);
 		
-		JLabel lblVorspeise = new JLabel("Vorspeise");
-		lblVorspeise.setFont(new Font("Calibri", Font.BOLD, 18));
-		panel.add(lblVorspeise, "cell 0 0");
+		JLabel lblVorspeise = new JLabel(Messages.getString("MenuManager.starter")); //$NON-NLS-1$
+		lblVorspeise.setFont(new Font("Calibri", Font.BOLD, 18)); //$NON-NLS-1$
+		panel.add(lblVorspeise, "cell 0 0"); //$NON-NLS-1$
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		panel.add(scrollPane_3, "cell 2 0 1 5,grow");
+		panel.add(scrollPane_3, "cell 2 0 1 5,grow"); //$NON-NLS-1$
 		
 		starterList = new JList<Ingredient>();
 		scrollPane_3.setViewportView(starterList);
 		
 		JPanel panel_3 = new JPanel();
-		panel.add(panel_3, "cell 3 0 1 5");
+		panel.add(panel_3, "cell 3 0 1 5"); //$NON-NLS-1$
 		
-		lblStarterImage = new JLabel("");
+		lblStarterImage = new JLabel(""); //$NON-NLS-1$
 		panel_3.add(lblStarterImage);
 		
-		JLabel label_21 = new JLabel("Titel:");
-		panel.add(label_21, "cell 0 1");
+		JLabel label_21 = new JLabel(Messages.getString("MenuManager.title")); //$NON-NLS-1$
+		panel.add(label_21, "cell 0 1"); //$NON-NLS-1$
 		
-		lblVorspeiseTitle = new JLabel("");
-		panel.add(lblVorspeiseTitle, "cell 1 1");
+		lblVorspeiseTitle = new JLabel(""); //$NON-NLS-1$
+		panel.add(lblVorspeiseTitle, "cell 1 1"); //$NON-NLS-1$
 		
-		JLabel label_22 = new JLabel("Schwierigkeit:");
-		panel.add(label_22, "cell 0 2");
+		JLabel label_22 = new JLabel(Messages.getString("MenuManager.difficultly_level")); //$NON-NLS-1$
+		panel.add(label_22, "cell 0 2"); //$NON-NLS-1$
 		
-		lblVorspeiseDiff = new JLabel("");
-		panel.add(lblVorspeiseDiff, "cell 1 2");
+		lblVorspeiseDiff = new JLabel(""); //$NON-NLS-1$
+		panel.add(lblVorspeiseDiff, "cell 1 2"); //$NON-NLS-1$
 		
-		JLabel label_23 = new JLabel("Dauer:");
-		panel.add(label_23, "cell 0 3");
+		JLabel label_23 = new JLabel(Messages.getString("MenuManager.duration")); //$NON-NLS-1$
+		panel.add(label_23, "cell 0 3"); //$NON-NLS-1$
 		
-		lblVorspeiseDur = new JLabel("");
-		panel.add(lblVorspeiseDur, "cell 1 3");
+		lblVorspeiseDur = new JLabel(""); //$NON-NLS-1$
+		panel.add(lblVorspeiseDur, "cell 1 3"); //$NON-NLS-1$
 		
-		JLabel label_24 = new JLabel("Kategorie:");
-		panel.add(label_24, "cell 0 4");
+		JLabel label_24 = new JLabel(Messages.getString("MenuManager.kategory")); //$NON-NLS-1$
+		panel.add(label_24, "cell 0 4"); //$NON-NLS-1$
 		
-		lblVorspeiseCat = new JLabel("");
-		panel.add(lblVorspeiseCat, "cell 1 4");
+		lblVorspeiseCat = new JLabel(""); //$NON-NLS-1$
+		panel.add(lblVorspeiseCat, "cell 1 4"); //$NON-NLS-1$
 		
-		JLabel labelMain = new JLabel("Hauptgang");
-		labelMain.setFont(new Font("Calibri", Font.BOLD, 18));
-		panel_1.add(labelMain, "cell 0 0");
+		JLabel labelMain = new JLabel(Messages.getString("MenuManager.main_course")); //$NON-NLS-1$
+		labelMain.setFont(new Font("Calibri", Font.BOLD, 18)); //$NON-NLS-1$
+		panel_1.add(labelMain, "cell 0 0"); //$NON-NLS-1$
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		panel_1.add(scrollPane_1, "cell 2 0 1 5,grow");
+		panel_1.add(scrollPane_1, "cell 2 0 1 5,grow"); //$NON-NLS-1$
 		
 		mainList = new JList<Ingredient>();
 		scrollPane_1.setViewportView(mainList);
 		
 		JPanel panel_4 = new JPanel();
-		panel_1.add(panel_4, "cell 3 0 1 5");
+		panel_1.add(panel_4, "cell 3 0 1 5"); //$NON-NLS-1$
 		
-		lblMainImage = new JLabel("");
+		lblMainImage = new JLabel(""); //$NON-NLS-1$
 		panel_4.add(lblMainImage);
 		
-		JLabel label_11 = new JLabel("Titel:");
-		panel_1.add(label_11, "cell 0 1");
+		JLabel label_11 = new JLabel(Messages.getString("MenuManager.title")); //$NON-NLS-1$
+		panel_1.add(label_11, "cell 0 1"); //$NON-NLS-1$
 		
-		lblMainTitle = new JLabel("");
-		panel_1.add(lblMainTitle, "cell 1 1");
+		lblMainTitle = new JLabel(""); //$NON-NLS-1$
+		panel_1.add(lblMainTitle, "cell 1 1"); //$NON-NLS-1$
 		
-		JLabel label_12 = new JLabel("Schwierigkeit:");
-		panel_1.add(label_12, "cell 0 2");
+		JLabel label_12 = new JLabel(Messages.getString("MenuManager.difficultly_leve")); //$NON-NLS-1$
+		panel_1.add(label_12, "cell 0 2"); //$NON-NLS-1$
 		
-		lblMainDiff = new JLabel("");
-		panel_1.add(lblMainDiff, "cell 1 2");
+		lblMainDiff = new JLabel(""); //$NON-NLS-1$
+		panel_1.add(lblMainDiff, "cell 1 2"); //$NON-NLS-1$
 		
-		JLabel label_13 = new JLabel("Dauer:");
-		panel_1.add(label_13, "cell 0 3");
+		JLabel label_13 = new JLabel(Messages.getString("MenuManager.duration")); //$NON-NLS-1$
+		panel_1.add(label_13, "cell 0 3"); //$NON-NLS-1$
 		
-		lblMainDur = new JLabel("");
-		panel_1.add(lblMainDur, "cell 1 3");
+		lblMainDur = new JLabel(""); //$NON-NLS-1$
+		panel_1.add(lblMainDur, "cell 1 3"); //$NON-NLS-1$
 		
-		JLabel label_14 = new JLabel("Kategorie:");
-		panel_1.add(label_14, "cell 0 4");
+		JLabel label_14 = new JLabel(Messages.getString("MenuManager.kategory")); //$NON-NLS-1$
+		panel_1.add(label_14, "cell 0 4"); //$NON-NLS-1$
 		
-		lblMainCat = new JLabel("");
-		panel_1.add(lblMainCat, "cell 1 4");
+		lblMainCat = new JLabel(""); //$NON-NLS-1$
+		panel_1.add(lblMainCat, "cell 1 4"); //$NON-NLS-1$
 		
-		JLabel lblDessert = new JLabel("Dessert");
-		lblDessert.setFont(new Font("Calibri", Font.BOLD, 18));
-		panel_2.add(lblDessert, "cell 0 0");
+		JLabel lblDessert = new JLabel(Messages.getString("MenuManager.dessert")); //$NON-NLS-1$
+		lblDessert.setFont(new Font("Calibri", Font.BOLD, 18)); //$NON-NLS-1$
+		panel_2.add(lblDessert, "cell 0 0"); //$NON-NLS-1$
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		panel_2.add(scrollPane_2, "cell 2 0 1 5,grow");
+		panel_2.add(scrollPane_2, "cell 2 0 1 5,grow"); //$NON-NLS-1$
 		
 		dessertList = new JList<Ingredient>();
 		scrollPane_2.setViewportView(dessertList);
 		
 		JPanel panel_5 = new JPanel();
-		panel_2.add(panel_5, "cell 3 0 1 5");
+		panel_2.add(panel_5, "cell 3 0 1 5"); //$NON-NLS-1$
 		
-		lblDessertImage = new JLabel("");
+		lblDessertImage = new JLabel(""); //$NON-NLS-1$
 		panel_5.add(lblDessertImage);
 		
-		JLabel label_1 = new JLabel("Titel:");
-		panel_2.add(label_1, "cell 0 1");
+		JLabel label_1 = new JLabel(Messages.getString("MenuManager.title")); //$NON-NLS-1$
+		panel_2.add(label_1, "cell 0 1"); //$NON-NLS-1$
 		
-		lblDessertTitle = new JLabel("");
-		panel_2.add(lblDessertTitle, "cell 1 1");
+		lblDessertTitle = new JLabel(""); //$NON-NLS-1$
+		panel_2.add(lblDessertTitle, "cell 1 1"); //$NON-NLS-1$
 		
-		JLabel label_2 = new JLabel("Schwierigkeit:");
-		panel_2.add(label_2, "cell 0 2");
+		JLabel label_2 = new JLabel(Messages.getString("MenuManager.difficultly_level")); //$NON-NLS-1$
+		panel_2.add(label_2, "cell 0 2"); //$NON-NLS-1$
 		
-		lblDessertDiff = new JLabel("");
-		panel_2.add(lblDessertDiff, "cell 1 2");
+		lblDessertDiff = new JLabel(""); //$NON-NLS-1$
+		panel_2.add(lblDessertDiff, "cell 1 2"); //$NON-NLS-1$
 		
-		JLabel label_3 = new JLabel("Dauer:");
-		panel_2.add(label_3, "cell 0 3");
+		JLabel label_3 = new JLabel(Messages.getString("MenuManager.duration")); //$NON-NLS-1$
+		panel_2.add(label_3, "cell 0 3"); //$NON-NLS-1$
 		
-		lblDessertDur = new JLabel("");
-		panel_2.add(lblDessertDur, "cell 1 3");
+		lblDessertDur = new JLabel(""); //$NON-NLS-1$
+		panel_2.add(lblDessertDur, "cell 1 3"); //$NON-NLS-1$
 		
-		JLabel label_4 = new JLabel("Kategorie:");
-		panel_2.add(label_4, "cell 0 4");
+		JLabel label_4 = new JLabel(Messages.getString("MenuManager.kategorie")); //$NON-NLS-1$
+		panel_2.add(label_4, "cell 0 4"); //$NON-NLS-1$
 		
-		lblDessertCat = new JLabel("");
-		panel_2.add(lblDessertCat, "cell 1 4");
+		lblDessertCat = new JLabel(""); //$NON-NLS-1$
+		panel_2.add(lblDessertCat, "cell 1 4"); //$NON-NLS-1$
 		
 		//Menu menu = new Menu(0, "erstes Menu",	ReceiptList.getInstance().get(1),ReceiptList.getInstance().get(0),ReceiptList.getInstance().get(2));
 		//MenuList.getInstance().add(menu);
@@ -334,13 +334,13 @@ public class MenuManager extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("Schlie\u00DFen");
+				JButton okButton = new JButton(Messages.getString("MenuManager.close")); //$NON-NLS-1$
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
+				okButton.setActionCommand(Messages.getString("MenuManager.ok")); //$NON-NLS-1$
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
@@ -360,7 +360,7 @@ public class MenuManager extends JDialog {
 	private void setDessert(Receipt dessert) {
 		lblDessertTitle.setText(dessert.getName());
 		lblDessertDiff.setText(dessert.getDifficulty().toString());
-		lblDessertDur.setText(dessert.getDuration() + " min");
+		lblDessertDur.setText(dessert.getDuration() + Messages.getString("MenuManager.min")); //$NON-NLS-1$
 		lblDessertCat.setText(dessert.getCategory());
 		DefaultListModel<Ingredient> listModel = new DefaultListModel<Ingredient>();
 		for(int i = 0; i < dessert.getIngredients().size(); i++){
@@ -368,13 +368,13 @@ public class MenuManager extends JDialog {
 		}
 		dessertList.setModel(listModel);
 		lblDessertImage.setIcon(dessert.getIcon_big());
-		lblDessertImage.setText("");
+		lblDessertImage.setText(""); //$NON-NLS-1$
 	}
 
 	private void setMain(Receipt main) {
 		lblMainTitle.setText(main.getName());
 		lblMainDiff.setText(main.getDifficulty().toString());
-		lblMainDur.setText(main.getDuration() + " min");
+		lblMainDur.setText(main.getDuration() + Messages.getString("MenuManager.min")); //$NON-NLS-1$
 		lblMainCat.setText(main.getCategory());
 		DefaultListModel<Ingredient> listModel = new DefaultListModel<Ingredient>();
 		for(int i = 0; i < main.getIngredients().size(); i++){
@@ -382,13 +382,13 @@ public class MenuManager extends JDialog {
 		}
 		mainList.setModel(listModel);
 		lblMainImage.setIcon(main.getIcon_big());
-		lblMainImage.setText("");
+		lblMainImage.setText(""); //$NON-NLS-1$
 	}
 
 	private void setStarter(Receipt starter) {
 		lblVorspeiseTitle.setText(starter.getName());
 		lblVorspeiseDiff.setText(starter.getDifficulty().toString());
-		lblVorspeiseDur.setText(starter.getDuration()+ " min");
+		lblVorspeiseDur.setText(starter.getDuration()+ Messages.getString("MenuManager.min")); //$NON-NLS-1$
 		lblVorspeiseCat.setText(starter.getCategory());
 		DefaultListModel<Ingredient> listModel = new DefaultListModel<Ingredient>();
 		for(int i = 0; i < starter.getIngredients().size(); i++){
@@ -396,7 +396,7 @@ public class MenuManager extends JDialog {
 		}
 		starterList.setModel(listModel);
 		lblStarterImage.setIcon(starter.getIcon_big());
-		lblStarterImage.setText("");
+		lblStarterImage.setText(""); //$NON-NLS-1$
 	}
 	
 	public void setMenus(){

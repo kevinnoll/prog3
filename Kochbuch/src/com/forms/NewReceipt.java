@@ -98,7 +98,7 @@ public class NewReceipt extends JFrame {
 		ingredientList = new LinkedList<Ingredient>();
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Neues Rezept/Rezept bearbeiten");
+		setTitle(Messages.getString("NewReceipt.new_edit_receipt")); //$NON-NLS-1$
 		setBounds(100, 100, 460, 777);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
@@ -112,31 +112,31 @@ public class NewReceipt extends JFrame {
 
 		//		ingredientDialog = NewIngredient.getInstance();
 
-		JLabel lblTitle = new JLabel("Titel:");
+		JLabel lblTitle = new JLabel(Messages.getString("NewReceipt.title")); //$NON-NLS-1$
 
 		textFieldTitle = new JTextField();
 		textFieldTitle.setColumns(10);
 
-		JLabel lblTag = new JLabel("Kategorie:");
+		JLabel lblTag = new JLabel(Messages.getString("NewReceipt.kategory")); //$NON-NLS-1$
 
 		comboBoxCategory = new JComboBox<String>();
 		addItemsToCategoryBox();
 
-		JButton buttonAddTag = new JButton("+");
+		JButton buttonAddTag = new JButton("+"); //$NON-NLS-1$
 		buttonAddTag.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddCategory addCategoryDialog = new AddCategory();
+				AddCategory addCategoryDialog = new AddCategory(false);
 				addCategoryDialog.setVisible(true);
 			}
 		});
 
-		JLabel lblIngredient = new JLabel("Zutaten:");
+		JLabel lblIngredient = new JLabel(Messages.getString("NewReceipt.ingredient")); //$NON-NLS-1$
 
-		JButton btnDeleteIngredient = new JButton("Zutat l\u00F6schen");
+		JButton btnDeleteIngredient = new JButton(Messages.getString("NewReceipt.delete_ingredient")); //$NON-NLS-1$
 		btnDeleteIngredient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() == -1) {
-					JOptionPane.showConfirmDialog(scrollPane, "Bitte eine Zutat zum L�schen ausw�hlen", "Keine Zutat angeklickt",
+					JOptionPane.showConfirmDialog(scrollPane, Messages.getString("NewReceipt.please_chose_ingredient_to_delete"), Messages.getString("NewReceipt.no_ingredient_selected"), //$NON-NLS-1$ //$NON-NLS-2$
 							JOptionPane.DEFAULT_OPTION);
 				} else {
 					// delete selected Object from the list of Ingredients
@@ -164,7 +164,7 @@ public class NewReceipt extends JFrame {
 			}
 		});
 
-		JButton btnNewIngredient = new JButton("Neue Zutat");
+		JButton btnNewIngredient = new JButton(Messages.getString("NewReceipt.new_ingredient")); //$NON-NLS-1$
 		btnNewIngredient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NewIngredient newIngredientDialog = new NewIngredient();
@@ -173,21 +173,21 @@ public class NewReceipt extends JFrame {
 			}
 		});
 
-		JLabel lblReceipt = new JLabel("Rezept:");
+		JLabel lblReceipt = new JLabel(Messages.getString("NewReceipt.receipt")); //$NON-NLS-1$
 
-		JButton btnDiscard = new JButton("Verwerfen");
+		JButton btnDiscard = new JButton(Messages.getString("NewReceipt.discard")); //$NON-NLS-1$
 		btnDiscard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
 
-		btnSave = new JButton("Speichern");
+		btnSave = new JButton(Messages.getString("NewReceipt.save")); //$NON-NLS-1$
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//				Receipt receipt = new Receipt();
 				if (textFieldTitle.getText().trim().isEmpty() || textPane.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(btnSave, "Bitte alles ausfuellen!");
+					JOptionPane.showMessageDialog(btnSave, Messages.getString("NewReceipt.please_fill_all_fields")); //$NON-NLS-1$
 				} else {
 					if (newReceipt) {
 						Receipt toReturn = new Receipt(CURRENT_ID, textFieldTitle.getText(), textPane.getText(), Integer
@@ -196,7 +196,7 @@ public class NewReceipt extends JFrame {
 						if (file != null && file.exists()) {
 							toReturn.setImage(file);
 						} else {
-							toReturn.setImage(new File("images/placeholder.png"));
+							toReturn.setImage(new File("images/placeholder.png")); //$NON-NLS-1$
 						}
 						CURRENT_ID++;
 						ReceiptList.getInstance().add(toReturn);
@@ -212,7 +212,7 @@ public class NewReceipt extends JFrame {
 								if (newFile != null && newFile.exists()) {
 									toReturn.setImage(newFile);
 								} else {
-									toReturn.setImage(new File("images/placeholder.png"));
+									toReturn.setImage(new File("images/placeholder.png")); //$NON-NLS-1$
 								}
 								ReceiptList.getInstance().set(i, toReturn);
 								Kochbuch.getInstance().setReceipts();
@@ -224,16 +224,16 @@ public class NewReceipt extends JFrame {
 			}
 		});
 
-		JLabel lblDifficulty = new JLabel("Schwierigkeit:");
+		JLabel lblDifficulty = new JLabel(Messages.getString("NewReceipt.difficulty_level")); //$NON-NLS-1$
 
 		comboBoxDifficulty = new JComboBox<Difficulty>();
 		comboBoxDifficulty.addItem(Difficulty.einfach);
 		comboBoxDifficulty.addItem(Difficulty.mittel);
 		comboBoxDifficulty.addItem(Difficulty.schwer);
 
-		JLabel lblDurationTitle = new JLabel("Dauer:");
+		JLabel lblDurationTitle = new JLabel(Messages.getString("NewReceipt.duration")); //$NON-NLS-1$
 
-		JLabel lblDuration = new JLabel("min");
+		JLabel lblDuration = new JLabel(Messages.getString("NewReceipt.min")); //$NON-NLS-1$
 
 		spinner = new JSpinner();
 		spinner.addFocusListener(new FocusAdapter() {
@@ -247,21 +247,21 @@ public class NewReceipt extends JFrame {
 			}
 		});
 
-		JLabel lblGang = new JLabel("Gang:");
+		JLabel lblGang = new JLabel(Messages.getString("NewReceipt.course")); //$NON-NLS-1$
 
 		comboBoxGang = new JComboBox<Course>();
 		comboBoxGang.addItem(Course.Vorspeise);
 		comboBoxGang.addItem(Course.Hauptgericht);
 		comboBoxGang.addItem(Course.Dessert);
 
-		JLabel lblBild = new JLabel("Bild:");
+		JLabel lblBild = new JLabel(Messages.getString("NewReceipt.pic")); //$NON-NLS-1$
 
 		txtPfad = new JTextField();
 		txtPfad.setEditable(false);
-		txtPfad.setText("Pfad");
+		txtPfad.setText(Messages.getString("NewReceipt.path")); //$NON-NLS-1$
 		txtPfad.setColumns(10);
 
-		JButton btnSuchen = new JButton("Suchen");
+		JButton btnSuchen = new JButton(Messages.getString("NewReceipt.search")); //$NON-NLS-1$
 		btnSuchen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (fc == null) {
@@ -271,10 +271,10 @@ public class NewReceipt extends JFrame {
 					fc.setFileView(new ImageFileView());
 					fc.setAccessory(new ImagePreview(fc));
 				}
-				int returnVal = fc.showDialog(contentPane, "Hinzufuegen");
+				int returnVal = fc.showDialog(contentPane, Messages.getString("NewReceipt.add")); //$NON-NLS-1$
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					if (fc.getSelectedFile().getName().endsWith(".gif") || fc.getSelectedFile().getName().endsWith(".png")
-							|| fc.getSelectedFile().getName().endsWith(".jpg") || fc.getSelectedFile().getName().endsWith(".jpeg")) {
+					if (fc.getSelectedFile().getName().endsWith(".gif") || fc.getSelectedFile().getName().endsWith(".png") //$NON-NLS-1$ //$NON-NLS-2$
+							|| fc.getSelectedFile().getName().endsWith(".jpg") || fc.getSelectedFile().getName().endsWith(".jpeg")) { //$NON-NLS-1$ //$NON-NLS-2$
 						file = fc.getSelectedFile();
 						txtPfad.setText(file.getAbsolutePath());
 					}
@@ -283,8 +283,8 @@ public class NewReceipt extends JFrame {
 			}
 		});
 
-		lblAnlegen = new JLabel("Anlegen");
-		lblAnlegen.setFont(new Font("Calibri", Font.BOLD, 18));
+		lblAnlegen = new JLabel(Messages.getString("NewReceipt.new")); //$NON-NLS-1$
+		lblAnlegen.setFont(new Font("Calibri", Font.BOLD, 18)); //$NON-NLS-1$
 
 		scrollPane = new JScrollPane();
 
@@ -421,16 +421,16 @@ public class NewReceipt extends JFrame {
 	public void resetFields() {
 		newReceipt = true;
 		ingredientList = new LinkedList<Ingredient>();
-		DefaultTableModel model = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
+		DefaultTableModel model = new DefaultTableModel(new Object[] { Messages.getString("NewReceipt.number"), Messages.getString("NewReceipt.unit"), Messages.getString("NewReceipt.describtion") }, 0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		table.setModel(model);
-		textFieldTitle.setText("");
-		textPane.setText("");
+		textFieldTitle.setText(""); //$NON-NLS-1$
+		textPane.setText(""); //$NON-NLS-1$
 		spinner.setValue(0);
 		comboBoxDifficulty.setSelectedIndex(0);
 		comboBoxGang.setSelectedIndex(0);
 		comboBoxCategory.setSelectedIndex(0);
-		lblAnlegen.setText("Anlegen:");
-		txtPfad.setText("Pfad");
+		lblAnlegen.setText(Messages.getString("NewReceipt.new")); //$NON-NLS-1$
+		txtPfad.setText(Messages.getString("NewReceipt.path")); //$NON-NLS-1$
 	}
 
 	private void insertInTable(Ingredient ingredient) {
@@ -446,11 +446,11 @@ public class NewReceipt extends JFrame {
 
 	public void setFields(Receipt selectedValue) {
 		resetFields();
-		lblAnlegen.setText("Bearbeiten:");
+		lblAnlegen.setText(Messages.getString("NewReceipt.edit")); //$NON-NLS-1$
 		newReceipt = false;
 		receiptId = selectedValue.getiD();
 		ingredientList = new LinkedList<Ingredient>();
-		DefaultTableModel model = new DefaultTableModel(new Object[] { "Anzahl", "Einheit", "Bezeichnung" }, 0);
+		DefaultTableModel model = new DefaultTableModel(new Object[] { Messages.getString("NewReceipt.number"), Messages.getString("NewReceipt.unit"), Messages.getString("NewReceipt.describtion") }, 0); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		for (int i = 0; i < selectedValue.getIngredients().size(); i++) {
 			model.addRow(new Object[] { selectedValue.getIngredients().get(i).getQuantity(), selectedValue.getIngredients().get(i).getEntity(),
 					selectedValue.getIngredients().get(i).getName() });

@@ -12,9 +12,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
 import com.favorites.FavoritList;
+import com.forms.CategorieManager;
 import com.forms.Kochbuch;
 import com.forms.MenuCreator;
 import com.forms.MenuManager;
+import com.forms.Messages;
 import com.forms.NewReceipt;
 import com.forms.ShoppingListDialog;
 import com.receipt.Receipt;
@@ -34,13 +36,13 @@ public class MenuBarFactory {
 		menuBar = new JMenuBar();
 
 		//Menu selbst
-		menu = new JMenu("Datei");
+		menu = new JMenu(Messages.getString("MenuBarFactory.data")); //$NON-NLS-1$
 		menu.setMnemonic(KeyEvent.VK_A);
-		menu.getAccessibleContext().setAccessibleDescription("Datei!");
+		menu.getAccessibleContext().setAccessibleDescription(Messages.getString("MenuBarFactory.data_des")); //$NON-NLS-1$
 		menuBar.add(menu);
 
 		//Menuitem neues Rezept
-		menuItem = new JMenuItem("Neues Rezept", new ImageIcon("icons/icon_recipe.png"));
+		menuItem = new JMenuItem(Messages.getString("MenuBarFactory.new_receipt"), new ImageIcon("icons/icon_recipe.png")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				NewReceipt.getInstance().resetFields();
@@ -50,10 +52,10 @@ public class MenuBarFactory {
 		menu.add(menuItem);
 		menu.addSeparator();
 		
-		menuItem = new JMenuItem("Kategorien verwalten", new ImageIcon("icons/icon_menu.png"));
+		menuItem = new JMenuItem(Messages.getString("MenuBarFactory.manage_categories"), new ImageIcon("icons/icon_menu.png")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
-				//TODO verwaltung einfuegen...
+				CategorieManager.getInstance().setVisible(true);
 			}
 		});
 		menu.add(menuItem);
@@ -62,10 +64,10 @@ public class MenuBarFactory {
 		menu.addSeparator();
 
 		//Menuitem Favoriten
-		menuItem = new JMenu("Favoriten");
-		menuItem.setIcon(new ImageIcon("icons/icon_star.png"));
+		menuItem = new JMenu(Messages.getString("MenuBarFactory.favorites")); //$NON-NLS-1$
+		menuItem.setIcon(new ImageIcon("icons/icon_star.png")); //$NON-NLS-1$
 		if (FavoritList.getInstance().isEmpty()) {
-			JMenuItem subMenuItem1 = new JMenuItem("Keine Favoriten anlegelt");	
+			JMenuItem subMenuItem1 = new JMenuItem(Messages.getString("MenuBarFactory.no_favorits_saved"));	 //$NON-NLS-1$
 			subMenuItem1.enable(false);
 			menuItem.add(subMenuItem1);
 			
@@ -85,7 +87,7 @@ public class MenuBarFactory {
 		menu.addSeparator();
 
 		// Schlie�en
-		menuItem = new JMenuItem("Schliessen");
+		menuItem = new JMenuItem(Messages.getString("MenuBarFactory.close")); //$NON-NLS-1$
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				Kochbuch.getInstance().close();
@@ -94,13 +96,13 @@ public class MenuBarFactory {
 		menu.add(menuItem);
 
 		//Menues
-		menu = new JMenu("Menues");
+		menu = new JMenu(Messages.getString("MenuBarFactory.menus")); //$NON-NLS-1$
 		menu.setMnemonic(KeyEvent.VK_M);
-		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
+		menu.getAccessibleContext().setAccessibleDescription(Messages.getString("MenuBarFactory.menus_des")); //$NON-NLS-1$
 		menuBar.add(menu);
 
 		// a group of JMenuItems
-		menuItem = new JMenuItem("Menue erstellen", new ImageIcon("icons/icon_menu.png"));
+		menuItem = new JMenuItem(Messages.getString("MenuBarFactory.create_menu"), new ImageIcon("icons/icon_menu.png")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				MenuCreator menuCreator = new MenuCreator();
@@ -110,7 +112,7 @@ public class MenuBarFactory {
 		menu.add(menuItem);
 
 		JMenuItem menuItem2;
-		menuItem2 = new JMenuItem("Menues verwalten", new ImageIcon("icons/icon_menu.png"));
+		menuItem2 = new JMenuItem(Messages.getString("MenuBarFactory.manage_menu"), new ImageIcon("icons/icon_menu.png")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItem2.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				MenuManager.getInstance().setVisible(true);
@@ -119,13 +121,13 @@ public class MenuBarFactory {
 		menu.add(menuItem2);
 
 		//Shoppingliste
-		menu = new JMenu("Shoppingliste");
+		menu = new JMenu(Messages.getString("MenuBarFactory.shopping_list")); //$NON-NLS-1$
 		menu.setMnemonic(KeyEvent.VK_S);
-		menu.getAccessibleContext().setAccessibleDescription("This menu does nothing");
+		menu.getAccessibleContext().setAccessibleDescription(Messages.getString("MenuBarFactory.shopping_list_des")); //$NON-NLS-1$
 		menuBar.add(menu);
 
 		// a group of JMenuItems
-		menuItem = new JMenuItem("Shoppingliste anzeigen", new ImageIcon("icons/icon_dollar.png"));
+		menuItem = new JMenuItem(Messages.getString("MenuBarFactory.show_shopping_list"), new ImageIcon("icons/icon_dollar.png")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItem.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				ShoppingListDialog shoppingListDialog = new ShoppingListDialog();
@@ -134,7 +136,7 @@ public class MenuBarFactory {
 		});
 		menu.add(menuItem);
 
-		menuItem2 = new JMenuItem("Shoppingliste leeren", new ImageIcon("icons/icon_cross.png"));
+		menuItem2 = new JMenuItem(Messages.getString("MenuBarFactory.clear_shooping_list"), new ImageIcon("icons/icon_cross.png")); //$NON-NLS-1$ //$NON-NLS-2$
 		menuItem2.addActionListener(new ActionListener() {
 			public final void actionPerformed(final ActionEvent e) {
 				ShoppingList.getInstance().clear();
