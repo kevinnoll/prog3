@@ -83,9 +83,26 @@ public class MenuBarFactory {
 				menuItem.add(subMenutItem);
 			}
 		}
+		
 		menu.add(menuItem);
 		menu.addSeparator();
 
+		menuItem = new JMenuItem(Messages.getString("MenuBarFactory.language"));
+		menuItem.setIcon(new ImageIcon("icons/icon_world.png"));
+		menuItem.addActionListener(new ActionListener() {
+			public final void actionPerformed(final ActionEvent e) {
+				if(Messages.language == 1){
+					Messages.language = 2;
+				} else {
+					Messages.language = 1;
+				}
+				Messages.refresh();
+				Kochbuch.getInstance().refresh();
+			}
+		});
+		menu.add(menuItem);
+		menu.addSeparator();
+		
 		// Schlie�en
 		menuItem = new JMenuItem(Messages.getString("MenuBarFactory.close")); //$NON-NLS-1$
 		menuItem.addActionListener(new ActionListener() {

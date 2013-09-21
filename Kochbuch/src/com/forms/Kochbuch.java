@@ -87,7 +87,18 @@ public class Kochbuch extends JFrame {
 	private JLabel lblCourse;
 	private JLabel labelPicture;
 	private StarButton starButton;
-
+	private JButton btnRezeptBearbeiten;
+	private JButton btnNeuesRezept;
+	private JLabel lblNewLabel;
+	private JLabel lblPlatzImMenu;
+	private JLabel lblZutatWaehlen;
+	private JLabel lblDauer;
+	private JLabel lblSchwierigkeit;
+	private JButton btnNewButton_1;
+	private JButton btnNewButton;
+	private JLabel lblFavoritHinzufgen;
+	private JLabel lblRezepte;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -149,7 +160,7 @@ public class Kochbuch extends JFrame {
 		panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
-		JLabel lblRezepte = new JLabel(Messages.getString("Kochbuch.receipt")); //$NON-NLS-1$
+		lblRezepte = new JLabel(Messages.getString("Kochbuch.receipt")); //$NON-NLS-1$
 
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -183,7 +194,7 @@ public class Kochbuch extends JFrame {
 
 		JPanel panel_2 = new JPanel();
 
-		JLabel lblFavoritHinzufgen = new JLabel(Messages.getString("Kochbuch.add_favorits")); //$NON-NLS-1$
+		lblFavoritHinzufgen = new JLabel(Messages.getString("Kochbuch.add_favorits")); //$NON-NLS-1$
 		panel_1.add(lblFavoritHinzufgen, "cell 1 0,alignx right"); //$NON-NLS-1$
 
 		starButton = new StarButton(""); //$NON-NLS-1$
@@ -243,7 +254,7 @@ public class Kochbuch extends JFrame {
 		panel_1.add(panel_2, "cell 1 1 2 1,grow"); //$NON-NLS-1$
 		panel_2.setLayout(new MigLayout("", "[grow]", "[50px,grow]")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-		JButton btnNewButton = new JButton(Messages.getString("Kochbuch.add_shopping_list")); //$NON-NLS-1$
+		btnNewButton = new JButton(Messages.getString("Kochbuch.add_shopping_list")); //$NON-NLS-1$
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (listIngredientsRightSide.getSelectedIndex() == -1) {
@@ -261,7 +272,7 @@ public class Kochbuch extends JFrame {
 		});
 		panel_1.add(btnNewButton, "cell 0 2,growx"); //$NON-NLS-1$
 
-		JButton btnNewButton_1 = new JButton(Messages.getString("Kochbuch.show_shopping_list")); //$NON-NLS-1$
+		btnNewButton_1 = new JButton(Messages.getString("Kochbuch.show_shopping_list")); //$NON-NLS-1$
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ShoppingListDialog shoppingListDialog = new ShoppingListDialog();
@@ -281,19 +292,19 @@ public class Kochbuch extends JFrame {
 		textPane.setEditable(false);
 		scrollPane.setViewportView(textPane);
 
-		JLabel lblSchwierigkeit = new JLabel(Messages.getString("Kochbuch.difficulty_level")); //$NON-NLS-1$
+		lblSchwierigkeit = new JLabel(Messages.getString("Kochbuch.difficulty_level")); //$NON-NLS-1$
 		panel_1.add(lblSchwierigkeit, "cell 0 4"); //$NON-NLS-1$
 
 		lblDifficulty = new JLabel(""); //$NON-NLS-1$
 		panel_1.add(lblDifficulty, "cell 1 4 2 1"); //$NON-NLS-1$
 
-		JLabel lblDauer = new JLabel(Messages.getString("Kochbuch.duration")); //$NON-NLS-1$
+		lblDauer = new JLabel(Messages.getString("Kochbuch.duration")); //$NON-NLS-1$
 		panel_1.add(lblDauer, "cell 0 5"); //$NON-NLS-1$
 
 		lblDuration = new JLabel(""); //$NON-NLS-1$
 		panel_1.add(lblDuration, "cell 1 5 2 1"); //$NON-NLS-1$
 
-		JLabel lblPlatzImMenu = new JLabel(Messages.getString("Kochbuch.course")); //$NON-NLS-1$
+		lblPlatzImMenu = new JLabel(Messages.getString("Kochbuch.course")); //$NON-NLS-1$
 		panel_1.add(lblPlatzImMenu, "cell 0 6"); //$NON-NLS-1$
 
 		lblCourse = new JLabel(""); //$NON-NLS-1$
@@ -310,7 +321,7 @@ public class Kochbuch extends JFrame {
 			}
 		});
 
-		JLabel lblZutatWaehlen = new JLabel(Messages.getString("Kochbuch.select_categorie")); //$NON-NLS-1$
+		lblZutatWaehlen = new JLabel(Messages.getString("Kochbuch.select_categorie")); //$NON-NLS-1$
 
 		comboBoxCategory = new JComboBox<String>();
 		comboBoxCategory.setToolTipText(Messages.getString("Kochbuch.please_choose")); //$NON-NLS-1$
@@ -325,13 +336,13 @@ public class Kochbuch extends JFrame {
 			}
 		});
 
-		JLabel lblNewLabel = new JLabel(Messages.getString("Kochbuch.seach")); //$NON-NLS-1$
+		lblNewLabel = new JLabel(Messages.getString("Kochbuch.seach")); //$NON-NLS-1$
 
 		textFieldSearch = new JTextField();
 		textFieldSearch.setToolTipText(Messages.getString("Kochbuch.searching")); //$NON-NLS-1$
 		textFieldSearch.addKeyListener(new TextFieldListener());
 
-		JButton btnNeuesRezept = new JButton(Messages.getString("Kochbuch.new_receipt")); //$NON-NLS-1$
+		btnNeuesRezept = new JButton(Messages.getString("Kochbuch.new_receipt")); //$NON-NLS-1$
 		btnNeuesRezept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				NewReceipt.getInstance().resetFields();
@@ -367,7 +378,7 @@ public class Kochbuch extends JFrame {
 		Font font = new Font(Font.SANS_SERIF, Font.BOLD, 20);
 		list.setFont(font);
 
-		JButton btnRezeptBearbeiten = new JButton(Messages.getString("Kochbuch.edit_receipt")); //$NON-NLS-1$
+		btnRezeptBearbeiten = new JButton(Messages.getString("Kochbuch.edit_receipt")); //$NON-NLS-1$
 		btnRezeptBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (list.getSelectedIndex() == -1) {
@@ -589,6 +600,25 @@ public class Kochbuch extends JFrame {
 	public void close() {
 		frmKochbuch.setVisible(false);
 		frmKochbuch.dispose();
+	}
+	
+	public void refresh(){
+		btnRezeptBearbeiten.setText(Messages.getString("Kochbuch.edit_receipt"));
+		btnRezeptLschen.setText(Messages.getString("Kochbuch.delete_receipt"));
+		btnNeuesRezept.setText(Messages.getString("Kochbuch.new_receipt"));
+		lblNewLabel.setText(Messages.getString("Kochbuch.seach"));
+		textFieldSearch.setToolTipText(Messages.getString("Kochbuch.searching"));
+		lblPlatzImMenu.setText(Messages.getString("Kochbuch.course"));
+		lblZutatWaehlen.setText(Messages.getString("Kochbuch.select_categorie"));
+		lblDauer.setText(Messages.getString("Kochbuch.duration"));
+		lblSchwierigkeit.setText(Messages.getString("Kochbuch.difficulty_level"));
+		btnNewButton_1.setText(Messages.getString("Kochbuch.show_shopping_list"));
+		btnNewButton.setText(Messages.getString("Kochbuch.add_shopping_list"));
+		lblFavoritHinzufgen.setText(Messages.getString("Kochbuch.add_favorits"));
+		lblRezeptselektiert.setText(Messages.getString("Kochbuch.select_receipt"));
+		lblRezepte.setText(Messages.getString("Kochbuch.receipt"));
+		JMenuBar menuBar = MenuBarFactory.getTheMenuBar();
+		frmKochbuch.setJMenuBar(menuBar);
 	}
 
 	private void createDataFolder() {

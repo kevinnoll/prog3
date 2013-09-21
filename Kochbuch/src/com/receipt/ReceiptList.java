@@ -36,7 +36,7 @@ public class ReceiptList extends LinkedList<Receipt> implements Serializable {
 		return instance;
 	}
 	
-	public void addDefaultReceipts() {
+	private void addDefaultReceipts() {
 		
 		int answer = JOptionPane.showConfirmDialog(null, Messages.getString("ReceiptList.first_start_dialog_receipt"), Messages.getString("ReceiptList.no_reiceipts_found"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
 		
