@@ -41,7 +41,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import sun.awt.WindowClosingListener;
+//import sun.awt.WindowClosingListener;
 
 import net.miginfocom.swing.MigLayout;
 

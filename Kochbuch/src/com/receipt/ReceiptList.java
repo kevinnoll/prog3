@@ -53,6 +53,26 @@ public class ReceiptList extends LinkedList<Receipt> implements Serializable {
 				add(MenuEntries.getAsia1());
 				add(MenuEntries.getAsia2());
 				add(MenuEntries.getAsia3());
+				
+				add(MenuEntries.getVeggie1());
+				add(MenuEntries.getVeggie2());
+				add(MenuEntries.getVeggie3());
+				
+				add(MenuEntries.getPasta1());
+				add(MenuEntries.getPasta2());
+				add(MenuEntries.getPasta3());
+				
+				add(MenuEntries.getFisch1());
+				add(MenuEntries.getFisch2());
+				add(MenuEntries.getFisch3());
+				
+				add(MenuEntries.getSuppe1());
+				add(MenuEntries.getSuppe2());
+				add(MenuEntries.getSuppe3());
+				
+				add(MenuEntries.getSweet1());
+				add(MenuEntries.getSweet2());
+				add(MenuEntries.getSweet3());
 				break;
 			case JOptionPane.NO_OPTION:
 				//Do nothing
