@@ -1,5 +1,6 @@
 package com.receipt;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.LinkedList;
 
@@ -8,7 +9,6 @@ import javax.swing.JOptionPane;
 import com.factories.MenuEntries;
 import com.forms.Kochbuch;
 import com.forms.Messages;
-import com.menu.Menu;
 import com.serializer.ReceiptSerializer;
 
 public class ReceiptList extends LinkedList<Receipt> implements Serializable {
@@ -75,13 +75,22 @@ public class ReceiptList extends LinkedList<Receipt> implements Serializable {
 				add(MenuEntries.getSweet3());
 				break;
 			case JOptionPane.NO_OPTION:
-				//Do nothing
+				LinkedList<Ingredient> list = new LinkedList<Ingredient>();
+				list.add(new Ingredient("nichts", Entity.g, 0));
+				add(new Receipt(0, "Beispiel", "leer", 5, Difficulty.einfach, Course.Vorspeise, list, Categories.getInstance().get(4)));
+				get(0).setImage(new File("images/placeholder.png"));
 				break;
 			case JOptionPane.CLOSED_OPTION:
-				//Do nothing
+				LinkedList<Ingredient> list1 = new LinkedList<Ingredient>();
+				list1.add(new Ingredient("nichts", Entity.g, 0));
+				add(new Receipt(0, "Beispiel", "leer", 5, Difficulty.einfach, Course.Vorspeise, list1, Categories.getInstance().get(4)));
+				get(0).setImage(new File("images/placeholder.png"));
 				break;
 			default:
-				//Do nothing
+				LinkedList<Ingredient> list2 = new LinkedList<Ingredient>();
+				list2.add(new Ingredient("nichts", Entity.g, 0));
+				add(new Receipt(0, "Beispiel", "leer", 5, Difficulty.einfach, Course.Vorspeise, list2, Categories.getInstance().get(4)));
+				get(0).setImage(new File("images/placeholder.png"));
 				break;
 		}
 		

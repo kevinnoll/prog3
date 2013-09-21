@@ -42,7 +42,7 @@ import com.serializer.ImagePreview;
 
 public class NewReceipt extends JFrame {
 
-	public static int CURRENT_ID = 3;
+	public static int CURRENT_ID = 24;
 	/**
 	 * 
 	 */
