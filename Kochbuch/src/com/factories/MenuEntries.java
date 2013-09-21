@@ -156,9 +156,9 @@ public class MenuEntries {
 		ingredients.add(ingredient7);
 
 		String rezeptname = "Saarlaendischer Quetschenkuchen";
-		String anleitung = 	"Das gesiebte Mehl mit StaÌˆrkemehl und Zucker vermischen , dann das"+ 
-							"Wasser u. die fluÌˆssige Butter hinzugeben und zu einem glatten Teig verarbeiten. 30 Min . bei Zimmertemperatur abgedeckt ruhen lassen."+ 
-							"Nach dem Ruhen erst das Backpulver dazugeben und nochmal gut durchruÌˆhren. Die Mischung ist relativ fluÌˆssig. Nun den Teig in eine ausfettete und bemehlte Backform giessen , glatt streichen und mit den geputzten, entkernten Quetschen ordentlich belegen."+ 
+		String anleitung = 	"Das gesiebte Mehl mit Stärkemehl und Zucker vermischen , dann das"+ 
+							"Wasser u. die flüssige Butter hinzugeben und zu einem glatten Teig verarbeiten. 30 Min . bei Zimmertemperatur abgedeckt ruhen lassen."+ 
+							"Nach dem Ruhen erst das Backpulver dazugeben und nochmal gut durchrühren. Die Mischung ist relativ flüssig. Nun den Teig in eine ausfettete und bemehlte Backform giessen , glatt streichen und mit den geputzten, entkernten Quetschen ordentlich belegen."+ 
 							"Im vorgeheizten Backofen so 30 - 35 Min. bei 170 Â° C backen. Lauwarm mit einer Kugel"+ 
 							"Vanilleneis und einem Klecks frischer Sahne servieren";
 		Receipt receipt = new Receipt(4, rezeptname, anleitung, 40, Difficulty.mittel, Course.Dessert, ingredients, Categories.getInstance().get(3));
@@ -192,11 +192,11 @@ public class MenuEntries {
 		ingredients.add(ingredient10);
 
 		String rezeptname = "Saarlaendische Geheiratete";
-		String anleitung = 	"In einem Topf mit moÌˆglichst grossem Durchmesser Wasser erhitzen. Wenn es"
-							+ "kocht, Salz, gekoÌˆrnte BruÌˆhe und Maggi hinzufuÌˆgen (wichtig, um den KnoÌˆdeln nachher Geschmack zu verleihen)."
-							+ "Kartoffeln schaÌˆlen und in nicht zu dicke Spalten schneiden, in das heisse Wasser geben und weich kochen. Sind die Kartoffeln weich, aus dem Wasser nehmen und in die SchuÌˆssel geben, in der die MehlknoÌˆdel serviert werden sollen."
-							+ "Derweil Mehl in eine grosse SchuÌˆssel geben, mit einer Prise Salz wuÌˆrzen. Mineralwasser dazu geben, aber noch nicht umruÌˆhren. Eier und 1 Schuss Milch dazu, erst dann kraÌˆftig umruÌˆhren, so dass der Teig schaumig wird, aber nicht trocken (wer die KnoÌˆdel lieber etwas fester mag, kann 1 Ei mehr hinzu tun). Mit einem EssloÌˆffel nun portionsweise aus dem Teig die MehlknoÌˆdel abstechen (nie viel mehr Teig abstechen, als auf den LoÌˆffel passt) und ins kochende Wasser geben. Den LoÌˆffel dabei immer wieder in die BruÌˆhe tauchen, damit der Teig nicht klebt. Die MehlknoÌˆdel schwimmen dann auf der BruÌˆhe. Den Topf nicht abdecken. Nach etwa 10 bis 15 Minuten sind die MehlknoÌˆdel gar. Aus der BruÌˆhe schoÌˆpfen und auf die Kartoffeln in die SchuÌˆssel geben."
-							+ "In einer separaten Pfanne den Schinken in OÌˆl anbraten und mit dem OÌˆl uÌˆber die MehlknoÌˆdel geben. Sahne in die gleiche, noch heisse Pfanne geben und kurz aufkochen lassen, dann auch uÌˆber die KnoÌˆdel geben. Gleich servieren.";
+		String anleitung = 	"In einem Topf mit möglichst grossem Durchmesser Wasser erhitzen. Wenn es"
+							+ "kocht, Salz, gekörnte Brühe und Maggi hinzufügen (wichtig, um den Knödeln nachher Geschmack zu verleihen)."
+							+ "Kartoffeln schälen und in nicht zu dicke Spalten schneiden, in das heisse Wasser geben und weich kochen. Sind die Kartoffeln weich, aus dem Wasser nehmen und in die Schüssel geben, in der die Mehlknödel serviert werden sollen."
+							+ "Derweil Mehl in eine grosse Schüssel geben, mit einer Prise Salz würzen. Mineralwasser dazu geben, aber noch nicht umrühren. Eier und 1 Schuss Milch dazu, erst dann kräftig umrühren, so dass der Teig schaumig wird, aber nicht trocken (wer die Knödel lieber etwas fester mag, kann 1 Ei mehr hinzu tun). Mit einem Esslöffel nun portionsweise aus dem Teig die Mehlknödel abstechen (nie viel mehr Teig abstechen, als auf den Löffel passt) und ins kochende Wasser geben. Den Löffel dabei immer wieder in die Brühe tauchen, damit der Teig nicht klebt. Die Mehlknödel schwimmen dann auf der Brühe. Den Topf nicht abdecken. Nach etwa 10 bis 15 Minuten sind die Mehlknödel gar. Aus der Brühe schöpfen und auf die Kartoffeln in die Schüssel geben."
+							+ "In einer separaten Pfanne den Schinken in Öl anbraten und mit dem Öl über die Mehlknödel geben. Sahne in die gleiche, noch heisse Pfanne geben und kurz aufkochen lassen, dann auch über die Knödel geben. Gleich servieren.";
 		Receipt receipt = new Receipt(5, rezeptname, anleitung, 30, Difficulty.mittel, Course.Hauptgericht, ingredients, Categories.getInstance().get(3));
 		File file = new File("images/regio_3.png");
 		receipt.setImage(file);
@@ -209,19 +209,19 @@ public class MenuEntries {
 	//Asiatisch - Kevin
 	
 	public static Receipt getAsia1() {
-		Ingredient ingredient1 = new Ingredient("HaÌˆhnchenfilet", Entity.g, 600);
+		Ingredient ingredient1 = new Ingredient("Hähnchenfilet", Entity.g, 600);
 		Ingredient ingredient2 = new Ingredient("Paprikaschote", Entity.Stueck, 1);
 		Ingredient ingredient5 = new Ingredient("Zuckerschoten", Entity.g, 80);
 		Ingredient ingredient3 = new Ingredient("Peperoni", Entity.Stueck, 3);
 		Ingredient ingredient4 = new Ingredient("Chilischoten", Entity.Stueck, 16);
 		Ingredient ingredient6 = new Ingredient("Knoblauchzehen", Entity.Stueck, 6);
-		Ingredient ingredient7 = new Ingredient("Thaibasilikum-BlaÌˆtter (Krapao)", Entity.Stueck, 20);
-		Ingredient ingredient8 = new Ingredient("HuÌˆhnerbruÌˆhe", Entity.Milliliter, 150);
+		Ingredient ingredient7 = new Ingredient("Thaibasilikum-Blätter (Krapao)", Entity.Stueck, 20);
+		Ingredient ingredient8 = new Ingredient("Hühnerbrühe", Entity.Milliliter, 150);
 		Ingredient ingredient9 = new Ingredient("Austernsauce", Entity.EL, 5);
 		Ingredient ingredient10 = new Ingredient("Fischsauce", Entity.EL, 5);
 		Ingredient ingredient11 = new Ingredient("Limettensaft", Entity.TL, 1);
-		Ingredient ingredient12 = new Ingredient("dicke, suÌˆsse Sojasauce", Entity.TL, 1);
-		Ingredient ingredient13 = new Ingredient("OÌˆl zum anbraten", Entity.TL, 1);
+		Ingredient ingredient12 = new Ingredient("dicke, süsse Sojasauce", Entity.TL, 1);
+		Ingredient ingredient13 = new Ingredient("Öl zum anbraten", Entity.TL, 1);
 		LinkedList<Ingredient> ingredients = new LinkedList<Ingredient>();
 		ingredients.add(ingredient1);
 		ingredients.add(ingredient2);
@@ -237,9 +237,9 @@ public class MenuEntries {
 		ingredients.add(ingredient12);
 		ingredients.add(ingredient13);
 
-		String rezeptname = "ThailaÌˆndisches HuÌˆhnchen Krapauw";
-		String anleitung = 	"Das HaÌˆhnchenfilet in der KuÌˆchenmaschine zu Hackfleisch verarbeiten und im Wok scharf anbraten. Den Knoblauch, die Chilis, die Zuckerschoten, die Peperoni und die Paprika zugeben und fuÌˆr 2 Minuten mitschmoren lassen. Mit HuÌˆhnerbruÌˆhe aufgiessen, Austern-, Fisch- und dicke suÌˆsse Soja-Sauce zufuÌˆgen und 4 Minuten koÌˆcheln lassen."
-							+ "Mit Limettensaft abschmecken, die Bai Grapao-BlaÌˆtter zufuÌˆgen, eine weitere Minute kochen, umruÌˆhren - fertig."
+		String rezeptname = "Thailändisches Hähnchen Krapauw";
+		String anleitung = 	"Das Hähnchenfilet in der Küchenmaschine zu Hackfleisch verarbeiten und im Wok scharf anbraten. Den Knoblauch, die Chilis, die Zuckerschoten, die Peperoni und die Paprika zugeben und für 2 Minuten mitschmoren lassen. Mit Hühnerbrühe aufgiessen, Austern-, Fisch- und dicke süsse Soja-Sauce zufügen und 4 Minuten köcheln lassen."
+							+ "Mit Limettensaft abschmecken, die Bai Grapao-Blätter zufügen, eine weitere Minute kochen, umrühren - fertig."
 							+ "Dazu reiche ich Thai-Duftreis";
 		Receipt receipt = new Receipt(6, rezeptname, anleitung, 25, Difficulty.mittel, Course.Hauptgericht, ingredients, Categories.getInstance().get(4));
 		File file = new File("images/asia_1.png");
@@ -250,13 +250,13 @@ public class MenuEntries {
 	
 	
 	/*
-	500g HaÌˆhnchenbrustfilet, in Streifen
-	â—‹ 1 StuÌˆck Knoblauch, in wuÌˆrfeln
+	500g Hähnchenbrustfilet, in Streifen
+	â—‹ 1 Stück Knoblauch, in würfeln
 	â—‹ 1 EL Sambal Oelek
 	ï¿¼
-	â—‹ 4 EL SonnenblumenoÌˆl
-	â—‹ 3 StuÌˆck FruÌˆhlingszwiebeln, in Rauten geschnitten
-	â—‹ 250g Karotten, in duÌˆnnen Streifen
+	â—‹ 4 EL Sonnenblumenöl
+	â—‹ 3 Stück Frühlingszwiebeln, in Rauten geschnitten
+	â—‹ 250g Karotten, in dünnen Streifen
 	â—‹ 250g Mie-Eiernudeln
 	â—‹ 200g Sojasprossen
 	â—‹ 4EL Sojasauce
@@ -270,8 +270,8 @@ public class MenuEntries {
 	public static Receipt getAsia2() {
 		Ingredient ingredient1 = new Ingredient("Knoblauch", Entity.Stueck, 1);
 		Ingredient ingredient2 = new Ingredient("Sambal Oelek", Entity.EL, 1);
-		Ingredient ingredient5 = new Ingredient("SonnenblumenoÌˆl", Entity.EL, 4);
-		Ingredient ingredient3 = new Ingredient("FruÌˆhlingszwiebeln", Entity.Stueck, 3);
+		Ingredient ingredient5 = new Ingredient("Sonnenblumenöl", Entity.EL, 4);
+		Ingredient ingredient3 = new Ingredient("Frühlingszwiebeln", Entity.Stueck, 3);
 		Ingredient ingredient4 = new Ingredient("Karotten", Entity.g, 250);
 		Ingredient ingredient6 = new Ingredient("Mie-Eiernudeln", Entity.g, 250);
 		Ingredient ingredient7 = new Ingredient("Sojasprossen", Entity.g, 200);
@@ -295,8 +295,8 @@ public class MenuEntries {
 		ingredients.add(ingredient12);
 
 
-		String rezeptname = "Gebratenes HuÌˆhnchen mit Mie-Nudeln";
-		String anleitung = 	"Ca. 6 Stunden vor dem Anbraten die HaÌˆhnchenbruststreifen in OÌˆl, Sojasauce, Sambal Oelek und Knoblauch marinieren. Die Mengenangaben variieren je nach Gusto. Vorsicht mit Sambal Oelek!!! Die Eier Mie Nudeln laut Packungsanleitung kochen, Nudelwasser leicht salzen. Die gekochten und abgetropften Nudeln in einer Pfanne (wenn vorhanden Wok!) mit etwas OÌˆl anbraten. Dann aus der Pfanne nehmen. Nun die HaÌˆhnchenstreifen kurz scharf anbraten, so dass sich Poren schliessen und sie saftig bleiben. Kein weiteres OÌˆl verwenden, Marinade reicht vollkommen aus! Nudeln wieder hinzugeben. Jetzt die Karottenstreifen hinzugeben und unterheben. Nicht zu lange garen, sonst werden sie labbrig, sollten eher bissfest sein. Gegen Ende die FruÌˆhlingszwiebeln dazu geben und unterheben. Pfanne vom Herd nehmen und die Sojasprossen (vorher mit warmen Wasser begiessen) unterheben. Dann noch schnell mit Cayennepfeffer, Currypulver, Paprikapulver, Sojasauce und Chili-Garlic-Sauce wuÌˆrzen. Menge je nach Gusto! Das Ganze im Wok auf dem Tisch servieren - dazu eventuell einen Eisbergsalat oder Chinakohlsalat. Hinweise: Garzeiten (insbesondere fuÌˆr FruÌˆhlingszwiebeln und Sojasprossen) kurz halten! Vorsicht mit Cayennepfeffer (kann schnell das Gericht \"uÌˆberschaÌˆrfen\") !";
+		String rezeptname = "Gebratenes Hühnchen mit Mie-Nudeln";
+		String anleitung = 	"Ca. 6 Stunden vor dem Anbraten die Hähnchenbruststreifen in Öl, Sojasauce, Sambal Oelek und Knoblauch marinieren. Die Mengenangaben variieren je nach Gusto. Vorsicht mit Sambal Oelek!!! Die Eier Mie Nudeln laut Packungsanleitung kochen, Nudelwasser leicht salzen. Die gekochten und abgetropften Nudeln in einer Pfanne (wenn vorhanden Wok!) mit etwas Öl anbraten. Dann aus der Pfanne nehmen. Nun die Hähnchenstreifen kurz scharf anbraten, so dass sich Poren schliessen und sie saftig bleiben. Kein weiteres Öl verwenden, Marinade reicht vollkommen aus! Nudeln wieder hinzugeben. Jetzt die Karottenstreifen hinzugeben und unterheben. Nicht zu lange garen, sonst werden sie labbrig, sollten eher bissfest sein. Gegen Ende die Frühlingszwiebeln dazu geben und unterheben. Pfanne vom Herd nehmen und die Sojasprossen (vorher mit warmen Wasser begiessen) unterheben. Dann noch schnell mit Cayennepfeffer, Currypulver, Paprikapulver, Sojasauce und Chili-Garlic-Sauce würzen. Menge je nach Gusto! Das Ganze im Wok auf dem Tisch servieren - dazu eventuell einen Eisbergsalat oder Chinakohlsalat. Hinweise: Garzeiten (insbesondere für Frühlingszwiebeln und Sojasprossen) kurz halten! Vorsicht mit Cayennepfeffer (kann schnell das Gericht \"überschärfen\") !";
 		Receipt receipt = new Receipt(7, rezeptname, anleitung, 45, Difficulty.mittel, Course.Hauptgericht, ingredients, Categories.getInstance().get(4));
 		File file = new File("images/asia_2.png");
 		receipt.setImage(file);
@@ -329,25 +329,25 @@ public class MenuEntries {
 		ingredients.add(ingredient10);
 
 		String rezeptname = "Gyoza";
-		String anleitung = 	"Gehacktes, ganz fein geschnittenen Chinakohl (mengenmaÌˆssig â€“ nicht gewichtsmaÌˆssig â€“"
+		String anleitung = 	"Gehacktes, ganz fein geschnittenen Chinakohl (mengenmässig, nicht gewichtsmässig, "
 							+ "so viel wie das Gehackte) und die ebenfalls fein geschnittenen Lauchzwiebeln zusammen in eine"
-							+ "SchuÌˆssel geben. Die MoÌˆhre schaÌˆlen, fein raspeln und auch dazu geben. Ein daumengrosses StuÌˆck"
-							+ "Ingwer und zwei mittlere Knoblauchzehen schaÌˆlen und in einer Knoblauchpresse in die SchuÌˆssel"
-							+ "pressen. Nun 3 1/2 EL Sojasauce und 2 1/2 EL SesamoÌˆl in die SchuÌˆssel geben. Alles gut vermengen."
-							+ "Dann immer etwa einen EL von der FuÌˆllung auf einen Teigfladen geben, an dem man vorher den Rand"
-							+ "befeuchtet hat. Nun so umklappen, dass man Halbmonde bekommt. Die RaÌˆnder gut aneinander druÌˆcken"
-							+ "(so dass keine Luft im Inneren ist) und 5 kleine FaÌˆltchen hinein machen. Das mit allen Fladen"
+							+ "Schüssel geben. Die Möhre schälen, fein raspeln und auch dazu geben. Ein daumengrosses Stück"
+							+ "Ingwer und zwei mittlere Knoblauchzehen schälen und in einer Knoblauchpresse in die Schüssel"
+							+ "pressen. Nun 3 1/2 EL Sojasauce und 2 1/2 EL Sesamöl in die Schüssel geben. Alles gut vermengen."
+							+ "Dann immer etwa einen EL von der Füllung auf einen Teigfladen geben, an dem man vorher den Rand"
+							+ "befeuchtet hat. Nun so umklappen, dass man Halbmonde bekommt. Die Ränder gut aneinander drücken"
+							+ "(so dass keine Luft im Inneren ist) und 5 kleine Fältchen hinein machen. Das mit allen Fladen"
 							+ "wiederholen."
-							+ "Wenn alle fertig gefuÌˆllt sind, die Gyozas aufrecht in eine Pfanne mit etwas heissem OÌˆl ganz dicht"
-							+ "zusammenstellen und so lange anbraten, bis sie schoÌˆn braun sind."
-							+ "Nun einen Daumen hoch Wasser in die Pfanne geben. Einen Deckel drauf legen und so lange duÌˆnsten,"
+							+ "Wenn alle fertig gefüllt sind, die Gyozas aufrecht in eine Pfanne mit etwas heissem Öl ganz dicht"
+							+ "zusammenstellen und so lange anbraten, bis sie schön braun sind."
+							+ "Nun einen Daumen hoch Wasser in die Pfanne geben. Einen Deckel drauf legen und so lange dünsten,"
 							+ "bis kein Wasser mehr in der Pfanne ist."
-							+ "Zum Essen gibt es dann ein SchaÌˆlchen Sojasauce, in die man die Gyozas dippen kann und reicht Reis"
+							+ "Zum Essen gibt es dann ein Schälchen Sojasauce, in die man die Gyozas dippen kann und reicht Reis"
 							+ "dabei."
-							+ "Tipp: Wenn FuÌˆllung uÌˆber bleibt, einfach ein Ei und etwas Mehl zugeben und als Minifrikadellen braten."
-							+ "Schmeckt ebenfalls sehr gut, deshalb mache ich von vorne rein immer etwas mehr FuÌˆllung."
-							+ "Anmerkung: In Japan werden die Gyozas erst in diesen BambusaufsaÌˆtzen geduÌˆnstet und dann"
-							+ "angebraten. So ist es allerdings ein etwas groÌˆsserer Aufwand und macht fuÌˆr mich keinen"
+							+ "Tipp: Wenn Füllung über bleibt, einfach ein Ei und etwas Mehl zugeben und als Minifrikadellen braten."
+							+ "Schmeckt ebenfalls sehr gut, deshalb mache ich von vorne rein immer etwas mehr Füllung."
+							+ "Anmerkung: In Japan werden die Gyozas erst in diesen Bambusaufsätzen gedünstet und dann"
+							+ "angebraten. So ist es allerdings ein etwas grösserer Aufwand und macht für mich keinen"
 							+ "geschmacklichen Unterschied.";
 		Receipt receipt = new Receipt(8, rezeptname, anleitung, 60, Difficulty.mittel, Course.Vorspeise, ingredients, Categories.getInstance().get(4));
 		File file = new File("images/asia_3.png");
