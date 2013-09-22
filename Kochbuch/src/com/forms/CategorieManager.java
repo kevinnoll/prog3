@@ -85,10 +85,10 @@ public class CategorieManager extends JDialog {
 			}
 		});
 		
-		JButton btnLschen = new JButton("LÃ¶schen"); //$NON-NLS-1$
+		JButton btnLschen = new JButton("Löschen"); //$NON-NLS-1$
 		btnLschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(scrollPane, "MÃ¶chten Sie die Kategorie wirklich lÃ¶schen ?", "Bitte bestÃ¤tigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) { //$NON-NLS-1$ //$NON-NLS-2$
+				if (JOptionPane.showConfirmDialog(scrollPane, "Möchten Sie die Kategorie wirklich löschen ?", "Bitte bestätigen", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION) { //$NON-NLS-1$ //$NON-NLS-2$
 					DefaultListModel<String> model = (DefaultListModel<String>)catList.getModel();
 					
 					String 	selectedCat = catList.getSelectedValue();

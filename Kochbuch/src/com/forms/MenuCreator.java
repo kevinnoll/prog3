@@ -63,7 +63,7 @@ public class MenuCreator extends JDialog {
 		setTitle(Messages.getString("MenuCreator.create_menu")); //$NON-NLS-1$
 		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 364, 258);
+		setBounds(100, 100, 407, 255);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
